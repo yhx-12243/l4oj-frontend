@@ -10,7 +10,7 @@ export const getSessionInfo = createGetApi<{ token?: string; jsonp?: string }, A
 export const login = createPostApi<ApiTypes.LoginRequestDto, ApiTypes.LoginResponseDto>("auth/login", true);
 export const logout = createPostApi<void, void>("auth/logout", false);
 export const checkAvailability = createGetApi<
-  { username?: string; email?: string },
+  { username?: string; identifier?: string, email?: string },
   ApiTypes.CheckAvailabilityResponseDto
 >("auth/checkAvailability");
 export const sendEmailVerificationCode = createPostApi<

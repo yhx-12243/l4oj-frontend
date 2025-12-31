@@ -1,8 +1,12 @@
 import validator from "validator";
 
-// Change `/patches/markdown-it-mentions+1.0.0.patch` together if you change this regex
 export function isValidUsername(username: string): boolean {
   return /^[a-zA-Z0-9\-_.#$]{3,24}$/.test(username);
+}
+
+// Change `/patches/markdown-it-mentions+1.0.0.patch` together if you change this regex
+export function isValidIdentifier(identifier: string): boolean {
+  return /^[a-zA-Z_α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ][a-zA-Z0-9_'!?α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ₀-ₜᵢ-ᵪⱼ]{2,23}$/u.test(identifier);
 }
 
 export function isValidGroupName(groupName: string): boolean {

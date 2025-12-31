@@ -10,23 +10,31 @@ interface PatchedUIPaginationProps extends UIPaginationProps {
   pageUrl: (newPage: number) => Partial<URLDescriptor>;
 }
 
-class PatchedUIPagination extends UIPagination {
-  constructor(props: PatchedUIPaginationProps) {
-    super(props);
-
-    const originalHandleItemOverrides: Function = this["handleItemOverrides"];
-    this["handleItemOverrides"] = (active: boolean, type: string, value: number) => {
-      const originalOverrider = originalHandleItemOverrides(active, type, value);
-      const isEllipsisItem = type === "ellipsisItem";
-      return (predefinedProps: unknown) => ({
-        ...originalOverrider(predefinedProps),
-        as: isEllipsisItem ? "span" : Link,
-        href: isEllipsisItem ? undefined : this.props.pageUrl(value),
-        onClick: undefined
-      });
-    };
+const PatchedUIPagination: React.FC<PatchedUIPaginationProps> = props => {
+  const node = UIPagination(props);
+  for (const child of node.props.children) {
+    debugger;
   }
-}
+  return node;
+};
+
+// class PatchedUIPagination extends UIPagination {
+//   constructor(props: PatchedUIPaginationProps) {
+//     super(props);
+
+//     const originalHandleItemOverrides: Function = this["handleItemOverrides"];
+//     this["handleItemOverrides"] = (active: boolean, type: string, value: number) => {
+//       const originalOverrider = originalHandleItemOverrides(active, type, value);
+//       const isEllipsisItem = type === "ellipsisItem";
+//       return (predefinedProps: unknown) => ({
+//         ...originalOverrider(predefinedProps),
+//         as: isEllipsisItem ? "span" : Link,
+//         href: isEllipsisItem ? undefined : this.props.pageUrl(value),
+//         onClick: undefined
+//       });
+//     };
+//   }
+// }
 
 interface PaginationProps {
   totalCount: number;

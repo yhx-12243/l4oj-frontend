@@ -11,7 +11,7 @@ import { appState } from "@/appState";
 import { useLocalizer, useNavigationChecked, Link } from "@/utils/hooks";
 import { defineRoute, RouteError } from "@/AppRouter";
 import api from "@/api";
-import { isValidUsername } from "@/utils/validators";
+import { isValidIdentifier } from "@/utils/validators";
 import { makeToBeLocalizedText } from "@/locales";
 
 enum EditType {
@@ -116,6 +116,6 @@ async function getView(username: string, type: EditType, query: Record<string, s
 
 export default defineRoute(async request => {
   const username = decodeURIComponent(request.params.username);
-  if (!isValidUsername(username)) throw new RouteError(makeToBeLocalizedText(`user_edit.errors.NO_SUCH_USER`));
+  if (!isValidIdentifier(username)) throw new RouteError(makeToBeLocalizedText(`user_edit.errors.NO_SUCH_USER`));
   return await getView(request.params.username, request.params.type as EditType, request.query);
 });

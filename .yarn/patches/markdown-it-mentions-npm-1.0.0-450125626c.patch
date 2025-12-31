@@ -1,0 +1,10 @@
+diff --git a/index.js b/index.js
+index a89b364ab2cb7bd2ea9e2708aedc810e952b6526..a665d6cb92b45b297b6cc32aec91969a83165d8f 100644
+--- a/index.js
++++ b/index.js
+@@ -22,4 +22,4 @@ function parser(match, utils) {
+   ].join('');
+ }
+ 
+-module.exports = regexp(/@(\w+)/, parser);
++module.exports = regexp(/@([a-zA-Z_α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ][a-zA-Z0-9_'!?α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ₀-ₜᵢ-ᵪⱼ]{2,23})/u, parser);

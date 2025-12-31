@@ -1,7 +1,7 @@
-diff --git a/node_modules/react-navi/dist/es/Link.js b/node_modules/react-navi/dist/es/Link.js
-index 206c99d..b2899d4 100644
---- a/node_modules/react-navi/dist/es/Link.js
-+++ b/node_modules/react-navi/dist/es/Link.js
+diff --git a/dist/es/Link.js b/dist/es/Link.js
+index 206c99dfad3985aea4f758c52c14c77af6127edf..b2899d4c878d4f584e61a47649cbc32014fc7dfa 100644
+--- a/dist/es/Link.js
++++ b/dist/es/Link.js
 @@ -78,9 +78,9 @@ export var useLinkProps = function (_a) {
                  "This value is no longer supported - please set it to \"mount\" instead.");
          }

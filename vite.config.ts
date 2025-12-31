@@ -1,4 +1,4 @@
-import { defineConfig, Plugin } from "vite";
+import { defineConfig } from "vite";
 import fs from "fs";
 import path from "path";
 
@@ -175,7 +175,7 @@ export default defineConfig({
       ]
     }),
     publicPath({
-      publicPathExpression: "window.publicPath",
+      publicPathExpression: " window.publicPath",
       html: {
         functionNameAddLinkTag: "addLinkTag",
         addLinkTagsPlaceholder: "// __add_link_tags__",

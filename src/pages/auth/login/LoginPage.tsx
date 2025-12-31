@@ -196,7 +196,10 @@ let LoginPage: React.FC = () => {
     } else {
       // Send login request
       const { requestError, response } = await api.auth.login(
-        { [isEmail(usernameOrEmail) ? "email" : "username"]: usernameOrEmail, password },
+        {
+          [isEmail(usernameOrEmail) ? "email" : "identifier"]: usernameOrEmail,
+          password: new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))).toHex(),
+        },
         recaptcha("Login")
       );
 
@@ -243,7 +246,7 @@ let LoginPage: React.FC = () => {
         <Form size="large">
           <Segment>
               <Form.Field
-                ref={field => field && (refUsernameInput.current = field.querySelector("input"))}
+                ref={field => refUsernameInput.current = field}
                 control={Input}
                 error={
                   formError.type === "usernameOrEmail" && {
@@ -265,7 +268,7 @@ let LoginPage: React.FC = () => {
               {_(".forgot_password")}
             </PseudoLink>
               <Form.Field
-                ref={field => field && (refPasswordInput.current = field.querySelector("input"))}
+                ref={field => refPasswordInput.current = field}
                 control={Input}
                 error={
                   formError.type === "password" && {

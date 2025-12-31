@@ -15,7 +15,7 @@ async function request<T>(
 ): Promise<ApiResponse<T>> {
   let response: Response;
   const url = new URL(window.apiEndpoint + "api/" + path);
-  url.search = new URLSearchParams(params).toString();
+  if (params) url.search = new URLSearchParams(params).toString();
   try {
     response = await fetch(url, {
       method: method,

@@ -47,6 +47,7 @@ declare namespace ApiTypes {
   }
   export interface CheckAvailabilityResponseDto {
     usernameAvailable?: boolean;
+    identifierAvailable?: boolean;
     emailAvailable?: boolean;
   }
   export interface CreateDiscussionReplyRequestDto {
@@ -850,6 +851,7 @@ declare namespace ApiTypes {
   }
   export interface RegisterRequestDto {
     username: string;
+    identifier: string;
     email: string;
     emailVerificationCode?: string;
     password: string;

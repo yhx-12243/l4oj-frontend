@@ -1,7 +1,7 @@
 return {
   title: "登录",
   login_to_your_account: "登录你的账户",
-  username_or_email: "用户名 / 邮箱",
+  username_or_email: "标识符 / 邮箱",
   password: "密码",
   forgot_password: "忘记密码",
   remember: "保持登录",

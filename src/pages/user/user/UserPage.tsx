@@ -11,7 +11,7 @@ import { useLocalizer, useScreenWidthWithin, Link } from "@/utils/hooks";
 import fixChineseSpace from "@/utils/fixChineseSpace";
 import UserAvatar from "@/components/UserAvatar";
 import { defineRoute, RouteError } from "@/AppRouter";
-import { isValidUsername } from "@/utils/validators";
+import { isValidIdentifier } from "@/utils/validators";
 import { makeToBeLocalizedText } from "@/locales";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 import MarkdownContent from "@/markdown/MarkdownContent";
@@ -409,7 +409,7 @@ export default {
   }),
   byUsername: defineRoute(async request => {
     const username = decodeURIComponent(request.params.username);
-    if (!isValidUsername(username)) throw new RouteError(makeToBeLocalizedText("user.error.NO_SUCH_USER"));
+    if (!isValidIdentifier(username)) throw new RouteError(makeToBeLocalizedText("user.error.NO_SUCH_USER"));
     const [now, response] = await fetchData({ username });
 
     return <UserPage now={now} {...response} />;

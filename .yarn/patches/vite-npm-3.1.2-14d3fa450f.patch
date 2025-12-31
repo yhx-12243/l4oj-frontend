@@ -1,0 +1,31 @@
+diff --git a/dist/node/chunks/dep-cff57044.js b/dist/node/chunks/dep-cff57044.js
+index 029d52356858fde53a16a82d63fe63b34a0c3e65..d8b0a7a5b0bb4beb7d358060575a68c9f9659fc5 100644
+--- a/dist/node/chunks/dep-cff57044.js
++++ b/dist/node/chunks/dep-cff57044.js
+@@ -34192,7 +34192,7 @@ function resolvePlugin(resolveOptions) {
+             // We need to delay depsOptimizer until here instead of passing it as an option
+             // the resolvePlugin because the optimizer is created on server listen during dev
+             const depsOptimizer = resolveOptions.getDepsOptimizer?.(ssr);
+-            if (id.startsWith(browserExternalId)) {
++            if (id.startsWith(browserExternalId) || id === preloadHelperId) {
+                 return id;
+             }
+             const targetWeb = !ssr || ssrTarget === 'webworker';
+@@ -42764,7 +42764,7 @@ var index$1 = {
+ const isModernFlag = `__VITE_IS_MODERN__`;
+ const preloadMethod = `__vitePreload`;
+ const preloadMarker = `__VITE_PRELOAD__`;
+-const preloadHelperId = '\0vite/preload-helper';
++const preloadHelperId = 'vite/preload-helper';
+ const preloadMarkerWithQuote = `"${preloadMarker}"`;
+ const dynamicImportPrefixRE = /import\s*\(/;
+ // TODO: abstract
+@@ -42833,7 +42833,7 @@ function buildImportAnalysisPlugin(config) {
+         : `(${detectScriptRel.toString()})()`;
+     const assetsURL = relativePreloadUrls
+         ? `function(dep,importerUrl) { return new URL(dep, importerUrl).href }`
+-        : `function(dep) { return ${JSON.stringify(config.base)}+dep }`;
++        : `function(dep) { return window.publicPath + dep; }`;
+     const preloadCode = `const scriptRel = ${scriptRel};const assetsURL = ${assetsURL};const seen = {};export const ${preloadMethod} = ${preload.toString()}`;
+     return {
+         name: 'vite:build-import-analysis',

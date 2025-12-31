@@ -1,0 +1,32 @@
+diff --git a/dist/index.js b/dist/index.js
+index 041533a3d81451604c3d7f2754a0c9f971f599a8..f33b129c3e660b8f96e63b916f8c9cbb73f6a040 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -22,10 +22,7 @@ function publicPath(options) {
+         },
+         async generateBundle(_options, bundle) {
+             await Promise.all(Object.entries(bundle).map(async ([, chunk]) => {
+-                if (chunk.type === "chunk") {
+-                    chunk.code = await (0, js_1.processCode)(viteConfig, options, chunk.fileName, chunk.code);
+-                }
+-                else if (chunk.type === "asset" && typeof chunk.source === "string") {
++                if (chunk.type === "asset" && typeof chunk.source === "string") {
+                     if (chunk.fileName.endsWith(".html")) {
+                         chunk.source = (0, html_1.processHtml)(viteConfig, options, chunk.fileName, chunk.source);
+                     }
+diff --git a/dist/processing/html.js b/dist/processing/html.js
+index 66c437ccbd420f00426517174a981c79c0527b17..d3b9a13d81b9f9e435fbca540d966d28f52dbc7d 100644
+--- a/dist/processing/html.js
++++ b/dist/processing/html.js
+@@ -88,6 +88,11 @@ function processHtml(config, options, _fileName, html) {
+     const patchAttributes = ["src", "data-src"];
+     const excludeScriptsFilter = options.excludeScripts ? (0, pluginutils_1.createFilter)(options.excludeScripts) : () => false;
+     const scriptTags = document.querySelectorAll("script[src], script[nomodule]").filter(tag => {
++        if (tag.hasAttribute("data-notransform")) {
++            tag.removeAttribute("data-notransform");
++            console.log("!!!");
++            return false;
++        }
+         var _a;
+         if (!patchAttributes.some(attr => tag.hasAttribute(attr))) {
+             // script tag has no src or data-src, keep tag for rewrite.

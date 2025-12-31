@@ -1,7 +1,7 @@
 return {
   title: "ログイン",
   login_to_your_account: "ログイン",
-  username_or_email: "ユーザ名 / メールアドレス",
+  username_or_email: "識別子 / メールアドレス",
   password: "パスワード",
   forgot_password: "[TBT] Forgot password",
   remember: "ログインの状態を保つ",

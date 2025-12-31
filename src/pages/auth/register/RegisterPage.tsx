@@ -19,6 +19,7 @@ import {
 import toast from "@/utils/toast";
 import {
   isValidUsername,
+  isValidIdentifier,
   isValidEmail,
   isValidPassword,
   stripInvalidCharactersInEmailVerificationCode
@@ -51,6 +52,7 @@ let RegisterPage: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string>(null);
 
   const [username, setUsername] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [email, setEmail] = useState("");
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +60,7 @@ let RegisterPage: React.FC = () => {
   const [registerPending, setRegisterPending] = useState(false);
 
   const refUsernameInput = useRef<HTMLInputElement>();
+  const refIdentifierInput = useRef<HTMLInputElement>();
   const refEmailInput = useRef<HTMLInputElement>();
   const refEmailVerificationCodeInput = useRef<HTMLInputElement>();
   const refPasswordInput = useRef<HTMLInputElement>();
@@ -86,6 +89,30 @@ let RegisterPage: React.FC = () => {
       if (!response.usernameAvailable) return _(".username_already_taken");
       return true;
     }
+  );
+
+  // identifierCheckStatus: false (not checked) | true (pass) | string (error message)
+  const [checkIdentifier, waitForIdentifierCheck, getIdentifierUIValidateStatus, getIdentifierUIHelp] = useFieldCheck(
+    identifier,
+    false,
+    false,
+    value => {
+      if (!value) return _(".empty_identifier");
+      if (!isValidIdentifier(value)) return _(".invalid_identifier");
+      return true;
+    },
+    async value => {
+      const { requestError, response } = await api.auth.checkAvailability({ identifier: value });
+
+      if (requestError) {
+        toast.error(requestError(_));
+        return "";
+      }
+
+      if (!response.identifierAvailable) return _(".identifier_already_taken");
+      return true;
+    }
+    // No async check for identifier availability
   );
 
   // emailCheckStatus: false (not checked) | true (pass) | string (error message)
@@ -136,6 +163,10 @@ let RegisterPage: React.FC = () => {
       toast.error(_(".username_unavailable_message"));
       refUsernameInput.current.focus();
       refUsernameInput.current.select();
+    } else if (!(await waitForIdentifierCheck())) {
+      toast.error(_(".identifier_unavailable_message"));
+      refIdentifierInput.current.focus();
+      refIdentifierInput.current.select();
     } else if (!(await waitForEmailCheck())) {
       toast.error(_(".email_unavailable_message"));
       refEmailInput.current.focus();
@@ -151,10 +182,11 @@ let RegisterPage: React.FC = () => {
     } else {
       const { requestError, response } = await api.auth.register(
         {
-          username: username,
-          email: email,
-          emailVerificationCode: emailVerificationCode,
-          password: password
+          username,
+          identifier,
+          email,
+          emailVerificationCode,
+          password: new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))).toHex(),
         },
         recaptcha("Register")
       );
@@ -259,7 +291,7 @@ let RegisterPage: React.FC = () => {
           <Segment>
             {/* username */}
               <Form.Field
-                ref={field => field && (refUsernameInput.current = field.querySelector("input"))}
+                ref={field => refUsernameInput.current = field}
                 control={Input}
                 error={
                   getUsernameUIValidateStatus() === "error" && {
@@ -276,12 +308,33 @@ let RegisterPage: React.FC = () => {
                 autoComplete="username"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                 onBlur={() => checkUsername()}
+                onKeyPress={onEnterPress(() => refIdentifierInput.current.focus())}
+              />
+            {/* identifier */}
+              <Form.Field
+                ref={field => refIdentifierInput.current = field}
+                control={Input}
+                error={
+                  getIdentifierUIValidateStatus() === "error" && <div
+                    className="ui left pointing prompt label"
+                    dangerouslySetInnerHTML={{ __html: getIdentifierUIHelp() }}
+                  />
+                }
+                loading={getIdentifierUIValidateStatus() === "validating"}
+                fluid
+                icon="id card"
+                iconPosition="left"
+                placeholder={_(".identifier")}
+                value={identifier}
+                autoComplete="identifier"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIdentifier(e.target.value)}
+                onBlur={() => checkIdentifier()}
                 onKeyPress={onEnterPress(() => refEmailInput.current.focus())}
               />
 
             {/* email */}
               <Form.Field
-                ref={field => field && (refEmailInput.current = field.querySelector("input"))}
+                ref={field => refEmailInput.current = field}
                 control={Input}
                 error={
                   getEmailUIValidateStatus() === "error" && {
@@ -310,7 +363,7 @@ let RegisterPage: React.FC = () => {
               /* email verification code */
               appState.serverPreference.security.requireEmailVerification && (
                   <Form.Field
-                    ref={field => field && (refEmailVerificationCodeInput.current = field.querySelector("input"))}
+                    ref={field => refEmailVerificationCodeInput.current = field}
                     control={Input}
                     error={
                       emailVerificationCodeError && {
@@ -345,7 +398,7 @@ let RegisterPage: React.FC = () => {
 
             {/* password */}
               <Form.Field
-                ref={field => field && (refPasswordInput.current = field.querySelector("input"))}
+                ref={field => refPasswordInput.current = field}
                 control={Input}
                 error={
                   getPasswordUIValidateStatus() === "error" && {
@@ -366,7 +419,7 @@ let RegisterPage: React.FC = () => {
                 onKeyPress={onEnterPress(() => refRetypePasswordInput.current.focus())}
               />
               <Form.Field
-                ref={field => field && (refRetypePasswordInput.current = field.querySelector("input"))}
+                ref={field => refRetypePasswordInput.current = field}
                 control={Input}
                 error={
                   getRetypePasswordUIValidateStatus() === "error" && {
