@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Header, Segment, Input, Button, Form, Icon, Ref } from "semantic-ui-react";
+import { Header, Segment, Input, Button, Form, Icon } from "semantic-ui-react";
 import { route } from "navi";
 import { useCurrentRoute } from "react-navi";
 import { observer } from "mobx-react";
@@ -193,8 +193,8 @@ let ForgetPage: React.FC = () => {
         <Form size="large" ref={refForm}>
           <Segment>
             {/* email */}
-            <Ref innerRef={field => field && (refEmailInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refEmailInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   getEmailUIValidateStatus() === "error" && {
@@ -216,11 +216,10 @@ let ForgetPage: React.FC = () => {
                   refEmailVerificationCodeInput.current.focus();
                 })}
               />
-            </Ref>
 
             {/* email verification code */}
-            <Ref innerRef={field => field && (refEmailVerificationCodeInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refEmailVerificationCodeInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   emailVerificationCodeError && {
@@ -250,11 +249,10 @@ let ForgetPage: React.FC = () => {
                   />
                 }
               />
-            </Ref>
 
             {/* password */}
-            <Ref innerRef={field => field && (refPasswordInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refPasswordInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   getPasswordUIValidateStatus() === "error" && {
@@ -274,9 +272,8 @@ let ForgetPage: React.FC = () => {
                 onBlur={() => checkPassword()}
                 onKeyPress={onEnterPress(() => refRetypePasswordInput.current.focus())}
               />
-            </Ref>
-            <Ref innerRef={field => field && (refRetypePasswordInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refRetypePasswordInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   getRetypePasswordUIValidateStatus() === "error" && {
@@ -299,7 +296,6 @@ let ForgetPage: React.FC = () => {
                   onSubmit();
                 })}
               />
-            </Ref>
 
             {recaptcha.getCopyrightMessage(style.recaptchaCopyright)}
 

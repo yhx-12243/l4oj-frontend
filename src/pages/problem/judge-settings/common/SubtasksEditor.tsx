@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from "react";
-import { Dropdown, Header, Menu, Popup, Button, Form, Message, Input, Ref, Table } from "semantic-ui-react";
+import { Dropdown, Header, Menu, Popup, Button, Form, Message, Input, Table } from "semantic-ui-react";
 import { observer } from "mobx-react";
 import { v4 as uuid } from "uuid";
 import update, { Spec } from "immutability-helper";
@@ -221,8 +221,7 @@ let SubtaskEditorTastcaseItem: React.FC<SubtaskEditorTastcaseItemProps> = props 
               <Menu.Item className={style.itemLabel}>MiB</Menu.Item>
             </>
           )}
-          <Ref innerRef={setRefOptionsButton}>
-            <Dropdown item icon="bars" className={`icon ${style.itemWithIcon}`}>
+            <Dropdown ref={setRefOptionsButton} item icon="bars" className={`icon ${style.itemWithIcon}`}>
               <Dropdown.Menu>
                 <Dropdown.Item
                   icon="angle double up"
@@ -251,7 +250,6 @@ let SubtaskEditorTastcaseItem: React.FC<SubtaskEditorTastcaseItemProps> = props 
                 />
               </Dropdown.Menu>
             </Dropdown>
-          </Ref>
         </Menu.Menu>
       </Menu>
     </>
@@ -724,8 +722,7 @@ let SubtaskEditor: React.FC<SubtaskEditorProps> = props => {
               />
             </Menu.Item>
           )}
-          <Ref innerRef={refOptionsButton}>
-            <Dropdown item icon="bars" className={`icon ${style.itemWithIcon}`}>
+            <Dropdown ref={refOptionsButton} item icon="bars" className={`icon ${style.itemWithIcon}`}>
               <Dropdown.Menu>
                 <Dropdown.Item
                   icon="sort numeric down"
@@ -774,7 +771,6 @@ let SubtaskEditor: React.FC<SubtaskEditorProps> = props => {
                 />
               </Dropdown.Menu>
             </Dropdown>
-          </Ref>
           <Menu.Item as="a" icon="magic" className={style.itemWithIcon} onClick={openAutoAddTestcasesDialog} />
         </Menu.Menu>
       </Menu>

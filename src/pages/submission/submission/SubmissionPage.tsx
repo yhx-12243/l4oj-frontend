@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { Table, Icon, Accordion, Grid, SemanticWIDTHS, Button, Popup, Ref, Menu } from "semantic-ui-react";
+import { Table, Icon, Accordion, Grid, SemanticWIDTHS, Button, Popup, Menu } from "semantic-ui-react";
 import { observer } from "mobx-react";
 import { v4 as uuid } from "uuid";
 import { patch } from "jsondiffpatch";
@@ -802,8 +802,8 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
       statusNode
     ) : (
       <>
-        <Ref innerRef={e => e && e.tagName === "TD" && setStatusNodeRef(e)}>
           <Popup
+            ref={e => e && e.tagName === "TD" && setStatusNodeRef(e)}
             className={style.operationsPopup}
             trigger={statusNode}
             open={operationsPopupOpen}
@@ -862,7 +862,6 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
             position="bottom left"
             on="hover"
           />
-        </Ref>
         {showCancel && (
           <Popup
             open={cancelPopupOpen}

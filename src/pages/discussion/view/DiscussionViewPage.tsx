@@ -9,7 +9,6 @@ import {
   Label,
   Menu,
   Popup,
-  Ref,
   Segment,
   TextArea
 } from "semantic-ui-react";
@@ -379,8 +378,8 @@ let DiscussionItem: React.FC<DiscussionItemProps> = props => {
                 </div>
               )}
               {actions.length > 0 && (
-                <Ref innerRef={setRefActionsMenuIcon}>
                   <Dropdown
+                    ref={setRefActionsMenuIcon}
                     direction={isMobile ? "left" : "right"}
                     className={style.actionIcon + (actionDropdownOpen ? " " + style.active : "")}
                     icon="ellipsis horizontal"
@@ -391,7 +390,6 @@ let DiscussionItem: React.FC<DiscussionItemProps> = props => {
                   >
                     <Dropdown.Menu>{actions}</Dropdown.Menu>
                   </Dropdown>
-                </Ref>
               )}
             </div>
           </div>
@@ -527,8 +525,8 @@ export let DiscussionEditor = observer<DiscussionEditorProps, HTMLDivElement>(
             onKeyPress={onEnterPress(e => !submitDisabled && e.ctrlKey && onSubmit(), false)}
           >
             <Form style={preview ? { display: "none" } : {}}>
-              <Ref innerRef={setEditor}>
                 <TextArea
+                  ref={setEditor}
                   as={TextAreaAutoSize}
                   className={style.editor + " " + getMarkdownEditorFontClass()}
                   maxRows={999}
@@ -551,7 +549,6 @@ export let DiscussionEditor = observer<DiscussionEditorProps, HTMLDivElement>(
                     }
                   }}
                 />
-              </Ref>
             </Form>
             {preview && (
               <>

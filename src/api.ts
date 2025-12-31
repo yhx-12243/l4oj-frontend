@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import { appState } from "./appState";
 import { makeToBeLocalizedText, ToBeLocalizedText } from "./locales";
 
@@ -15,18 +13,18 @@ async function request<T>(
   body?: any,
   recaptchaToken?: string
 ): Promise<ApiResponse<T>> {
-  let response: any;
+  let response: Response;
+  const url = new URL(window.apiEndpoint + "api/" + path);
+  url.search = new URLSearchParams(params).toString();
   try {
-    response = await axios(window.apiEndpoint + "api/" + path, {
+    response = await fetch(url, {
       method: method,
-      params: params,
-      data: body && JSON.stringify(body),
+      body: body && JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
         Authorization: appState.token && `Bearer ${appState.token}`,
         ...(recaptchaToken ? { "X-Recaptcha-Token": recaptchaToken } : {})
       },
-      validateStatus: () => true
     });
   } catch (e) {
     console.error(e);
@@ -35,9 +33,10 @@ async function request<T>(
     };
   }
 
+  const data = await response.text();
   if (![200, 201].includes(response.status)) {
     try {
-      console.log("response.data:", response.data);
+      console.log("response.data:", data);
     } catch (e) {
       console.log("response:", response);
     }
@@ -55,7 +54,7 @@ async function request<T>(
   }
 
   return {
-    response: typeof response.data === "string" ? JSON.parse(response.data) : response.data
+    response: typeof data === "string" ? JSON.parse(data) : data
   };
 }
 

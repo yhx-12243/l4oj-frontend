@@ -50,75 +50,35 @@ function safeStringify(object) {
       // Use ngx_http_sub_module in your server to replace the "__public_path__" placeholder with your CDN path.
       // You may need to add `proxy_set_header Accept-Encoding "";` to disable gzip for upstream traffic.
       // If it's not replaced, the default "/" will be used.
-      var publicPath;
-      try {
-        publicPath = __public_path__;
-      } catch (e) {
-        publicPath = "";
-      }
+      var publicPath = localStorage.getItem("publicPath") ?? "";
       publicPath = normalizePath(publicPath);
       window.publicPath = publicPath;
 
       // Specify the default title (before server info is retrieved) in the same way.
-      var title;
-      try {
-        title = __default_title__;
-      } catch (e) {
-        title = "Lyrio";
-      }
+      var title = localStorage.getItem("title") ?? "Lyrio";
       document.title = title;
 
       // Specify the API endpoint in the same way.
-      var apiEndpoint;
-      try {
-        apiEndpoint = __api_endpoint__;
-      } catch (e) {
-        apiEndpoint = "";
-      }
+      var apiEndpoint = localStorage.getItem("apiEndpoint") ?? location.origin;
       window.apiEndpoint = normalizePath(apiEndpoint);
 
       // Specify the favicon URL in the same way.
-      var faviconUrl;
-      try {
-        faviconUrl = __favicon__;
-      } catch (e) {
-        faviconUrl = publicPath + "favicon.ico";
-      }
+      var faviconUrl = localStorage.getItem("faviconUrl") ?? "favicon.ico";
 
       // Specify the app logo in the same way.
-      var appLogo;
-      try {
-        appLogo = __applogo__;
-      } catch (e) {
-        appLogo = null;
-      }
+      var appLogo = localStorage.getItem("appLogo");
       window.appLogo = appLogo;
 
       // Specify the gravatar CDN in the same way.
-      var gravatarCdn;
-      try {
-        gravatarCdn = __gravatar__;
-      } catch (e) {
-        gravatarCdn = "";
-      }
+      var gravatarCdn = localStorage.getItem("gravatarCdn") ?? "";
       window.gravatarCdn = gravatarCdn;
 
       // Specify the GitHub avatar CDN in the same way.
-      var ghAvatarCdn;
-      try {
-        ghAvatarCdn = __ghavatar__;
-      } catch (e) {
-        ghAvatarCdn = "";
-      }
+      var ghAvatarCdn = localStorage.getItem("ghAvatarCdn") ?? "";
       window.ghAvatarCdn = ghAvatarCdn;
 
       // Specify the CDNJS mirror in the same way.
-      var cdnjs;
-      try {
-        cdnjs = __cdnjs__;
-      } catch (e) {
-        cdnjs = "https://cdnjs.cloudflare.com/ajax/libs";
-      }
+      var cdnjs = localStorage.getItem("cdnjs") ?? "https://cdnjs.cloudflare.com/ajax/libs";
       window.cdnjs = cdnjs;
 
       var addLinkTag = (rel, href) => {
@@ -394,21 +354,6 @@ function safeStringify(object) {
 
       var dependencyPromises = [];
 
-      // xdomain.js
-      // Check for cross-origin API endpoint.
-      var apiEndpoint = window.apiEndpoint;
-      var isCrossOrigin = (url) => {
-        return new URL(url, location).origin !== location.origin;
-      };
-      if (isCrossOrigin(apiEndpoint)) {
-        // Load xdomain library from API host.
-        var apiHostCorsPath = apiEndpoint + "api/cors/";
-        dependencyPromises.push(addScriptTag({
-          src: apiHostCorsPath + "xdomain.min.js",
-          "data-slave": apiHostCorsPath + "xdomain.html"
-        }, null));
-      }
-
       <%
       for (const [packageName, scripts] of externalPackages) {
         for (const scriptName of (Array.isArray(scripts) ? scripts : [scripts]).filter(f => f)) {
@@ -441,10 +386,9 @@ function safeStringify(object) {
         return;
       }
       window.scriptTagsLoaded.then(function () {
-        console.log("Loading " + (window.__vite_is_modern_browser ? "modern" : "legacy") + " script tags: feature detection");
-        var scriptTags = window.__vite_is_modern_browser ? window.modernScriptTags : window.legacyScriptTags;
-        for (var i in scriptTags) {
-          document.body.appendChild(scriptTags[i]);
+        console.log("Loading modern script tags: feature detection");
+        for (var script of window.modernScriptTags) {
+          document.body.appendChild(script);
         }
       });
     })();

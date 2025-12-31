@@ -15,7 +15,6 @@ import {
   Radio,
   Dimmer,
   List,
-  Ref
 } from "semantic-ui-react";
 import TextAreaAutoSize from "react-textarea-autosize";
 import { v4 as uuid } from "uuid";
@@ -213,8 +212,7 @@ const LocalizedContentEditorSection: React.FC<LocalizedContentEditorSectionProps
               />
             </Dropdown.Menu>
           </Dropdown>
-          <Ref innerRef={setRefOptionsButton}>
-            <Dropdown item icon="bars" className={`icon ${style.toolbarMenuIconItem}`}>
+            <Dropdown ref={setRefOptionsButton} item icon="bars" className={`icon ${style.toolbarMenuIconItem}`}>
               <Dropdown.Menu>
                 <Dropdown.Item
                   disabled={props.isFirst}
@@ -249,7 +247,6 @@ const LocalizedContentEditorSection: React.FC<LocalizedContentEditorSectionProps
                 />
               </Dropdown.Menu>
             </Dropdown>
-          </Ref>
         </Menu.Menu>
       </Menu>
       <Segment attached="bottom" className={style.sectionSegment} data-type={props.section.type}>
@@ -519,8 +516,7 @@ const SampleEditor: React.FC<SampleEditorProps> = props => {
               />
             </Dropdown.Menu>
           </Dropdown>
-          <Ref innerRef={refOptionsButton}>
-            <Dropdown item icon="bars" className={`icon ${style.toolbarMenuIconItem}`}>
+            <Dropdown ref={refOptionsButton} item icon="bars" className={`icon ${style.toolbarMenuIconItem}`}>
               <Dropdown.Menu>
                 <Dropdown.Item
                   disabled={props.isFirst}
@@ -549,7 +545,6 @@ const SampleEditor: React.FC<SampleEditorProps> = props => {
                 />
               </Dropdown.Menu>
             </Dropdown>
-          </Ref>
         </Menu.Menu>
       </Menu>
       <Segment attached="bottom" className={style.sectionSegment}>

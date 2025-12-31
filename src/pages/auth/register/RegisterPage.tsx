@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Header, Segment, Message, Input, Button, Form, Icon, Ref } from "semantic-ui-react";
+import { Header, Segment, Message, Input, Button, Form, Icon } from "semantic-ui-react";
 import { route } from "navi";
 import { useCurrentRoute } from "react-navi";
 import { observer } from "mobx-react";
@@ -258,8 +258,8 @@ let RegisterPage: React.FC = () => {
         <Form size="large" ref={refForm}>
           <Segment>
             {/* username */}
-            <Ref innerRef={field => field && (refUsernameInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refUsernameInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   getUsernameUIValidateStatus() === "error" && {
@@ -278,11 +278,10 @@ let RegisterPage: React.FC = () => {
                 onBlur={() => checkUsername()}
                 onKeyPress={onEnterPress(() => refEmailInput.current.focus())}
               />
-            </Ref>
 
             {/* email */}
-            <Ref innerRef={field => field && (refEmailInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refEmailInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   getEmailUIValidateStatus() === "error" && {
@@ -306,15 +305,12 @@ let RegisterPage: React.FC = () => {
                   } else refPasswordInput.current.focus();
                 })}
               />
-            </Ref>
 
             {
               /* email verification code */
               appState.serverPreference.security.requireEmailVerification && (
-                <Ref
-                  innerRef={field => field && (refEmailVerificationCodeInput.current = field.querySelector("input"))}
-                >
                   <Form.Field
+                    ref={field => field && (refEmailVerificationCodeInput.current = field.querySelector("input"))}
                     control={Input}
                     error={
                       emailVerificationCodeError && {
@@ -344,13 +340,12 @@ let RegisterPage: React.FC = () => {
                       />
                     }
                   />
-                </Ref>
               )
             }
 
             {/* password */}
-            <Ref innerRef={field => field && (refPasswordInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refPasswordInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   getPasswordUIValidateStatus() === "error" && {
@@ -370,9 +365,8 @@ let RegisterPage: React.FC = () => {
                 onBlur={() => checkPassword()}
                 onKeyPress={onEnterPress(() => refRetypePasswordInput.current.focus())}
               />
-            </Ref>
-            <Ref innerRef={field => field && (refRetypePasswordInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refRetypePasswordInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   getRetypePasswordUIValidateStatus() === "error" && {
@@ -395,7 +389,6 @@ let RegisterPage: React.FC = () => {
                   onSubmit();
                 })}
               />
-            </Ref>
 
             {recaptcha.getCopyrightMessage(style.recaptchaCopyright)}
 

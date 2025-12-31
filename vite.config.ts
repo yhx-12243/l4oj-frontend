@@ -5,7 +5,6 @@ import path from "path";
 // Vite plugins
 import react from "@vitejs/plugin-react";
 import compileTime from "vite-plugin-compile-time";
-import legacy from "@vitejs/plugin-legacy";
 import { ViteEjsPlugin as ejs } from "vite-plugin-ejs";
 import { prismjsPlugin as prismjs } from "vite-plugin-prismjs";
 import minifyHtml from "vite-plugin-html-minifier-terser";
@@ -119,7 +118,6 @@ const baseExternalPackages: Record<
     prodScript: "umd/react-dom.production.min.js"
   },
   mobx: { globalVariableName: "mobx", devScript: "mobx.umd.development.js", prodScript: "mobx.umd.production.min.js" },
-  axios: { globalVariableName: "axios", devScript: "axios.min.js" },
   noty: { globalVariableName: "Noty", devScript: "noty.min.js", css: "noty.min.css" },
   "semantic-ui-react": { globalVariableName: "semanticUIReact", devScript: "semantic-ui-react.min.js" },
   "fomantic-ui-css": {
@@ -175,24 +173,6 @@ export default defineConfig({
           } as any
         }
       ]
-    }),
-    legacy({
-      modernPolyfills: true,
-      ignoreBrowserslistConfig: true,
-      targets: [
-        // Default
-        ">0.2%",
-        "not dead",
-        "not op_mini all",
-
-        // Don't support IE
-        "not IE 11",
-
-        // Windows XP
-        "Firefox 52"
-      ],
-      modernTargets,
-      modernFeatureTestExtraCode: "await 0;if(navigator.vendor.includes('Apple'))throw 0;"
     }),
     publicPath({
       publicPathExpression: "window.publicPath",
@@ -256,6 +236,7 @@ export default defineConfig({
   },
   build: {
     minify: "terser",
+    sourcemap: true,
     target: resolveToEsbuildTarget(normalizeBrowserslist(modernTargets), { printUnknownTargets: false }),
     rollupOptions: {
       plugins: [rollupNodePolyFill()]

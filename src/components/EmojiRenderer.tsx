@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Ref } from "semantic-ui-react";
+import { Ref } from "@fluentui/react-component-ref";
 import twemoji from "twemoji";
 
 import style from "./EmojiRenderer.module.less";

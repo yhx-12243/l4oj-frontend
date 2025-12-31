@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Header, Segment, Message, Input, Button, Form, Icon, Ref } from "semantic-ui-react";
+import { Header, Segment, Message, Input, Button, Form, Icon } from "semantic-ui-react";
 import { route } from "navi";
 import { useCurrentRoute } from "react-navi";
 import { observer } from "mobx-react";
@@ -242,8 +242,8 @@ let LoginPage: React.FC = () => {
         </Header>
         <Form size="large">
           <Segment>
-            <Ref innerRef={field => field && (refUsernameInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refUsernameInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   formError.type === "usernameOrEmail" && {
@@ -261,12 +261,11 @@ let LoginPage: React.FC = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsernameOrEmail(e.target.value)}
                 onKeyPress={onEnterPress(() => refPasswordInput.current.focus())}
               />
-            </Ref>
             <PseudoLink onClick={() => navigateTo("forgot")} tabIndex={-1} className={style.inputAction}>
               {_(".forgot_password")}
             </PseudoLink>
-            <Ref innerRef={field => field && (refPasswordInput.current = field.querySelector("input"))}>
               <Form.Field
+                ref={field => field && (refPasswordInput.current = field.querySelector("input"))}
                 control={Input}
                 error={
                   formError.type === "password" && {
@@ -284,7 +283,6 @@ let LoginPage: React.FC = () => {
                 readOnly={pending}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
-            </Ref>
 
             {recaptcha.getCopyrightMessage(style.recaptchaCopyright)}
 

@@ -12,7 +12,6 @@ import {
   Table,
   SemanticCOLORS,
   Progress,
-  Ref
 } from "semantic-ui-react";
 import { v4 as uuid } from "uuid";
 import isEqual from "lodash/isEqual";
@@ -543,8 +542,8 @@ let FileTable: React.FC<FileTableProps> = props => {
               <div className={style.fileTableFooterInfo}>
                 <div className={style.tableFooterText}>
                   {selectedFilesArray.length > 0 ? (
-                    <Ref innerRef={setRefSelectedInfoDropdown}>
                       <Dropdown
+                        ref={setRefSelectedInfoDropdown}
                         open={selectedInfoDropdownOpen}
                         onOpen={() => !popupDeleteSelectedOpen && setSelectedInfoDropdownOpen(true)}
                         onClose={() => setSelectedInfoDropdownOpen(false)}
@@ -583,7 +582,6 @@ let FileTable: React.FC<FileTableProps> = props => {
                           )}
                         </Dropdown.Menu>
                       </Dropdown>
-                    </Ref>
                   ) : uploadingCount ? (
                     _(
                       isMobile ? ".files_count_and_size_with_uploading_narrow" : ".files_count_and_size_with_uploading",
@@ -634,8 +632,8 @@ let FileTable: React.FC<FileTableProps> = props => {
                             </EmojiRenderer>
                           ))}
                         </List>
-                        <Ref innerRef={button => button && window.requestAnimationFrame(() => button.focus())}>
                           <Button
+                            ref={button => button && window.requestAnimationFrame(() => button.focus())}
                             onClick={() => {
                               setOverridingFiles([]);
                               refDoUpload.current();
@@ -643,7 +641,6 @@ let FileTable: React.FC<FileTableProps> = props => {
                           >
                             {_(".confirm_override")}
                           </Button>
-                        </Ref>
                       </>
                     }
                     on="click"

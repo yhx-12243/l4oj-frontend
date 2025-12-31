@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Icon, Form, Header, Input, Checkbox, TextArea, Button, List, Radio, Ref } from "semantic-ui-react";
+import { Icon, Form, Header, Input, Checkbox, TextArea, Button, List, Radio } from "semantic-ui-react";
 import { observer } from "mobx-react";
 import { isURL } from "class-validator";
 import md5 from "blueimp-md5";
@@ -182,26 +182,24 @@ const ProfileView: React.FC<ProfileViewProps> = props => {
     <div className={style.profileContainer}>
       <div className={style.profileMain}>
         <Header className={style.header} size="tiny" content={_(".username")} />
-        <Ref innerRef={refUsername}>
           <Input
+            ref={refUsername}
             readOnly={!(hasPrivilege || allowUserChangeUsername)}
             fluid
             value={username}
             onChange={(e, { value }) => !pending && value.length < 24 && (setModified(true), setUsername(value))}
           />
-        </Ref>
         {!(allowUserChangeUsername && props.meta.id === appState.currentUser.id) && (
           <div className={style.notes}>{_(!hasPrivilege ? ".username_notes" : ".username_notes_admin")}</div>
         )}
         <Header className={style.header} size="tiny" content={_(".email")} />
-        <Ref innerRef={refEmail}>
           <Input
+            ref={refEmail}
             readOnly={!hasPrivilege}
             fluid
             value={email}
             onChange={(e, { value }) => !pending && (setModified(true), setEmail(value))}
           />
-        </Ref>
         <Checkbox
           className={style.checkbox}
           checked={publicEmail}
@@ -242,8 +240,8 @@ const ProfileView: React.FC<ProfileViewProps> = props => {
           onChange={(e, { value }) => value.length < 80 && !pending && (setModified(true), setLocation(value))}
         />
         <Header className={style.header} size="tiny" content={_(".url")} />
-        <Ref innerRef={refUrl}>
           <Input
+            ref={refUrl}
             fluid
             placeholder={_(".url_placeholder")}
             value={url}
@@ -251,7 +249,6 @@ const ProfileView: React.FC<ProfileViewProps> = props => {
             onBlur={checkUrl}
             onChange={(e, { value }) => value.length < 80 && !pending && (setModified(true), setUrl(value.trim()))}
           />
-        </Ref>
         <Header className={style.header} size="tiny" content={_(".qq")} />
         <Input
           fluid

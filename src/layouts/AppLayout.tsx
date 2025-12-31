@@ -211,7 +211,7 @@ let AppLayout: React.FC = props => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Link href="https://github.com/lyrio-dev" title="GitHub" target="_blank" rel="noreferrer noopener">
+            <Link href="https://github.com/LibreOJ" title="GitHub" target="_blank" rel="noreferrer noopener">
               <Icon name="github" />
             </Link>
           </div>
