@@ -1239,6 +1239,9 @@ declare namespace ApiTypes {
     bio: string;
     avatar: ApiTypes.UserAvatarDto;
     isAdmin: boolean;
+    isProblemAdmin: boolean;
+    isContestAdmin: boolean;
+    isDiscussionAdmin: boolean;
     acceptedProblemCount: number;
     submissionCount: number;
     rating: number;
