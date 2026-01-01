@@ -32,7 +32,8 @@ async function fetchData() {
 interface Hitokoto {
   id: string;
   hitokoto: string;
-  from: string;
+  hitokoto_cn: string;
+  character: string;
 }
 
 async function fetchHitokoto(apiUrl: string) {
@@ -217,8 +218,8 @@ let HomePage: React.FC<HomePageProps> = props => {
           ) : hitokotoResult ? (
             <EmojiRenderer>
               <div>
-                {hitokotoResult.hitokoto}
-                <div className={style.hitokotoFrom}>{hitokotoResult.from}</div>
+                {appState.locale === 'zh_CN' ? hitokotoResult.hitokoto_cn : hitokotoResult.hitokoto}
+                <div className={style.hitokotoFrom}>{_(`hitokoto.${hitokotoResult.character}`)}</div>
               </div>
             </EmojiRenderer>
           ) : (
@@ -376,7 +377,7 @@ let HomePage: React.FC<HomePageProps> = props => {
     Object.keys(props.friendLinks.links).length > 0 && (
       <>
         <Header className={style.header} as="h4" block icon="linkify" content={_(".friend_links")} attached="top" />
-        <Segment className={style.segment} attached="bottom" placeholder={props.topUsers.length === 0}>
+        <Segment className={style.segment} attached="bottom">
           <List bulleted>
             {Object.entries(props.friendLinks.links).map(([title, url], i) => (
               <List.Item key={i}>
