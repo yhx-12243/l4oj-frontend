@@ -1,10 +1,10 @@
 return {
   title: "首页",
-  annnouncements: {
+  announcements: {
     header: "公告",
     title: "标题",
     date: "日期",
-    no_annnouncements: "暂无公告"
+    no_announcements: "暂无公告"
   },
   latest_problems: {
     header: "最新题目",

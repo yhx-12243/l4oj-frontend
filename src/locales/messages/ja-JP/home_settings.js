@@ -12,12 +12,12 @@ return {
     header: "[TBT] Notice",
     placeholder: "[TBT] Notice text ..."
   },
-  annnouncements: {
-    header: "[TBT] Annnouncements",
+  announcements: {
+    header: "[TBT] Announcements",
     title: "[TBT] Title",
     date: "[TBT] Date",
     operations: "[TBT] Operations",
-    add: "[TBT] Add annnouncement"
+    add: "[TBT] Add announcement"
   },
   hitokoto: "[TBT] Hitokoto",
   countdown: "[TBT] Countdown",

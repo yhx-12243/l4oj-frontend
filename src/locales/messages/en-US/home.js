@@ -1,10 +1,10 @@
 return {
   title: "Home",
-  annnouncements: {
-    header: "Annnouncement",
+  announcements: {
+    header: "Announcement",
     title: "Title",
     date: "Date",
-    no_annnouncements: "No Annnouncements"
+    no_announcements: "No Announcements"
   },
   latest_problems: {
     header: "Latest Problems",

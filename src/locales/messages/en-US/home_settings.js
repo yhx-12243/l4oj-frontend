@@ -12,12 +12,12 @@ return {
     header: "Notice",
     placeholder: "Notice text ..."
   },
-  annnouncements: {
-    header: "Annnouncements",
+  announcements: {
+    header: "Announcements",
     title: "Title",
     date: "Date",
     operations: "Operations",
-    add: "Add annnouncement"
+    add: "Add announcement"
   },
   hitokoto: "Hitokoto",
   countdown: "Countdown",

@@ -189,7 +189,7 @@ return {
     privileges: {
       EditHomepage: {
         name: "[TBT] Edit Homepage",
-        notes: "[TBT] Modify the configuration and contents of homepage. e.g. notice and annnouncements."
+        notes: "[TBT] Modify the configuration and contents of homepage. e.g. notice and announcements."
       },
       ManageUser: {
         name: "[TBT] Manage user",

@@ -12,7 +12,7 @@ return {
     header: "通知",
     placeholder: "输入通知信息 …"
   },
-  annnouncements: {
+  announcements: {
     header: "公告",
     title: "标题",
     date: "日期",

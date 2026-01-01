@@ -81,39 +81,39 @@ let HomePage: React.FC<HomePageProps> = props => {
       </Segment>
     );
 
-  const getAnnnouncements = () => (
+  const getAnnouncements = () => (
     <>
       <Header
         className={style.header}
         as="h4"
         block
         icon="bullhorn"
-        content={_(".annnouncements.header")}
+        content={_(".announcements.header")}
         attached="top"
       />
-      <Segment className={style.segment} attached="bottom" placeholder={props.annnouncements.length === 0}>
-        {props.annnouncements.length > 0 ? (
+      <Segment className={style.segment} attached="bottom" placeholder={props.announcements.length === 0}>
+        {props.announcements.length > 0 ? (
           <Table unstackable className={style.table} basic="very">
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>{_(".annnouncements.title")}</Table.HeaderCell>
+                <Table.HeaderCell>{_(".announcements.title")}</Table.HeaderCell>
                 <Table.HeaderCell width={1} className={style.noWrap}>
-                  {_(".annnouncements.date")}
+                  {_(".announcements.date")}
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {props.annnouncements.map(annnouncement => (
-                <Table.Row key={annnouncement.id}>
+              {props.announcements.map(announcement => (
+                <Table.Row key={announcement.id}>
                   <Table.Cell>
                     <EmojiRenderer>
-                      <Link href={getDiscussionUrl(annnouncement)}>
-                        {getDiscussionDisplayTitle(annnouncement.title, _)}
+                      <Link href={getDiscussionUrl(announcement)}>
+                        {getDiscussionDisplayTitle(announcement.title, _)}
                       </Link>
                     </EmojiRenderer>
                   </Table.Cell>
                   <Table.Cell width={1} className={style.noWrap}>
-                    {formatDateTime(annnouncement.publishTime, true)[1]}
+                    {formatDateTime(announcement.publishTime, true)[1]}
                   </Table.Cell>
                 </Table.Row>
               ))}
@@ -122,7 +122,7 @@ let HomePage: React.FC<HomePageProps> = props => {
         ) : (
           <Header icon>
             <Icon name="bullhorn" />
-            {_(".annnouncements.no_annnouncements")}
+            {_(".announcements.no_announcements")}
           </Header>
         )}
       </Segment>
@@ -400,7 +400,7 @@ let HomePage: React.FC<HomePageProps> = props => {
       {isNarrowScreen ? (
         <>
           {getNotice()}
-          {getAnnnouncements()}
+          {getAnnouncements()}
           {getHitokoto()}
           {getProblemSearch()}
           {appState.serverPreference.misc.homepageUserListOnMainView ? getTopUsers(false) : getLatestProblems(true)}
@@ -412,7 +412,7 @@ let HomePage: React.FC<HomePageProps> = props => {
         <Grid>
           <Grid.Column width={11}>
             {getNotice()}
-            {getAnnnouncements()}
+            {getAnnouncements()}
             {appState.serverPreference.misc.homepageUserListOnMainView ? getTopUsers(true) : getLatestProblems(true)}
           </Grid.Column>
           <Grid.Column width={5}>

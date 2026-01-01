@@ -1,10 +1,10 @@
 return {
   title: "ホーム",
-  annnouncements: {
-    header: "[TBT] Annnouncement",
+  announcements: {
+    header: "[TBT] Announcement",
     title: "[TBT] Title",
     date: "[TBT] Date",
-    no_annnouncements: "[TBT] No Annnouncements"
+    no_announcements: "[TBT] No Announcements"
   },
   latest_problems: {
     header: "[TBT] Latest Problems",

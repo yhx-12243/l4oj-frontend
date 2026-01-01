@@ -302,8 +302,8 @@ declare namespace ApiTypes {
   export interface GetHomepageResponseDto {
     notice: string;
     noticeLocale: "en_US" | "zh_CN" | "ja_JP";
-    annnouncements: ApiTypes.DiscussionMetaDto[];
-    annnouncementsLocale: "en_US" | "zh_CN" | "ja_JP";
+    announcements: ApiTypes.DiscussionMetaDto[];
+    announcementsLocale: "en_US" | "zh_CN" | "ja_JP";
     hitokoto?: ApiTypes.HomepageSettingsHitokoto;
     countdown?: ApiTypes.HomepageSettingsCountdown;
     friendLinks?: ApiTypes.HomepageSettingsFriendLinks;
@@ -318,7 +318,7 @@ declare namespace ApiTypes {
   export interface GetHomepageSettingsResponseDto {
     error?: "PERMISSION_DENIED";
     settings?: ApiTypes.HomepageSettings;
-    annnouncementDiscussions?: ApiTypes.DiscussionMetaDto[];
+    announcementDiscussions?: ApiTypes.DiscussionMetaDto[];
   }
   export interface GetProblemRequestDto {
     id?: number;
@@ -478,7 +478,7 @@ declare namespace ApiTypes {
   }
   export interface HomepageSettings {
     notice: ApiTypes.HomepageSettingsNotice;
-    annnouncements: ApiTypes.HomepageSettingsAnnouncements;
+    announcements: ApiTypes.HomepageSettingsAnnouncements;
     hitokoto: ApiTypes.HomepageSettingsHitokoto;
     countdown: ApiTypes.HomepageSettingsCountdown;
     friendLinks: ApiTypes.HomepageSettingsFriendLinks;

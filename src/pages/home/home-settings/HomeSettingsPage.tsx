@@ -52,19 +52,19 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
   );
   const [noticeActiveLocale, setNoticeActiveLocale] = useState(Object.keys(notice)[0] as Locale);
 
-  const [annnouncements, setAnnnouncements] = useState(
+  const [announcements, setAnnouncements] = useState(
     () =>
-      (Object.keys(props.settings.annnouncements.items).length === 0
+      (Object.keys(props.settings.announcements.items).length === 0
         ? { [appState.locale]: [] }
         : Object.fromEntries(
-            Object.entries(props.settings.annnouncements.items).map(([locale, ids]: [Locale, number[]]) => [
+            Object.entries(props.settings.announcements.items).map(([locale, ids]: [Locale, number[]]) => [
               locale,
-              ids.map(id => props.annnouncementDiscussions.find(discussion => discussion.id === id))
+              ids.map(id => props.announcementDiscussions.find(discussion => discussion.id === id))
             ])
           )) as Record<Locale, ApiTypes.DiscussionMetaDto[]>
   );
-  const [annnouncementsActiveLocale, setAnnnouncementsActiveLocale] = useState(
-    Object.keys(annnouncements)[0] as Locale
+  const [announcementsActiveLocale, setAnnouncementsActiveLocale] = useState(
+    Object.keys(announcements)[0] as Locale
   );
 
   function getOnAddLocale<T>(
@@ -115,8 +115,8 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
     const hitokoto = yaml.load(hitokotoConfig) as any;
     const countdown = yaml.load(countdownConfig) as any;
     const friendLinks = yaml.load(friendLinksConfig) as any;
-    const annnouncementIds = Object.fromEntries(
-      Object.entries(annnouncements).map(([locale, discussions]) => [locale, discussions.map(({ id }) => id)])
+    const announcementIds = Object.fromEntries(
+      Object.entries(announcements).map(([locale, discussions]) => [locale, discussions.map(({ id }) => id)])
     );
 
     const { requestError, response } = await api.homepage.updateHomepageSettings({
@@ -125,8 +125,8 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
           enabled: noticeEnabled,
           contents: notice
         },
-        annnouncements: {
-          items: annnouncementIds
+        announcements: {
+          items: announcementIds
         },
         hitokoto,
         countdown,
@@ -202,12 +202,12 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
           </div>
         )}
       />
-      <Header as="h3" content={_(".annnouncements.header")} />
+      <Header as="h3" content={_(".announcements.header")} />
       <LocalizeTab
-        locales={Object.keys(annnouncements) as Locale[]}
-        activeLocale={annnouncementsActiveLocale}
-        onSetActiveLocale={setAnnnouncementsActiveLocale}
-        onAddLocale={getOnAddLocale(setAnnnouncements, setAnnnouncementsActiveLocale, [])}
+        locales={Object.keys(announcements) as Locale[]}
+        activeLocale={announcementsActiveLocale}
+        onSetActiveLocale={setAnnouncementsActiveLocale}
+        onAddLocale={getOnAddLocale(setAnnouncements, setAnnouncementsActiveLocale, [])}
         item={(locale, isDefault, isOnly) => (
           <>
             <Table unstackable className={style.table} basic>
@@ -216,30 +216,30 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
                   <Table.HeaderCell width={1} className={style.noWrap} textAlign="center">
                     #
                   </Table.HeaderCell>
-                  <Table.HeaderCell>{_(".annnouncements.title")}</Table.HeaderCell>
+                  <Table.HeaderCell>{_(".announcements.title")}</Table.HeaderCell>
                   <Table.HeaderCell width={1} className={style.noWrap} textAlign="center">
-                    {_(".annnouncements.date")}
+                    {_(".announcements.date")}
                   </Table.HeaderCell>
                   <Table.HeaderCell width={1} className={style.noWrap} textAlign="center">
-                    {_(".annnouncements.operations")}
+                    {_(".announcements.operations")}
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {annnouncements[locale].map(annnouncement => (
-                  <Table.Row key={annnouncement.id}>
+                {announcements[locale].map(announcement => (
+                  <Table.Row key={announcement.id}>
                     <Table.Cell textAlign="center" className={style.noWrap}>
-                      {annnouncement.id}
+                      {announcement.id}
                     </Table.Cell>
                     <Table.Cell>
                       <EmojiRenderer>
-                        <Link href={getDiscussionUrl(annnouncement)} target="_blank">
-                          {getDiscussionDisplayTitle(annnouncement.title, _)}
+                        <Link href={getDiscussionUrl(announcement)} target="_blank">
+                          {getDiscussionDisplayTitle(announcement.title, _)}
                         </Link>
                       </EmojiRenderer>
                     </Table.Cell>
                     <Table.Cell width={1} className={style.noWrap}>
-                      {formatDateTime(annnouncement.publishTime, true)[1]}
+                      {formatDateTime(announcement.publishTime, true)[1]}
                     </Table.Cell>
                     <Table.Cell className={style.noWrap} textAlign="center">
                       <Icon
@@ -247,9 +247,9 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
                         name="delete"
                         onClick={() => {
                           setModified(true);
-                          setAnnnouncements(annnouncements => ({
-                            ...annnouncements,
-                            [locale]: annnouncements[locale].filter(x => x.id !== annnouncement.id)
+                          setAnnouncements(announcements => ({
+                            ...announcements,
+                            [locale]: announcements[locale].filter(x => x.id !== announcement.id)
                           }));
                         }}
                       />
@@ -259,16 +259,16 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
                 <Table.Row>
                   <Table.Cell colSpan={4}>
                     <div className={style.footer}>
-                      <Header size="tiny">{_(".annnouncements.add")}</Header>
+                      <Header size="tiny">{_(".announcements.add")}</Header>
                       <DiscussionSearch
                         onResultSelect={({ meta }) => {
                           setModified(true);
-                          setAnnnouncements(annnouncements =>
-                            annnouncements[locale].some(x => x.id === meta.id)
-                              ? annnouncements
+                          setAnnouncements(announcements =>
+                            announcements[locale].some(x => x.id === meta.id)
+                              ? announcements
                               : {
-                                  ...annnouncements,
-                                  [locale]: [...annnouncements[locale], meta].sort((a, b) => b.id - a.id)
+                                  ...announcements,
+                                  [locale]: [...announcements[locale], meta].sort((a, b) => b.id - a.id)
                                 }
                           );
                         }}
@@ -277,7 +277,7 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
                       {!isDefault && (
                         <Button
                           content={_(".set_default_locale")}
-                          onClick={getOnSetDefaultLocale(setAnnnouncements, locale)}
+                          onClick={getOnSetDefaultLocale(setAnnouncements, locale)}
                         />
                       )}
                       {!isOnly && (
@@ -287,7 +287,7 @@ let HomeSettingsPage: React.FC<HomeSettingsPageProps> = props => {
                             <Button
                               negative
                               content={_(".confirm_delete_locale")}
-                              onClick={getOnDeleteLocale(setAnnnouncements, setAnnnouncementsActiveLocale, locale)}
+                              onClick={getOnDeleteLocale(setAnnouncements, setAnnouncementsActiveLocale, locale)}
                             />
                           }
                           on="click"

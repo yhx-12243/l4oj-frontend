@@ -187,7 +187,7 @@ return {
     privileges: {
       EditHomepage: {
         name: "Edit Homepage",
-        notes: "Modify the configuration and contents of homepage. e.g. notice and annnouncements."
+        notes: "Modify the configuration and contents of homepage. e.g. notice and announcements."
       },
       ManageUser: {
         name: "Manage user",
