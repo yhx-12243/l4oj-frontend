@@ -62,7 +62,7 @@ let UsersPage: React.FC<UsersPageProps> = props => {
   return (
     <>
       <div className={style.header}>
-        <UserSearch onResultSelect={user => navigation.navigate(`/u/${user.username}`)} />
+        <UserSearch onResultSelect={user => navigation.navigate(`/u/${encodeURIComponent(user.id)}`)} />
         {appState.currentUserHasPrivilege("ManageUserGroup") && (
           <div className={style.manageGroups}>
             <Button primary content={_(".manage_groups")} as={Link} href="/groups" />
@@ -74,45 +74,9 @@ let UsersPage: React.FC<UsersPageProps> = props => {
           <Table.Row>
             <Table.HeaderCell className={style.columnRank}>{_(".rank")}</Table.HeaderCell>
             <Table.HeaderCell className={style.columnUsername}>{_(".username")}</Table.HeaderCell>
+            <Table.HeaderCell className={style.columnUsername}>{_(".id")}</Table.HeaderCell>
             <Table.HeaderCell className={style.columnBio}>{_(".bio")}</Table.HeaderCell>
-            <Table.HeaderCell className={style.columnAcceptedProblemCount}>
-              {props.sortBy === SortBy.acceptedProblemCount ? (
-                <>
-                  {_(".accepted_problem_count")}
-                  <Icon name="angle down" />
-                </>
-              ) : (
-                <Link
-                  className={style.link}
-                  href={{
-                    query: {
-                      sortBy: SortBy.acceptedProblemCount
-                    }
-                  }}
-                >
-                  {_(".accepted_problem_count")}
-                </Link>
-              )}
-            </Table.HeaderCell>
-            <Table.HeaderCell className={style.columnRating}>
-              {props.sortBy === SortBy.rating ? (
-                <>
-                  {_(".rating")}
-                  <Icon name="angle down" />
-                </>
-              ) : (
-                <Link
-                  className={style.link}
-                  href={{
-                    query: {
-                      sortBy: SortBy.rating
-                    }
-                  }}
-                >
-                  {_(".rating")}
-                </Link>
-              )}
-            </Table.HeaderCell>
+            <Table.HeaderCell className={style.columnAcceptedProblemCount}>{_(".accepted_problem_count")}<Icon name="angle down" /></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -124,6 +88,9 @@ let UsersPage: React.FC<UsersPageProps> = props => {
               <Table.Cell>
                 <UserLink user={user} />
               </Table.Cell>
+              <Table.Cell>
+                <UserLink user={user}>{user.id}</UserLink>
+              </Table.Cell>
               <Table.Cell className={style.columnBio}>
                 {appState.serverPreference.misc.renderMarkdownInUserBio ? (
                   <MarkdownContent content={user.bio} dontUseContentFont />
@@ -134,7 +101,6 @@ let UsersPage: React.FC<UsersPageProps> = props => {
                 )}
               </Table.Cell>
               <Table.Cell>{user.acceptedProblemCount}</Table.Cell>
-              <Table.Cell>{user.rating}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

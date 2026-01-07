@@ -25,7 +25,7 @@ import api from "@/api";
 import formatDateTime from "@/utils/formatDateTime";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 
-export type NavButtonName = "home" | "problem_set" | "submissions" | "members" | "discussion";
+export type NavButtonName = "home" | "problem_set" | "submissions" | "groups" | "members" | "discussion";
 
 let AppLayout: React.FC = props => {
   const navigation = useNavigationChecked();
@@ -87,8 +87,13 @@ let AppLayout: React.FC = props => {
       text: ".navbar.submissions",
       url: "/s"
     },
-    members: {
+    groups: {
       icon: "users",
+      text: ".navbar.groups",
+      url: "/groups"
+    },
+    members: {
+      icon: "user",
       text: ".navbar.members",
       url: "/u"
     },
@@ -120,11 +125,11 @@ let AppLayout: React.FC = props => {
   const userMenu = () => (
     <>
       <Dropdown.Menu className={style.userMenu}>
-        <Dropdown.Item as={Link} href={`/u/${appState.currentUser.username}`}>
+        <Dropdown.Item as={Link} href={`/u/${encodeURIComponent(appState.currentUser.id)}`}>
           <Icon name="user" />
           {_(".header.user.profile")}
         </Dropdown.Item>
-        <Dropdown.Item as={Link} href={{ pathname: "/s", query: { submitter: appState.currentUser.username } }}>
+        <Dropdown.Item as={Link} href={{ pathname: "/s", query: { submitter: appState.currentUser.id } }}>
           <Icon name="hourglass half" />
           {_(".header.user.submissions")}
         </Dropdown.Item>
@@ -143,11 +148,11 @@ let AppLayout: React.FC = props => {
           </Dropdown.Item>
         )}
         {Dropdown === Dropdown && <Dropdown.Divider />}
-        <Dropdown.Item as={Link} href={`/u/${appState.currentUser.username}/edit/profile`}>
+        <Dropdown.Item as={Link} href={`/u/${encodeURIComponent(appState.currentUser.id)}/edit/profile`}>
           <Icon name="edit" />
           {_(".header.user.edit_profile")}
         </Dropdown.Item>
-        <Dropdown.Item as={Link} href={`/u/${appState.currentUser.username}/edit/preference`}>
+        <Dropdown.Item as={Link} href={`/u/${encodeURIComponent(appState.currentUser.id)}/edit/preference`}>
           <Icon name="cog" />
           {_(".header.user.preference")}
         </Dropdown.Item>

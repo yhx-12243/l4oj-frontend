@@ -23,7 +23,7 @@ import toast from "@/utils/toast";
 import { appState } from "@/appState";
 import { Locale } from "@/interfaces/Locale";
 import localeMeta from "@/locales/meta";
-import { tagColors, sortTagColors } from "../problemTag";
+import { TAG_COLORS, sortTagColors } from "../problemTag";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 
 interface TagProps {
@@ -387,7 +387,7 @@ let ProblemTagManager: React.FC<ProblemTagManagerProps> = props => {
             selection
             inline
             value={editingTagColor}
-            options={tagColors.map(color => ({
+            options={TAG_COLORS.map(color => ({
               key: color,
               value: color,
               text: (

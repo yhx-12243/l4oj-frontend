@@ -34,21 +34,22 @@ export default function svgo(options: SVGO.OptimizeOptions): Plugin {
           let url: string;
 
           if (isProd) {
-            url =
-              base +
-              this.getFileName(
-                this.emitFile({
-                  type: "asset",
-                  fileName: getBuiltFilename(id, content),
-                  source: content
-                })
+            url = 'window.publicPath + ' +
+              JSON.stringify(
+                this.getFileName(
+                  this.emitFile({
+                    type: "asset",
+                    fileName: getBuiltFilename(id, content),
+                    source: content
+                  })
+                )
               );
           } else {
-            url = `data:image/svg+xml;base64,${Buffer.from(content, "utf-8").toString("base64")}`;
+            url = JSON.stringify(`data:image/svg+xml;base64,${Buffer.from(content, "utf-8").toString("base64")}`);
           }
 
           return {
-            code: `export default ${JSON.stringify(url)}`
+            code: `export default ${url}`
           };
         }
 

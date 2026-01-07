@@ -25,7 +25,7 @@ let UserSearch: React.FC<UserSearchProps> = props => {
       onGetResultKey={result => result.id}
       onSearch={async input => {
         const wildcardStart = input.startsWith("*");
-        if (wildcardStart) input = input.substr(1);
+        // if (wildcardStart) input = input.substr(1);
         if (!input) return [];
 
         const { requestError, response } = await api.user.searchUser({

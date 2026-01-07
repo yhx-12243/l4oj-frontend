@@ -186,7 +186,7 @@ let RegisterPage: React.FC = () => {
           identifier,
           email,
           emailVerificationCode,
-          password: new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))).toHex(),
+          password: new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))).toBase64({ omitPadding: true }),
         },
         recaptcha("Register")
       );

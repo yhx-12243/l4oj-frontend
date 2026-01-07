@@ -31,7 +31,7 @@ export default {
   user: mount({
     "/:userId": mount({
       ...legacyRoutes({
-        edit: redirect(request => `/user/${request.params.userId}/edit/profile`)
+        edit: redirect(request => `/user/${encodeURIComponent(request.params.userId)}/edit/profile`)
       }),
       "/edit/:type": redirectToUsernameRoute,
       "/": redirectToUsernameRoute

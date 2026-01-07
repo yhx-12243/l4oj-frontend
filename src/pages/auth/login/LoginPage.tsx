@@ -198,7 +198,7 @@ let LoginPage: React.FC = () => {
       const { requestError, response } = await api.auth.login(
         {
           [isEmail(usernameOrEmail) ? "email" : "identifier"]: usernameOrEmail,
-          password: new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))).toHex(),
+          password: new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))).toBase64({ omitPadding: true }),
         },
         recaptcha("Login")
       );

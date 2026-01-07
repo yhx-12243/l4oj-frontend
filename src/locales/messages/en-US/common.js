@@ -3,6 +3,7 @@ return {
     home: "Home",
     problem_set: "Problem Set",
     contests: "Contests",
+    groups: "Groups",
     submissions: "Submissions",
     members: "Members",
     discussion: "Discussion"

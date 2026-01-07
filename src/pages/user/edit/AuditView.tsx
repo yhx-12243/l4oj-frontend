@@ -55,7 +55,7 @@ export async function fetchData(username: string, rawQuery: Record<string, strin
   };
 
   for (const { requestError, response } of await Promise.all([
-    api.user.getUserMeta({ username }),
+    api.user.getUserMeta({ uid: username }),
     api.user.queryAuditLogs({
       username,
       actionQuery: query.actionQuery,

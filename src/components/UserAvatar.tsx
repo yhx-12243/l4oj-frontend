@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ImageProps, Image } from "semantic-ui-react";
 import isEqual from "lodash/isEqual";
+import md5 from "blueimp-md5";
 
 import defaultAvatar from "@/assets/default-avatar.svg";
 import { appState } from "@/appState";
@@ -16,21 +17,23 @@ function ensureTrailingSlash(url: string) {
   return url.endsWith("/") ? url : `${url}/`;
 }
 
-function getAvatarUrl(avatar: ApiTypes.UserAvatarDto, size: number) {
-  switch (avatar.type) {
-    case "gravatar":
-      return `${ensureTrailingSlash(window.gravatarCdn || appState.serverPreference.misc.gravatarCdn)}avatar/${
-        avatar.key
-      }?size=${size}&default=404`;
+function getAvatarUrl(avatar: string, size: number) {
+  if (typeof avatar !== 'string') return '';
+  const colon = avatar.indexOf(':');
+  if (!~colon) return '';
+  const key = avatar.substring(colon + 1);
+  switch (avatar.substring(0, colon)) {
     case "qq":
       let sizeParam: number;
       if (size <= 40) sizeParam = 1;
       else if (size <= 100) sizeParam = 3;
       else if (size <= 140) sizeParam = 4;
       else sizeParam = 5;
-      return `https://q1.qlogo.cn/g?b=qq&nk=${avatar.key}&s=${sizeParam}`;
+      return `https://q1.qlogo.cn/g?b=qq&nk=${key}&s=${sizeParam}`;
     case "github":
-      return `${ensureTrailingSlash(window.ghAvatarCdn || "https://github.com")}${avatar.key}.png?size=${size}`;
+      return `${ensureTrailingSlash(window.ghAvatarCdn || "https://github.com")}${key}.png?size=${size}`;
+    case "gravatar":
+      return `${ensureTrailingSlash(window.gravatarCdn || appState.serverPreference.misc.gravatarCdn)}avatar/${md5(key.trim().toLowerCase())}?size=${size}&default=404`;
   }
 }
 
@@ -68,7 +71,7 @@ const UserAvatar: React.FC<UserAvatarProps> = props => {
     if (props.onError) props.onError();
   }
 
-  return error || props.placeholder ? (
+  return error || !url || props.placeholder ? (
     <Image src={defaultAvatar} {...imageProps} />
   ) : (
     <Image src={url} {...imageProps} onError={onImageError} />

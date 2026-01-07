@@ -183,7 +183,8 @@ let UserPage: React.FC<UserPageProps> = props => {
           <Header as="h1" className={style.nickname} content={props.meta.nickname} />
         </EmojiRenderer>
       ) : null}
-      <div className={style.username}>{props.meta.username}</div>
+      <div className={style.username} title={props.meta.id}>{props.meta.username}</div>
+      <div className={style.identifier}><code><span className={style.identifierImport}>import</span> <a className={style.identifierIdentifier} href={`/lean/${encodeURIComponent(props.meta.id)}`}>{props.meta.id}</a></code></div>
       {props.meta.bio && (
         <EmojiRenderer>
           <p className={style.bio}>
@@ -347,7 +348,7 @@ let UserPage: React.FC<UserPageProps> = props => {
   ];
   const contents = (
     <>
-      {!isMobile && <SubwayGraph username={props.meta.username} now={props.now} data={props.submissionCountPerDay} />}
+      {!isMobile && <SubwayGraph username={props.meta.id} now={props.now} data={props.submissionCountPerDay} />}
       {!isMobile ? (
         <Segment attached="top">
           <div className={style.statictics}>
@@ -410,7 +411,7 @@ export default {
   byUsername: defineRoute(async request => {
     const username = decodeURIComponent(request.params.username);
     if (!isValidIdentifier(username)) throw new RouteError(makeToBeLocalizedText("user.error.NO_SUCH_USER"));
-    const [now, response] = await fetchData({ username });
+    const [now, response] = await fetchData({ uid: username });
 
     return <UserPage now={now} {...response} />;
   })

@@ -1,0 +1,17 @@
+diff --git a/lib/index.js b/lib/index.js
+index 1181d45730c0660351392a8024075a5540f8d264..a9cfcc4b0e7096aec063502929bc9e94c7d429cc 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -38,11 +38,7 @@ function Plugin(regexp, replacer) {
+   self.__proto__ = Plugin.prototype
+ 
+   // clone regexp with all the flags
+-  var flags = (regexp.global     ? 'g' : '')
+-            + (regexp.multiline  ? 'm' : '')
+-            + (regexp.ignoreCase ? 'i' : '')
+-
+-  self.regexp = RegExp('^' + regexp.source, flags)
++  self.regexp = RegExp('^' + regexp.source, regexp.flags)
+ 
+   // copy init options
+   self.replacer = replacer

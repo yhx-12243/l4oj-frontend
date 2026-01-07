@@ -6,6 +6,7 @@ return {
   manage_groups: "Manage groups",
   rank: "Rank",
   username: "Username",
+  id: "Identifier",
   bio: "Bio",
   accepted_problem_count: "AC. Count",
   rating: "Rating"

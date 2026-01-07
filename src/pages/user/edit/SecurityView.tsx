@@ -21,8 +21,8 @@ export async function fetchData(username: string) {
   const result = {};
 
   for (const { requestError, response } of await Promise.all([
-    api.user.getUserSecuritySettings({ username }),
-    api.auth.listUserSessions({ username })
+    api.user.getUserSecuritySettings({ uid: username }),
+    api.auth.listUserSessions({ uid: username })
   ])) {
     if (requestError) throw new RouteError(requestError, { showRefresh: true, showBack: true });
     else if (response.error) throw new RouteError(makeToBeLocalizedText(`user_edit.errors.${response.error}`));
@@ -47,7 +47,7 @@ const SecurityView: React.FC<SecurityViewProps> = props => {
 
   const recaptcha = useRecaptcha();
 
-  const hasPrivilege = appState.currentUser.isAdmin || appState.currentUserPrivileges.includes("ManageUser");
+  const hasPrivilege = appState.currentUser?.isAdmin || appState.currentUserPrivileges.includes("ManageUser");
 
   // Start change password
   const [oldPassword, setOldPassword] = useState("");
@@ -85,8 +85,8 @@ const SecurityView: React.FC<SecurityViewProps> = props => {
     else {
       const { requestError, response } = await api.user.updateUserPassword({
         userId: props.meta.id,
-        oldPassword: oldPassword || null,
-        password: newPassword
+        oldPassword: oldPassword ? new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(oldPassword))).toBase64({ omitPadding: true }) : null,
+        password: new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(newPassword))).toBase64({ omitPadding: true })
       });
       if (requestError) toast.error(requestError(_));
       else if (response.error === "WRONG_OLD_PASSWORD") {
@@ -276,7 +276,7 @@ const SecurityView: React.FC<SecurityViewProps> = props => {
         content={_(".password.submit")}
         onClick={onSubmitChangePassword}
       />
-      {props.meta.id === appState.currentUser.id && (
+      {props.meta.id === appState.currentUser?.id && (
         <>
           <Header className={style.sectionHeader} size="large" content={_(".email.header")} />
           <Header className={style.header} size="tiny" content={_(".email.email")} />
@@ -468,7 +468,7 @@ const SecurityView: React.FC<SecurityViewProps> = props => {
           </Header>
         </Segment>
       )}
-      {props.meta.id === appState.currentUser.id && (
+      {props.meta.id === appState.currentUser?.id && (
         <div className={style.notes}>{_(".sessions.notes_current_user")}</div>
       )}
     </>

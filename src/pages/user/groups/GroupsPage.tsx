@@ -186,7 +186,7 @@ let GroupItem: React.FC<GroupItemProps> = props => {
           </Grid.Column>
           <Grid.Column width={8}>
             {!hasPrivilege && (
-              <Checkbox toggle label={_(".group_admin")} readOnly checked={props.hasPermission || hasPrivilege} />
+              <Checkbox toggle label={_(".group_admin")} readOnly checked={props.hasPermission} />
             )}
           </Grid.Column>
           <Grid.Column width={3} className={style.memberCount}>
@@ -261,7 +261,7 @@ let GroupItem: React.FC<GroupItemProps> = props => {
                       <Table.Cell width={3} textAlign="right">
                         <Checkbox
                           checked={isGroupAdmin}
-                          readOnly={!hasPrivilege}
+                          readOnly={!hasPrivilege && !props.hasPermission}
                           label={_(".group_admin")}
                           toggle
                           onChange={(e, { checked }) => onSetGroupAdmin(userMeta.id, checked)}
@@ -309,7 +309,7 @@ let GroupsPage: React.FC<GroupsPageProps> = props => {
   const _ = useLocalizer("groups");
 
   useEffect(() => {
-    appState.enterNewPage(_(".title"), "members");
+    appState.enterNewPage(_(".title"), "groups");
   }, [appState.locale]);
 
   const hasPrivilege = appState.currentUserHasPrivilege("ManageUserGroup");
@@ -347,7 +347,6 @@ let GroupsPage: React.FC<GroupsPageProps> = props => {
     <>
       <div className={style.header}>
         <Header className="withIcon" icon="users" as="h1" content={_(".header")} />
-        {hasPrivilege && (
           <Popup
             trigger={<Button className={style.createGroup} primary content={_(".create_group")} />}
             content={
@@ -372,7 +371,6 @@ let GroupsPage: React.FC<GroupsPageProps> = props => {
             on="click"
             position="bottom right"
           />
-        )}
       </div>
       {groups.length > 0 ? (
         <Accordion>

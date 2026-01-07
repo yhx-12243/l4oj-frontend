@@ -12,7 +12,7 @@ import { RouteError } from "@/AppRouter";
 import { makeToBeLocalizedText } from "@/locales";
 
 export async function fetchData(username: string) {
-  const { requestError, response } = await api.user.getUserMeta({ username, getPrivileges: true });
+  const { requestError, response } = await api.user.getUserMeta({ uid: username, getPrivileges: true });
   if (requestError) throw new RouteError(requestError, { showRefresh: true, showBack: true });
   else if (response.error) throw new RouteError(makeToBeLocalizedText(`user_edit.errors.${response.error}`));
 
@@ -65,7 +65,7 @@ const PrevilegeView: React.FC<PrevilegeViewProps> = props => {
     setModified(true);
   }
 
-  const isAdmin = appState.currentUser.isAdmin;
+  const isAdmin = appState.currentUser?.isAdmin;
 
   return (
     <>

@@ -85,7 +85,7 @@ export function renderMarkdown(
   });
   renderer.use(MarkdownItMergeCells);
   renderer.use(MarkdownItMentions, {
-    parseURL: (username: string) => `/u/${username}`
+    parseURL: (username: string) => `/u/${encodeURIComponent(username)}`
   });
   renderer.use(MarkdownItTaskLists, {
     enabled: true

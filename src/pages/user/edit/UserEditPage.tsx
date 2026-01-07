@@ -36,10 +36,10 @@ let UserEditPage: React.FC<UserEditPageProps> = props => {
 
   const View = props.view;
 
-  const isEditingCurrentUser = useMemo(() => props.username === appState.currentUser?.username, []);
+  const isEditingCurrentUser = useMemo(() => props.username === appState.currentUser?.id, []);
 
   const showPrivilegeTab =
-    appState.currentUserPrivileges.length > 0 || appState.currentUser.isAdmin || props.type === EditType.Privilege;
+    appState.currentUserPrivileges.length > 0 || appState.currentUser?.isAdmin || props.type === EditType.Privilege;
 
   // If username is changed, navigate to the new url
   function onChangeUsername(newUsername: string) {
@@ -117,5 +117,5 @@ async function getView(username: string, type: EditType, query: Record<string, s
 export default defineRoute(async request => {
   const username = decodeURIComponent(request.params.username);
   if (!isValidIdentifier(username)) throw new RouteError(makeToBeLocalizedText(`user_edit.errors.NO_SUCH_USER`));
-  return await getView(request.params.username, request.params.type as EditType, request.query);
+  return await getView(username, request.params.type as EditType, request.query);
 });

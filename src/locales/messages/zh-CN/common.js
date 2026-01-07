@@ -3,6 +3,7 @@ return {
     home: "首页",
     problem_set: "题库",
     contests: "比赛",
+    groups: "用户组",
     submissions: "评测",
     members: "用户",
     discussion: "讨论"

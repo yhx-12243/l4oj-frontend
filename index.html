@@ -78,7 +78,7 @@ function safeStringify(object) {
       window.ghAvatarCdn = ghAvatarCdn;
 
       // Specify the CDNJS mirror in the same way.
-      var cdnjs = localStorage.getItem("cdnjs") ?? "https://cdnjs.cloudflare.com/ajax/libs";
+      var cdnjs = localStorage.getItem("cdnjs") ?? `https://${location.hostname}/ajax/libs`;
       window.cdnjs = cdnjs;
 
       var addLinkTag = (rel, href) => {

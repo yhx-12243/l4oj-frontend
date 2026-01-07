@@ -6,6 +6,7 @@ return {
   manage_groups: "[TBT] Manage groups",
   rank: "ランキング",
   username: "ユーザ名",
+  id: "識別子",
   bio: "自己紹介",
   accepted_problem_count: "解いた問題数",
   rating: "レーティング"

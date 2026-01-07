@@ -3,6 +3,7 @@ return {
     home: "ホーム",
     problem_set: "問題",
     contests: "コンテスト",
+    groups: "グループ",
     submissions: "提出一覧",
     members: "ユーザ",
     discussion: "ディスカッション"
