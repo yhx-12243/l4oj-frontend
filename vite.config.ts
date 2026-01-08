@@ -1,12 +1,10 @@
 import { defineConfig } from "vite";
-import fs from "fs";
 import path from "path";
 
 // Vite plugins
 import react from "@vitejs/plugin-react";
 import compileTime from "vite-plugin-compile-time";
 import { ViteEjsPlugin as ejs } from "vite-plugin-ejs";
-import { prismjsPlugin as prismjs } from "vite-plugin-prismjs";
 import minifyHtml from "vite-plugin-html-minifier-terser";
 import svgo from "./vite/svgo";
 import publicPath from "vite-plugin-public-path";
@@ -213,9 +211,6 @@ export default defineConfig({
         }
       },
       minifyCSS: true
-    }),
-    prismjs({
-      languages: fs.readFileSync(".prism-languages", "utf-8").trim().split("\n")
     }),
     externals({
       "monaco-editor": "Monaco",

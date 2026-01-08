@@ -414,7 +414,7 @@ theorem cauchySeq_of_dist_le_of_summable (d : ℕ → ℝ) (hf : ∀ n, dist (f 
           placeholder={CodeFormatter.defaultOptions}
           value={codeFormatterOptions}
           onChange={(e, { value }: { value: string }) =>
-            value.length < 1024 && !pending && (setModified(true), setCodeFormatterOptions(value))
+            value.length <= 1024 && !pending && (setModified(true), setCodeFormatterOptions(value))
           }
         />
       </Form>

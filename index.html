@@ -37,7 +37,7 @@ function safeStringify(object) {
   <script>
     window.appVersion = <%- safeStringify({
       hash: gitCommitInfo.hash.slice(0, 10),
-      date: gitCommitInfo.date
+      date: new Date(gitCommitInfo.date).getTime(),
     }) %>;
 
     (() => {

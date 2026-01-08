@@ -186,7 +186,7 @@ let ProblemSetPage: React.FC<ProblemSetPageProps> = props => {
   }
 
   function onAddFilterTag(tagId: number) {
-    if (props.searchQuery.tagIds.includes(tagId) && props.searchQuery.tagIds.length < 20) return;
+    if (props.searchQuery.tagIds.includes(tagId) && props.searchQuery.tagIds.length <= 20) return;
     redirectWithFilter({
       tagIds: props.searchQuery.tagIds.concat(tagId).sort()
     });

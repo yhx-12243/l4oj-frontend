@@ -356,12 +356,7 @@ let DiscussionItem: React.FC<DiscussionItemProps> = props => {
                   </>
                 )}
               </span>
-              {label && (
-                <>
-                  <div className={style.labelDivider} />
-                  {label}
-                </>
-              )}
+              {labels.length ? [<div className={style.labelDivider} />, ...labels] : null}
             </div>
             <div className={style.right}>
               {appState.currentUser && (
@@ -1088,7 +1083,7 @@ let DiscussionViewPage: React.FC<DiscussionViewPageProps> = props => {
               onReaction={async (emoji: string, reaction: boolean) =>
                 await onReaction("DiscussionReply", item.reply.id, emoji, reaction)
               }
-              onQuote={() => onQuote(item.reply.publisher.username, item.reply.content)}
+              onQuote={() => onQuote(item.reply.publisher.id, item.reply.content)}
               onSetPublic={() => onSetPublic("DiscussionReply", item.reply.id, !item.reply.isPublic)}
               onEnterEdit={() => onEnterEdit(item.reply.id)}
               onDelete={async () => await onDelete("DiscussionReply", item.reply.id)}
