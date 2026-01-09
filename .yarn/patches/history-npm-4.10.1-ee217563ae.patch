@@ -1,0 +1,13 @@
+diff --git a/esm/history.js b/esm/history.js
+index df67820fe3eed558c44fca07a82b0cd409d46720..474f9df36782f000e1d0dd2329ca116b42b50750 100644
+--- a/esm/history.js
++++ b/esm/history.js
+@@ -221,7 +221,7 @@ function supportsGoWithoutReloadUsingHash() {
+  */
+ 
+ function isExtraneousPopstateEvent(event) {
+-  return event.state === undefined && navigator.userAgent.indexOf('CriOS') === -1;
++  return event.state == undefined && navigator.userAgent.indexOf('CriOS') === -1;
+ }
+ 
+ var PopStateEvent = 'popstate';

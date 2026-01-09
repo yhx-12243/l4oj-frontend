@@ -25,6 +25,7 @@
     "@fontsource/ubuntu-mono": "^4.5.10",
     "@fontsource/zilla-slab": "^4.5.8",
     "@hackmd/markdown-it-task-lists": "^2.1.1",
+    "@mathjax/src": "^4.1.0",
     "@monaco-editor/react": "^4.4.5",
     "@tanem/react-nprogress": "^5.0.9",
     "@twemoji/api": "^17.0.2",
@@ -80,7 +81,6 @@
     "markdown-it-math-loose": "^4.1.1",
     "markdown-it-mentions": "patch:markdown-it-mentions@npm%3A1.0.0#~/.yarn/patches/markdown-it-mentions-npm-1.0.0-450125626c.patch",
     "markdown-it-merge-cells": "^2.0.0",
-    "mathjax-full": "^3.2.2",
     "mobx": "^6.15.0",
     "mobx-persist": "^0.4.1",
     "mobx-react-lite": "^3.4.0",
@@ -148,7 +148,8 @@
   },
   "resolutions": {
     "esbuild": "0.15.5",
-    "markdown-it-regexp@npm:^0.4.0": "patch:markdown-it-regexp@npm%3A0.4.0#~/.yarn/patches/markdown-it-regexp-npm-0.4.0-316ff27a18.patch"
+    "markdown-it-regexp@npm:^0.4.0": "patch:markdown-it-regexp@npm%3A0.4.0#~/.yarn/patches/markdown-it-regexp-npm-0.4.0-316ff27a18.patch",
+    "history@npm:^4.9.0": "patch:history@npm%3A4.10.1#~/.yarn/patches/history-npm-4.10.1-ee217563ae.patch"
   },
   "eslintConfig": {
     "extends": "react-app"

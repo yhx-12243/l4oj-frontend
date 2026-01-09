@@ -126,7 +126,7 @@ function parseSearchQuery(query: Record<string, string>): DiscussionsPageSearchQ
     keyword: query["keyword"] || "",
     problemId:
       query["problemId"] === "all"
-        ? -1
+        ? 0
         : Number.isSafeInteger(Number(query["problemId"]))
         ? Number(query["problemId"])
         : null,

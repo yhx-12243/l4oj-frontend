@@ -15,7 +15,7 @@ export const loadMathJax = (() => {
         adaptiveCSS: false
       }
     };
-    await getScript(`${window.cdnjs}/mathjax/${EXTERNAL_PACKAGE_VERSION["mathjax-full"]}/es5/startup.js`);
+    await getScript(`${window.cdnjs}/mathjax/${EXTERNAL_PACKAGE_VERSION["@mathjax/src"]}/startup.js`);
     await window.MathJax.startup.promise;
     await window.MathJax.startup.document.updateDocument();
   })();

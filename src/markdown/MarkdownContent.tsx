@@ -176,6 +176,7 @@ const MarkdownContent: React.FC<MarkdownContentProps> = props => {
       const targetElement = e.target as HTMLElement;
       if (targetElement.tagName === "A") {
         const a = targetElement as HTMLAnchorElement;
+        if (a.getAttribute('href').startsWith("#")) return;
         if (!["", "_self"].includes(a.target.toLowerCase())) return;
 
         const url = parseUrlIfSameOrigin(a.href);

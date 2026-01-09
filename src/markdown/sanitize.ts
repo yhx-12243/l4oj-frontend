@@ -34,6 +34,7 @@ export function sanitize(
     whiteList: xssWhiteList,
     stripIgnoreTag: true,
     onTagAttr: (tag, name, value, isWhiteAttr) => {
+      if (name === 'id' && /^l4oj-[\w-]+$/.test(value)) return `${name}="${value}"`;
       if (onTagAttr) {
         const result = onTagAttr(tag, name, value, escapeAttrValue);
         if (typeof result === "string") return result;
