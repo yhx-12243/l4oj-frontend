@@ -130,7 +130,7 @@ function parseSearchQuery(query: Record<string, string>): DiscussionsPageSearchQ
         : Number.isSafeInteger(Number(query["problemId"]))
         ? Number(query["problemId"])
         : null,
-    publisherId: Number.isSafeInteger(Number(query["publisherId"])) ? Number(query["publisherId"]) : null,
+    publisherId: query["publisherId"],
     nonpublic: query["nonpublic"] != null
   };
   return searchQuery;

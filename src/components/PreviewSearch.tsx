@@ -6,10 +6,12 @@ import style from "./PreviewSearch.module.less";
 
 import { useNavigationChecked, useScreenWidthWithin } from "@/utils/hooks";
 import { onEnterPress } from "@/utils/onEnterPress";
+import { set } from "lodash";
 
 interface PreviewSearchProps<T> {
   className?: string;
   placeholder: string;
+  focusPlaceholder?: string;
   noResultsMessage: string;
   onGetResultKey: (result: T) => React.Key;
   onSearch: (input: string) => Promise<T[]>;
@@ -22,6 +24,7 @@ const PreviewSearch = <T extends {}>(props: PropsWithChildren<PreviewSearchProps
   const [searchKeyword, setSearchKeyword] = useState("");
   const [results, setResults] = useState<T[]>([]);
   const [pending, setPending] = useState(false);
+  const [activePlaceholder, setActivePlaceholder] = useState(props.placeholder);
   const refInput = useRef("");
   const onSearch = useDebouncedCallback(async (input: string) => {
     input = input.trim();
@@ -55,7 +58,7 @@ const PreviewSearch = <T extends {}>(props: PropsWithChildren<PreviewSearchProps
   return (
     <Search
       className={style.search + (props.className ? " " + props.className : "")}
-      placeholder={props.placeholder}
+      placeholder={activePlaceholder}
       value={searchKeyword}
       noResultsMessage={props.noResultsMessage}
       onSearchChange={(e, { value }) => {
@@ -79,6 +82,8 @@ const PreviewSearch = <T extends {}>(props: PropsWithChildren<PreviewSearchProps
       resultRenderer={(result: any) => props.onRenderResult(result.data) as any}
       onResultSelect={(e, { result }: { result: any }) => props.onResultSelect(result.data)}
       onKeyPress={onEnterPress(() => searchKeyword && props.onEnterPress && props.onEnterPress(searchKeyword))}
+      onFocus={() => setActivePlaceholder(props.focusPlaceholder ?? props.placeholder)}
+      onBlur={() => setActivePlaceholder(props.placeholder)}
     />
   );
 };

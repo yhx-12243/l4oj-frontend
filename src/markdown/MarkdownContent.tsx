@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Placeholder } from "semantic-ui-react";
 import type MarkdownIt from "markdown-it";
-import twemoji from "twemoji";
+import twemoji from "@twemoji/api";
 
 import style from "./MarkdownContent.module.less";
 

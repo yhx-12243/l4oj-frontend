@@ -129,7 +129,7 @@ const externalPackageVersions = Object.fromEntries(
     // These packages are loaded separatedly in JS code when needed
     "monaco-editor",
     "mathjax-full",
-    "twemoji",
+    "@twemoji/api",
     "prismjs",
 
     ...Object.keys(baseExternalPackages)

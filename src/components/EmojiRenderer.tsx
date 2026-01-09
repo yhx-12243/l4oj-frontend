@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Ref } from "@fluentui/react-component-ref";
-import twemoji from "twemoji";
+import twemoji from "@twemoji/api";
 
 import style from "./EmojiRenderer.module.less";
 
@@ -10,25 +10,11 @@ interface EmojiRendererProps {
 
 export const getTwemojiOptions = (inline: boolean) =>
   ({
-    base: `${window.cdnjs}/twemoji/${EXTERNAL_PACKAGE_VERSION["twemoji"]}/`,
+    base: `${window.cdnjs}/twemoji/${EXTERNAL_PACKAGE_VERSION["@twemoji/api"]}/`,
     size: "svg",
     ext: ".svg",
     className: inline ? style.emoji : "",
-    callback: (icon, options: TwemojiOptions, variant) => {
-      if (icon === "1f1f9-1f1fc") icon = "1f1e8-1f1f3";
-
-      switch (icon) {
-        // © copyright
-        case "a9":
-        // ® registered trademark
-        case "ae":
-        // ™ trademark
-        case "2122":
-          return false;
-      }
-
-      return `${options.base}${options.size}/${icon}${options.ext}`;
-    }
+    callback: (icon, options: TwemojiOptions, variant) => `${options.base}${options.size}/${icon}${options.ext}`,
   } as Partial<TwemojiOptions>);
 
 export const EmojiRenderer: React.FC<EmojiRendererProps> = props => {

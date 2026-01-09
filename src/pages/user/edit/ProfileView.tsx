@@ -151,7 +151,7 @@ const ProfileView: React.FC<ProfileViewProps> = props => {
           appState.currentUser.bio = bio;
         }
 
-        if (username !== props.meta.username) props.onChangeUsername(username);
+        // if (username !== props.meta.username) props.onChangeUsername(username);
       }
     }
   });

@@ -13,7 +13,7 @@ import {
   TextArea
 } from "semantic-ui-react";
 import { observer } from "mobx-react";
-import twemoji from "twemoji";
+import twemoji from "@twemoji/api";
 import TextAreaAutoSize from "react-textarea-autosize";
 import { v4 as uuid } from "uuid";
 
@@ -804,6 +804,7 @@ let DiscussionViewPage: React.FC<DiscussionViewPageProps> = props => {
     if (requestError) toast.error(requestError(_));
     else if (response.error) toast.error(_(`.errors.${response.error}`));
     else {
+      if (response.normalized) emoji = response.normalized;
       function processReactions(reactions: ApiTypes.DiscussionOrReplyReactionsDto) {
         return {
           count: Object.assign({}, reactions.count, {

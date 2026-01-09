@@ -11,6 +11,7 @@ import PreviewSearch from "./PreviewSearch";
 interface UserSearchProps {
   className?: string;
   placeholder?: string;
+  focusPlaceholder?: string;
   onResultSelect: (user: ApiTypes.UserMetaDto) => void;
 }
 
@@ -20,7 +21,8 @@ let UserSearch: React.FC<UserSearchProps> = props => {
   return (
     <PreviewSearch
       className={props.className}
-      placeholder={props.placeholder || _(".placeholder")}
+      placeholder={props.placeholder ?? _(".placeholder")}
+      focusPlaceholder={props.focusPlaceholder ?? _(".placeholder_focus")}
       noResultsMessage={_(".no_result")}
       onGetResultKey={result => result.id}
       onSearch={async input => {

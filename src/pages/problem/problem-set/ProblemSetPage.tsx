@@ -66,7 +66,7 @@ function parseSearchQuery(query: Record<string, string>): ProblemSetPageSearchQu
       .map(Number)
       .filter(x => x && Number.isSafeInteger(x))
       .sort(),
-    ownerId: Number.isSafeInteger(Number(query["ownerId"])) ? Number(query["ownerId"]) : null,
+    ownerId: query["ownerId"],
     nonpublic: query["nonpublic"] != null
   };
   return searchQuery;

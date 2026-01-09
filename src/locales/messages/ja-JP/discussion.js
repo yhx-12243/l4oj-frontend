@@ -4,7 +4,8 @@ return {
     PERMISSION_DENIED: "[TBT] Permission denied.",
     NO_SUCH_DISCUSSION: "[TBT] No such discussion.",
     NO_SUCH_DISCUSSION_REPLY: "[TBT] No such reply.",
-    INVALID_EMOJI: "[TBT] Invalid emoji."
+    INVALID_EMOJI: "[TBT] Invalid emoji.",
+    NO_FLAGS: "オンライン政治は禁止されています。"
   },
   reply_count_0: "[TBT] No reply",
   reply_count: "[TBT] {replyCount} reply",

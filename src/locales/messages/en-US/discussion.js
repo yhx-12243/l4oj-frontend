@@ -4,7 +4,8 @@ return {
     PERMISSION_DENIED: "Permission denied.",
     NO_SUCH_DISCUSSION: "No such discussion.",
     NO_SUCH_DISCUSSION_REPLY: "No such reply.",
-    INVALID_EMOJI: "Invalid emoji."
+    INVALID_EMOJI: "Invalid emoji.",
+    NO_FLAGS: "No keyboard politics."
   },
   reply_count_0: "No reply",
   reply_count: "{replyCount} reply",
