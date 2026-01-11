@@ -24,10 +24,10 @@ export const loadMathJax = (() => {
   return () => promise;
 })();
 
-export function renderMath(math: string, display: boolean) {
+export async function renderMath(math: string, display: boolean) {
   try {
     window.MathJax.texReset();
-    const wrapper = window.MathJax.tex2chtml(math, {
+    const wrapper = await window.MathJax.tex2chtmlPromise(math, {
       display
     }) as HTMLElement;
 

@@ -107,10 +107,12 @@ async function render(
     const loadMathJaxPromise = loadMathJax();
     if (loadMathJaxPromise) await loadMathJaxPromise;
 
-    mathPlaceholders.forEach(item => {
+    await Promise.all(mathPlaceholders.map(async item => {
       const element = findPlaceholderElement(wrapper, item.id);
-      element.parentNode.replaceChild(renderMath(item.code, item.display), element);
-    });
+      element.parentNode.replaceChild(await renderMath(item.code, item.display), element);
+    }));
+
+    window.MathJax.startup.document.documentStyleSheet();
   }
 
   // Render emojis
