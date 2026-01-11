@@ -182,7 +182,7 @@ const MarkdownContent: React.FC<MarkdownContentProps> = props => {
         if (!["", "_self"].includes(a.target.toLowerCase())) return;
 
         const url = parseUrlIfSameOrigin(a.href);
-        if (url) {
+        if (url && url.pathname !== '/lean' && !url.pathname.startsWith('/lean/')) {
           e.preventDefault();
           navigation.navigate(url.pathname + url.search + url.hash);
         }

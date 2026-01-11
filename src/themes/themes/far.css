@@ -114,6 +114,14 @@ body[data-theme=far] {
   --theme-status-running: #6cf;
   --theme-status-skipped: #78909C;
 
+  --theme-status-depositing: #bb5;
+  --theme-status-deposited: #5b5;
+  --theme-status-judger-received: #5bb;
+  --theme-status-type-checking: #b5b;
+  --theme-status-axiom-checking: #b55;
+  --theme-status-replaying: #55b;
+  --theme-status-invalid-import: #e11;
+
   --theme-score-0: #ff4545;
   --theme-score-1: #ff694f;
   --theme-score-2: #f8603a;

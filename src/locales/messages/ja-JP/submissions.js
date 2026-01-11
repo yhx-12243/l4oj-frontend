@@ -8,7 +8,9 @@ return {
     status: "結果",
     status_all: "全ての結果",
     filter: "検索",
-    my_submissions: "自分の提出"
+    my_submissions: "自分の提出",
+    lean_version: "Lean バージョン",
+    lean_version_all: "全てのバージョン",
   },
   query_error: {
     INVALID_PROBLEM_ID: "問題 ID が無効です。",

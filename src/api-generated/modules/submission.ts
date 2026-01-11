@@ -4,6 +4,7 @@
 
 import { createGetApi, createPostApi } from "@/api";
 
+export const getOleanMeta = createPostApi("submission/getOleanMeta", false);
 export const submit = createPostApi<ApiTypes.SubmitRequestDto, ApiTypes.SubmitResponseDto>("submission/submit", true);
 export const querySubmission = createPostApi<ApiTypes.QuerySubmissionRequestDto, ApiTypes.QuerySubmissionResponseDto>(
   "submission/querySubmission",

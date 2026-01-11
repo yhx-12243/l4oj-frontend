@@ -100,7 +100,7 @@ function generateRequestFromSearchQuery(
     takeCount: DISCUSSIONS_PER_PAGE
   };
   if (searchQuery.keyword) requestBody.keyword = searchQuery.keyword;
-  if (searchQuery.problemId) requestBody.problemId = searchQuery.problemId;
+  if (searchQuery.problemId || searchQuery.problemId === 0) requestBody.problemId = searchQuery.problemId;
   if (searchQuery.publisherId) requestBody.publisherId = searchQuery.publisherId;
   if (searchQuery.nonpublic) requestBody.nonpublic = true;
 
@@ -139,7 +139,7 @@ function parseSearchQuery(query: Record<string, string>): DiscussionsPageSearchQ
 function generateSearchQuery(searchQuery: DiscussionsPageSearchQuery): Record<string, string> {
   const query: Record<string, string> = {};
   if (searchQuery.keyword) query.keyword = searchQuery.keyword.substr(0, 100);
-  if (searchQuery.problemId) query.problemId = searchQuery.problemId.toString();
+  if (searchQuery.problemId || searchQuery.problemId === 0) query.problemId = searchQuery.problemId.toString();
   if (searchQuery.publisherId) query.publisherId = searchQuery.publisherId.toString();
   if (searchQuery.nonpublic) query.nonpublic = "";
   return query;
@@ -163,7 +163,7 @@ let DiscussionsPage: React.FC<DiscussionsPageProps> = props => {
   const isMobileOrPad = useScreenWidthWithin(0, 1024);
   const isVeryNarrowScreen = useScreenWidthWithin(0, 640);
 
-  const allProblems = props.searchQuery.problemId === -1;
+  const allProblems = props.searchQuery.problemId === 0;
 
   // Begin search
   type SearchMode = "title" | "user";

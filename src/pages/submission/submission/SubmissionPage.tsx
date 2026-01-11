@@ -25,7 +25,7 @@ import { EmojiRenderer } from "@/components/EmojiRenderer";
 
 async function fetchData(submissionId: number) {
   const { requestError, response } = await api.submission.getSubmissionDetail({
-    submissionId: submissionId.toString(),
+    submissionId,
     locale: appState.locale
   });
 
@@ -91,91 +91,13 @@ function parseProgress<T extends TestcaseResultCommon>(
   progress: SubmissionProgress<T>,
   resultMeta?: ApiTypes.SubmissionBasicMetaDto
 ): SubmissionProgressMeta {
-  if (!progress) {
-    if (resultMeta?.status === "Canceled")
-      return {
-        pending: false,
-        status: "Canceled",
-        score: 0,
-        timeUsed: 0,
-        memoryUsed: 0
-      };
-    else
-      return {
-        pending: true,
-        status: "Waiting",
-        score: 0,
-        timeUsed: 0,
-        memoryUsed: 0
-      };
-  }
-
-  let status = "",
-    pending = true;
-  switch (progress.progressType) {
-    case SubmissionProgressType.Preparing:
-      status = "Preparing";
-      break;
-    case SubmissionProgressType.Compiling:
-      status = "Compiling";
-      break;
-    case SubmissionProgressType.Running:
-      status = "Running";
-      break;
-    case SubmissionProgressType.Finished:
-      status = resultMeta.status;
-      pending = false;
-      break;
-  }
-
-  let statusText = null;
-  let score = 0;
-
-  if (progress.progressType === SubmissionProgressType.Finished) {
-    // If finished, use the score from result meta
-    score = resultMeta.score;
-  } else if (progress.progressType === SubmissionProgressType.Running) {
-    // If NOT finished, calculate score and append progress to the status text
-    let totalCount = 0;
-    let finishedCount = 0;
-    statusText = status;
-    if (Array.isArray(progress.subtasks)) {
-      for (const subtask of progress.subtasks) {
-        score += subtask.score;
-        for (const testcase of subtask.testcases) {
-          totalCount++;
-          if (!testcase.running && !testcase.waiting) finishedCount++;
-        }
-      }
-      statusText += ` ${finishedCount}/${totalCount}`;
-    }
-  }
-
-  let timeUsed = 0;
-  let memoryUsed = 0;
-  if (progress.progressType === SubmissionProgressType.Finished) {
-    // If finished, use the time/memory usage from result meta
-    timeUsed = resultMeta.timeUsed;
-    memoryUsed = resultMeta.memoryUsed;
-  } else if (Array.isArray(progress.subtasks)) {
-    // If NOT finished, calculate them
-    for (const subtask of progress.subtasks) {
-      for (const { testcaseHash } of subtask.testcases) {
-        if (!testcaseHash) continue;
-        if (progress.testcaseResult[testcaseHash].time != null) timeUsed += progress.testcaseResult[testcaseHash].time;
-        if (progress.testcaseResult[testcaseHash].memory != null)
-          memoryUsed = Math.max(memoryUsed, progress.testcaseResult[testcaseHash].memory);
-      }
-    }
-  }
-
   return {
-    pending,
-    status,
-    statusText,
-    score: Math.round(score),
-    timeUsed,
-    memoryUsed
+    pending: progress.pending,
+    message: resultMeta?.message,
+    status: resultMeta.status,
+    score: 0,
+    timeUsed: 0,
+    memoryUsed: 0,
   };
 }
 
@@ -797,15 +719,14 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
   const showTogglePublic = props.permissionSetPublic;
   const showDelete = props.permissionDelete;
 
-  const statusPopup = (statusNode: JSX.Element) =>
+  const statusPopup = (statusNode: (f: any) => JSX.Element) =>
     !showRejudge && !showCancel ? (
-      statusNode
+      statusNode(setStatusNodeRef)
     ) : (
       <>
           <Popup
-            ref={e => e && e.tagName === "TD" && setStatusNodeRef(e)}
             className={style.operationsPopup}
-            trigger={statusNode}
+            trigger={statusNode(setStatusNodeRef)}
             open={operationsPopupOpen}
             onOpen={() => !cancelPopupOpen && !rejudgePopupOpen && setOperationsPopupOpen(true)}
             onClose={() => setOperationsPopupOpen(false)}
@@ -982,6 +903,8 @@ export default defineRoute(async request => {
           return import("./types/InteractionProblemSubmissionView");
         case "SubmitAnswer":
           return import("./types/SubmitAnswerProblemSubmissionView");
+        case "Lean":
+          return import("./types/LeanProblemSubmissionView");
       }
     })()
   ).default;

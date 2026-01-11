@@ -14,26 +14,13 @@ export default <Record<Locale, LocalizedContentSection[]>>{
     },
     {
       uuid: uuid(),
-      sectionTitle: "输入格式",
+      sectionTitle: "形式化命题",
       type: "Text",
       text: ""
     },
     {
       uuid: uuid(),
-      sectionTitle: "输出格式",
-      type: "Text",
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "样例",
-      type: "Sample",
-      sampleId: 0,
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "数据范围与提示",
+      sectionTitle: "提示",
       type: "Text",
       text: ""
     }
@@ -47,26 +34,13 @@ export default <Record<Locale, LocalizedContentSection[]>>{
     },
     {
       uuid: uuid(),
-      sectionTitle: "Input",
+      sectionTitle: "Formal statement",
       type: "Text",
       text: ""
     },
     {
       uuid: uuid(),
-      sectionTitle: "Output",
-      type: "Text",
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "Sample",
-      type: "Sample",
-      sampleId: 0,
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "Limits And Hints",
+      sectionTitle: "Hint",
       type: "Text",
       text: ""
     }
@@ -80,26 +54,13 @@ export default <Record<Locale, LocalizedContentSection[]>>{
     },
     {
       uuid: uuid(),
-      sectionTitle: "入力",
+      sectionTitle: "形式な命題",
       type: "Text",
       text: ""
     },
     {
       uuid: uuid(),
-      sectionTitle: "出力",
-      type: "Text",
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "例",
-      type: "Sample",
-      sampleId: 0,
-      text: ""
-    },
-    {
-      uuid: uuid(),
-      sectionTitle: "制約",
+      sectionTitle: "ヒント",
       type: "Text",
       text: ""
     }

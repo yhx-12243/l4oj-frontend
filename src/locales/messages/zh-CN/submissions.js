@@ -8,7 +8,9 @@ return {
     status: "状态",
     status_all: "不限状态",
     filter: "筛选",
-    my_submissions: "我的提交"
+    my_submissions: "我的提交",
+    lean_version: "Lean 版本",
+    lean_version_all: "不限版本",
   },
   query_error: {
     INVALID_PROBLEM_ID: "无效的题目 ID。",

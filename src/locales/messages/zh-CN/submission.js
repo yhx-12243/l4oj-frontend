@@ -42,5 +42,6 @@ return {
     checker_message: "检查器信息",
     interactor_message: "交互器信息",
     system_message: "系统信息"
-  }
+  },
+  lean_version: "Lean 版本",
 };

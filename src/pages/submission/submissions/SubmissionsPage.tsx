@@ -16,7 +16,7 @@ import {
   useNavigationChecked
 } from "@/utils/hooks";
 import toast from "@/utils/toast";
-import { CodeLanguage, compileAndRunOptions } from "@/interfaces/CodeLanguage";
+import { CodeLanguage, allLeanVersions } from "@/interfaces/CodeLanguage";
 import { SubmissionStatus } from "@/interfaces/SubmissionStatus";
 import { isValidUsername } from "@/utils/validators";
 import StatusText from "@/components/StatusText";
@@ -36,7 +36,7 @@ interface SubmissionsQuery {
   problemId: number;
   problemDisplayId: number;
   submitter: string;
-  codeLanguage: CodeLanguage;
+  leanVersion: string;
   status: SubmissionStatus;
   minId: number;
   maxId: number;
@@ -48,9 +48,7 @@ function normalizeQuery(query: Record<string, string>): SubmissionsQuery {
     problemDisplayId:
       Number(query.problemDisplayId) && !Number(query.problemId) ? Number(query.problemDisplayId) : null,
     submitter: isValidUsername(query.submitter) ? query.submitter : null,
-    codeLanguage: Object.values(CodeLanguage).includes(query.codeLanguage as CodeLanguage)
-      ? (query.codeLanguage as CodeLanguage)
-      : null,
+    leanVersion: allLeanVersions.includes(query.leanVersion) ? query.leanVersion : null,
     status: query.status in SubmissionStatus ? (query.status as SubmissionStatus) : null,
     minId: Number.isSafeInteger(Number(query.minId)) ? Number(query.minId) : null,
     maxId: Number.isSafeInteger(Number(query.maxId)) ? Number(query.maxId) : null
@@ -106,7 +104,7 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
     value => !value || isValidUsername(value)
   );
 
-  const [queryCodeLanguage, setQueryCodeLanguage] = useState(props.query.codeLanguage);
+  const [queryCodeLanguage, setQueryCodeLanguage] = useState(props.query.leanVersion);
   const [queryStatus, setQueryStatus] = useState(props.query.status);
 
   function onFilter(filterMySubmissions: boolean) {
@@ -120,7 +118,7 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
       query.problemDisplayId = Number(queryProblemId);
     if (filterMySubmissions) query.submitter = appState.currentUser.username;
     else if (querySubmitter) query.submitter = querySubmitter;
-    if (queryCodeLanguage) query.codeLanguage = queryCodeLanguage;
+    if (queryCodeLanguage) query.leanVersion = queryCodeLanguage;
     if (queryStatus) query.status = queryStatus;
 
     navigation.navigate({
@@ -238,19 +236,19 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
                 value: "ALL",
                 text: (
                   <>
-                    <Icon name="code" />
-                    <span className={style.notInMenu}>{_(".query.code_language")}</span>
-                    <span className={style.inMenu}>{_(".query.code_language_all")}</span>
+                    <Icon name="chartline" />
+                    <span className={style.notInMenu}>{_(".query.lean_version")}</span>
+                    <span className={style.inMenu}>{_(".query.lean_version_all")}</span>
                   </>
                 )
               },
-              ...Object.keys(compileAndRunOptions).map(language => ({
-                key: language,
-                value: language,
+              ...allLeanVersions.map(version => ({
+                key: version,
+                value: version,
                 text: (
                   <>
-                    <Icon name="code" />
-                    {_(`code_language.${language}.name`)}
+                    <Icon name="chartline" />
+                    {version}
                   </>
                 )
               }))
@@ -326,43 +324,22 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
               </Table.Header>
             ) : (
               <Table.Header>
-                <SubmissionHeader page="submissions" />
+                <SubmissionHeader page="submissions" config={{ hideTimeMemory: true }} />
               </Table.Header>
             )}
             <Table.Body>
               {submissions.map(submission => {
-                let status = null;
-                if (submission.status === "Pending") {
-                  switch (submission.progressType) {
-                    case SubmissionProgressType.Preparing:
-                      status = "Preparing";
-                      break;
-                    case SubmissionProgressType.Compiling:
-                      status = "Compiling";
-                      break;
-                    case SubmissionProgressType.Running:
-                      status = "Running";
-                      break;
-                    default:
-                      status = "Waiting";
-                  }
-                }
                 return isMobile ? (
                   <SubmissionItemMobile
                     key={submission.id}
-                    submission={{
-                      ...submission,
-                      status: status || submission.status
-                    }}
+                    submission={submission}
                   />
                 ) : (
                   <SubmissionItem
                     key={submission.id}
-                    submission={{
-                      ...submission,
-                      status: status || submission.status
-                    }}
+                    submission={submission}
                     page="submissions"
+                    config={{ hideTimeMemory: true }}
                   />
                 );
               })}

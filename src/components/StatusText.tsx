@@ -24,7 +24,15 @@ const icons: Record<SubmissionStatusAll, SemanticICONS> = {
   Preparing: "spinner",
   Compiling: "spinner",
   Running: "spinner",
-  Skipped: "fast forward"
+  Skipped: "fast forward",
+
+  Depositing: "shipping fast",
+  Deposited: "warehouse",
+  JudgerReceived: "handshake",
+  TypeChecking: "cogs",
+  AxiomChecking: "disk",
+  Replaying: "forward",
+  InvalidImport: "ban",
 };
 
 interface StatusIconProps {

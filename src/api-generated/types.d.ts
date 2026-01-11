@@ -40,7 +40,7 @@ declare namespace ApiTypes {
   }
   export interface ChangeProblemTypeRequestDto {
     problemId: number;
-    type: "Traditional" | "Interaction" | "SubmitAnswer";
+    type: "Traditional" | "Interaction" | "SubmitAnswer" | "Lean";
   }
   export interface ChangeProblemTypeResponseDto {
     error?: "NO_SUCH_PROBLEM" | "PERMISSION_DENIED" | "PROBLEM_HAS_SUBMISSION";
@@ -648,7 +648,7 @@ declare namespace ApiTypes {
   export interface ProblemMetaDto {
     id: number;
     displayId?: number;
-    type: "Traditional" | "Interaction" | "SubmitAnswer";
+    type: "Traditional" | "Interaction" | "SubmitAnswer" | "Lean";
     isPublic: boolean;
     publicTime: string; // date-time
     ownerId: number;

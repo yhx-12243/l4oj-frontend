@@ -5,7 +5,8 @@ return {
     problem: "問題",
     time: "実行時間",
     memory: "メモリ",
-    answer: "コード",
+    file: "回答ファイル",
+    answer: "回答",
     submitter: "ユーザ",
     submit_time: "提出日時"
   }

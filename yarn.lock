@@ -3849,7 +3849,7 @@ __metadata:
 
 "history@patch:history@npm%3A4.10.1#~/.yarn/patches/history-npm-4.10.1-ee217563ae.patch":
   version: 4.10.1
-  resolution: "history@patch:history@npm%3A4.10.1#~/.yarn/patches/history-npm-4.10.1-ee217563ae.patch::version=4.10.1&hash=54efbb"
+  resolution: "history@patch:history@npm%3A4.10.1#~/.yarn/patches/history-npm-4.10.1-ee217563ae.patch::version=4.10.1&hash=17ca46"
   dependencies:
     "@babel/runtime": "npm:^7.1.2"
     loose-envify: "npm:^1.2.0"
@@ -3857,7 +3857,7 @@ __metadata:
     tiny-invariant: "npm:^1.0.2"
     tiny-warning: "npm:^1.0.0"
     value-equal: "npm:^1.0.1"
-  checksum: 10c0/144783264178e3224b48644474679c333cc0baf7d92b94232d7726d604da145c2179b7670e8d59dc52a930d478b170dbf0e3d1d68b01d15268bdc893eca6f5aa
+  checksum: 10c0/c0f7cf7ae3a365e1b5c0b890f347d7b4f7039b064d817e57b6ea477b1abaf54e5579d8a722ad98d2d5d7c01e6031439774dcd4886d071cecb49576e4d4844162
   languageName: node
   linkType: hard
 

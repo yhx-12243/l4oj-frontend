@@ -9,12 +9,16 @@ return {
     input: "Input",
     output: "Output"
   },
+  axioms: {
+    default: 'Default Axioms'
+  },
   show_tags: "Show Tags",
   hide_tags: "Hide Tags",
   type: {
     Traditional: "Traditional",
     Interaction: "Interaction",
-    SubmitAnswer: "Submit Answer"
+    SubmitAnswer: "Submit Answer",
+    Lean: "Lean"
   },
   statistic: {
     submissions: "Subs.",
@@ -69,6 +73,12 @@ return {
     clear_editor: "clear the editor's contents",
     clear_editor_to_use_upload_right: ".",
     fill_in_editor_or_upload_file: "Fill in the editor(s) with your answer or upload file(s).",
+    module_name: "Module path",
+    module_name_example: "e.g., AplusB.Main, separated by \".\" and without user's identifier",
+    const_name: "Theorem name",
+    const_name_example: "Search theorems ...",
+    no_addable_consts: "No theorems to add.",
+    dependency_list: "(Direct) Dependency list",
     submit: "Submit"
   },
   permission_level: {

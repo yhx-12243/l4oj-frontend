@@ -8,7 +8,9 @@ return {
     status: "Status",
     status_all: "All",
     filter: "Filter",
-    my_submissions: "My submissions"
+    my_submissions: "My submissions",
+    lean_version: "Lean version",
+    lean_version_all: "All",
   },
   query_error: {
     INVALID_PROBLEM_ID: "Invalid problem ID.",

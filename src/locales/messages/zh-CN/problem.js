@@ -9,12 +9,16 @@ return {
     input: "输入文件",
     output: "输出文件"
   },
+  axioms: {
+    default: '默认公理'
+  },
   show_tags: "显示标签",
   hide_tags: "隐藏标签",
   type: {
     Traditional: "传统",
     Interaction: "交互",
-    SubmitAnswer: "提交答案"
+    SubmitAnswer: "提交答案",
+    Lean: "Lean"
   },
   statistic: {
     submissions: "提交",
@@ -68,6 +72,12 @@ return {
     clear_editor: "清除编辑器内容",
     clear_editor_to_use_upload_right: "以使用文件上传功能。",
     fill_in_editor_or_upload_file: "在编辑器中填写答案，或者上传文件。",
+    module_name: "模块路径",
+    module_name_example: "例: AplusB.Main，用 “.” 分隔，不要带用户标识符前缀",
+    const_name: "定理名称",
+    const_name_example: "搜索定理 …",
+    no_addable_consts: "没有可用的定理。",
+    dependency_list: "(直接) 依赖列表",
     submit: "提交"
   },
   permission_level: {

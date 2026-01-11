@@ -9,12 +9,16 @@ return {
     input: "入力ファイル",
     output: "出力ファイル"
   },
+  axioms: {
+    default: 'デフォルトの公理'
+  },
   show_tags: "タグを表示",
   hide_tags: "タグを隠す",
   type: {
     Traditional: "Batch",
     Interaction: "[TBT] Interaction",
-    SubmitAnswer: "[TBT] Submit Answer"
+    SubmitAnswer: "[TBT] Submit Answer",
+    Lean: "Lean"
   },
   statistic: {
     submissions: "提出",
@@ -70,6 +74,12 @@ return {
     clear_editor: "[TBT] clear the editor(s)",
     clear_editor_to_use_upload_right: "[TBT] .",
     fill_in_editor_or_upload_file: "[TBT] Fill in the editor(s) with your answer or upload file(s).",
+    module_name: "モジュールパス",
+    module_name_example: "AplusB.Main など、ユーザー識別子なしで、「.」で区切る",
+    const_name: "定理名",
+    const_name_example: "定理を検索する …",
+    no_addable_consts: "利用可能な定理がありません。",
+    dependency_list: "(直接) 依存関係リスト",
     submit: "提出"
   },
   permission_level: {

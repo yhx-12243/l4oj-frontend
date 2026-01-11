@@ -38,15 +38,40 @@
   }
 }
 
+.columnModuleNameAndConstName {
+  >div {
+    width: auto;
+    display: flex;
+  }
+
+  .moduleName, .constName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .moduleName {
+    flex-grow: 1;
+  }
+
+  .constName {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+}
+
 .columnTime {
-  width: 100px;
+  width: 120px;
 }
 
 .columnMemory {
-  width: 80px;
+  width: 100px;
 }
 
 .columnAnswer {
+  width: 130px;
+}
+
+.columnFile {
   width: 130px;
 
   .downloadIcon {
@@ -193,7 +218,8 @@
   @media only screen and (max-width: 1023px) {
     .columnTime,
     .columnMemory,
-    .columnAnswer,
+    .columnModuleNameAndConstName,
+    .columnFile,
     .columnSubmitTime {
       display: none;
     }

@@ -42,5 +42,6 @@ return {
     checker_message: "ジャッジのメッセージ",
     interactor_message: "[TBT] Interactor message",
     system_message: "システムメッセージ"
-  }
+  },
+  lean_version: "Lean バージョン",
 };

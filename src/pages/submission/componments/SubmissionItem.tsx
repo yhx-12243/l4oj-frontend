@@ -13,13 +13,19 @@ import { CodeLanguage } from "@/interfaces/CodeLanguage";
 import { getProblemDisplayName, getProblemIdString, getProblemUrl } from "@/pages/problem/utils";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 
+function getModuleUrl(moduleName: string) {
+  const url = '/lean/' + moduleName.replaceAll('.', '/');
+  return url.substring(0, url.lastIndexOf('/') + 1);
+}
+
 function parseSubmissionMeta(submission: ApiTypes.SubmissionMetaDto) {
   return {
     submission,
     submissionLink: `/s/${submission.id}`,
     timeString: friendlyFormatDateTime(submission.submitTime),
     problemIdString: getProblemIdString(submission.problem),
-    problemUrl: getProblemUrl(submission.problem)
+    problemUrl: getProblemUrl(submission.problem),
+    moduleUrl: getModuleUrl(submission.submitter.id + '.' + submission.moduleName),
   };
 }
 
@@ -40,7 +46,7 @@ export const SubmissionHeader: React.FC<SubmissionHeaderProps> = props => {
       <Table.HeaderCell className={style.columnStatus} textAlign="left">
         {_(".columns.status")}
       </Table.HeaderCell>
-      <Table.HeaderCell className={style.columnScore}>{_(".columns.score")}</Table.HeaderCell>
+      {/* <Table.HeaderCell className={style.columnScore}>{_(".columns.score")}</Table.HeaderCell> */}
       <Table.HeaderCell className={style.columnProblemAndSubmitter} textAlign="left">
         <div className={style.problem}>{_(".columns.problem")}</div>
         <div className={style.submitter}>{_(".columns.submitter")}</div>
@@ -51,7 +57,14 @@ export const SubmissionHeader: React.FC<SubmissionHeaderProps> = props => {
           <Table.HeaderCell className={style.columnMemory}>{_(".columns.memory")}</Table.HeaderCell>
         </>
       )}
+      <Table.HeaderCell className={style.columnModuleNameAndConstName} textAlign="left">
+        <div>
+          <div className={style.moduleName}>{_("problem.submit.module_name")}</div>
+          <div className={style.constName}>{_("problem.submit.const_name")}</div>
+        </div>
+      </Table.HeaderCell>
       <Table.HeaderCell className={style.columnAnswer}>{_(".columns.answer")}</Table.HeaderCell>
+      <Table.HeaderCell className={style.columnFile}>{_(".columns.file")}</Table.HeaderCell>
       <Table.HeaderCell className={style.columnSubmitTime}>{_(".columns.submit_time")}</Table.HeaderCell>
     </Table.Row>
   );
@@ -71,7 +84,7 @@ interface SubmissionItemProps {
   onDownloadAnswer?: () => void;
 
   // Mouse hover on "status" to display
-  statusPopup?: (statusNode: React.ReactElement) => React.ReactNode;
+  statusPopup?: (statusNode: (f: any) => React.ReactElement) => React.ReactNode;
 
   config?: SubmissionItemConfig;
 }
@@ -79,24 +92,31 @@ interface SubmissionItemProps {
 export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
   const _ = useLocalizer("submission_item");
 
-  const { submission, submissionLink, timeString, problemIdString, problemUrl } = parseSubmissionMeta(props.submission);
+  const { submission, submissionLink, timeString, problemIdString, problemUrl, moduleUrl } = parseSubmissionMeta(props.submission);
 
   const [refAnswerInfoIcon, setRefAnswerInfoIcon] = useState<HTMLElement>();
 
   return (
     <Table.Row className={style[props.page + "Page"]}>
-      {(props.statusPopup || (x => x))(
+      {(props.statusPopup ?
+      props.statusPopup(setRef =>
+        <Table.Cell className={style.columnStatus} textAlign="left" ref={setRef}>
+          <Link href={props.page !== "submission" ? submissionLink : null}>
+            <StatusText status={submission.status} statusText={props.statusText} />
+          </Link>
+        </Table.Cell>
+      ) : (
         <Table.Cell className={style.columnStatus} textAlign="left">
           <Link href={props.page !== "submission" ? submissionLink : null}>
             <StatusText status={submission.status} statusText={props.statusText} />
           </Link>
         </Table.Cell>
-      )}
-      <Table.Cell className={style.columnScore}>
+      ))}
+      {/* <Table.Cell className={style.columnScore}>
         <Link href={props.page !== "submission" ? submissionLink : null}>
           <ScoreText score={submission.score || 0} />
         </Link>
-      </Table.Cell>
+      </Table.Cell> */}
       <Table.Cell className={style.columnProblemAndSubmitter} textAlign="left">
         <div className={style.problem}>
           <EmojiRenderer>
@@ -115,7 +135,16 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
           </Table.Cell>
         </>
       )}
-      <Table.Cell className={style.columnAnswer}>
+      <Table.Cell className={style.columnModuleNameAndConstName} textAlign="left">
+        <div>
+          <div className={style.moduleName} title={submission.moduleName}><a href={moduleUrl}>{submission.moduleName}</a></div>
+          <div className={style.constName} title={submission.constName}>{submission.constName}</div>
+        </div>
+      </Table.Cell>
+      <Table.Cell className={style.columnAnswer} title={submission.answerObj}>
+        {submission.answerObj}
+      </Table.Cell>
+      <Table.Cell className={style.columnFile}>
         <Popup
           className={style.popupOnIcon}
           context={refAnswerInfoIcon}
@@ -138,9 +167,9 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
                 </>
               )}
               <span title={submission.answerSize + " B"}>{formatFileSize(submission.answerSize, 1)}</span>
-              {props.onDownloadAnswer && (
-                <Icon className={style.downloadIcon} name="download" onClick={props.onDownloadAnswer} />
-              )}
+              <a href={`/lean/submission/${props.submission.id}/`}>
+                <Icon className={style.downloadIcon} name="download" />
+              </a>
             </span>
           }
           position="bottom center"
@@ -274,7 +303,7 @@ interface SubmissionItemExtraRowsProps {
   onDownloadAnswer?: () => void;
 
   // Mouse hover on "status" to display
-  statusPopup?: (statusNode: React.ReactElement) => React.ReactNode;
+  statusPopup?: (statusNode: (f: any) => React.ReactElement) => React.ReactNode;
 
   config?: SubmissionItemConfig;
 }
@@ -282,13 +311,18 @@ interface SubmissionItemExtraRowsProps {
 export const SubmissionItemExtraRows: React.FC<SubmissionItemExtraRowsProps> = props => {
   const _ = useLocalizer("submission_item");
 
-  const { submission, timeString, problemIdString, problemUrl } = parseSubmissionMeta(props.submission);
+  const { submission, timeString, problemIdString, problemUrl, moduleUrl } = parseSubmissionMeta(props.submission);
 
-  const columnStatus = (props.statusPopup || (x => x))(
-    <div className={style.extraRowsColumnStatus}>
-      <StatusText status={submission.status} />
-    </div>
-  );
+  const columnStatus = (props.statusPopup ?
+    props.statusPopup(setRef =>
+      <div className={style.extraRowsColumnStatus} ref={setRef}>
+        <StatusText status={submission.status} />
+      </div>
+    ) : (
+      <div className={style.extraRowsColumnStatus}>
+        <StatusText status={submission.status} />
+      </div>
+    ));
 
   const columnScore = (
     <div className={style.extraRowsColumnScore}>
@@ -325,7 +359,28 @@ export const SubmissionItemExtraRows: React.FC<SubmissionItemExtraRowsProps> = p
     </div>
   );
 
+  const columnModuleName = (
+    <div title={submission.moduleName}>
+      <Icon name="disk" />
+      <a href={moduleUrl}>{submission.moduleName}</a>
+    </div>
+  );
+
+  const columnConstName = (
+    <div title={submission.constName}>
+      <Icon name="print" />
+      {submission.constName}
+    </div>
+  );
+
   const columnAnswer = (
+    <div title={submission.answerObj}>
+      <Icon name="pencil" />
+      {submission.answerObj}
+    </div>
+  );
+
+  const columnFile = (
     <Popup
       content={props.answerInfo}
       disabled={!props.answerInfo}
@@ -344,9 +399,9 @@ export const SubmissionItemExtraRows: React.FC<SubmissionItemExtraRowsProps> = p
             )}
             <span title={submission.answerSize + " B"}>{formatFileSize(submission.answerSize, 1)}</span>
           </span>
-          {props.onDownloadAnswer && (
-            <Icon className={style.downloadIcon} name="download" onClick={props.onDownloadAnswer} />
-          )}
+          <a href={`/lean/submission/${props.submission.id}`}>
+            <Icon className={style.downloadIcon} name="download" />
+          </a>
         </div>
       }
     />
@@ -365,33 +420,27 @@ export const SubmissionItemExtraRows: React.FC<SubmissionItemExtraRowsProps> = p
         <>
           <div>
             {columnStatus}
-            {columnScore}
-          </div>
-          <div>
-            {columnProblem}
             {columnSubmitter}
           </div>
           <div>
-            {columnTime}
+            {columnProblem}
             {columnAnswer}
           </div>
-          {!props?.config?.hideTimeMemory && (
-            <div>
-              {columnMemory}
-              {columnSubmitTime}
-            </div>
-          )}
+          <div>
+            {columnModuleName}
+            {columnFile}
+          </div>
+          <div>
+            {columnConstName}
+            {columnSubmitTime}
+          </div>
         </>
       ) : (
         <>
           <div>
-            {!props?.config?.hideTimeMemory && (
-              <>
-                {columnMemory}
-                {columnSubmitTime}
-              </>
-            )}
-            {columnAnswer}
+            {columnModuleName}
+            {columnConstName}
+            {columnFile}
             {columnSubmitTime}
           </div>
         </>

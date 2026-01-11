@@ -464,6 +464,11 @@ body {
   ::selection { .selection(); }
   ::-moz-selection { .selection(); }
   ::-webkit-selection { .selection(); }
+
+  .ui:not(.loading).dropdown>.clear.icon:before {
+    content: "\f00d";
+    font-family: icons;
+  }
 }
 
 html, body {

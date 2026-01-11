@@ -42,5 +42,6 @@ return {
     checker_message: "Checker message",
     interactor_message: "Interactor message",
     system_message: "System message"
-  }
+  },
+  lean_version: "Lean version",
 };

@@ -812,6 +812,8 @@ async function getProblemTypeView(type: ProblemType): Promise<ProblemTypeView<an
           return import("./types/InteractionProblemView");
         case ProblemType.SubmitAnswer:
           return import("./types/SubmitAnswerProblemView");
+        case ProblemType.Lean:
+          return import("./types/LeanProblemView");
       }
     })()
   ).default;

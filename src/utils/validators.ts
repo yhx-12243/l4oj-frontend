@@ -9,6 +9,14 @@ export function isValidIdentifier(identifier: string): boolean {
   return /^[a-zA-Z_α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ][a-zA-Z0-9_'!?α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ₀-ₜᵢ-ᵪⱼ]{2,23}$/u.test(identifier);
 }
 
+export function isValidIdentifierWithoutLength(identifier: string): boolean {
+  return /^[a-zA-Z_α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ][a-zA-Z0-9_'!?α-κμ-ϻΑ-ΟΡΤ-Ωἀ-῾℀-⅏𝒜-𝖟À-ÖØ-öø-ſ₀-ₜᵢ-ᵪⱼ]*$/u.test(identifier);
+}
+
+export function isValidLeanName(identifier: string): boolean {
+  return identifier.split('.').every(isValidIdentifierWithoutLength);
+}
+
 export function isValidGroupName(groupName: string): boolean {
   return /^[a-zA-Z0-9 :@~\-_.#$/]{1,48}$/.test(groupName);
 }

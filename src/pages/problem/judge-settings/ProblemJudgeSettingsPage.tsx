@@ -112,7 +112,7 @@ let ProblemJudgeSettingsPage: React.FC<ProblemJudgeSettingsPageProps> = props =>
     setPending(false);
   }
 
-  const [editRawEditorValue, setEditRawEditorValue] = useState(yaml.dump(normalizeJudgeInfo(judgeInfo)));
+  const [editRawEditorValue, setEditRawEditorValue] = useState(yaml.dump(normalizeJudgeInfo(judgeInfo), { lineWidth: -1 }));
   const [editRowEditorModified, setEditRowEditorModified] = useConfirmNavigation();
   const [editRawEditorErrorMessage, setEditRawEditorErrorMessage] = useState("");
   function closeEditRawDialog() {
@@ -198,13 +198,34 @@ let ProblemJudgeSettingsPage: React.FC<ProblemJudgeSettingsPageProps> = props =>
     setPending(false);
   }
 
+  const highlightedCodeBox = (
+    <HighlightedCodeBox
+      className={style.yamlCodeBox}
+      segmentClassName={style.yamlSegment}
+      code={yaml.dump(normalizeJudgeInfo(judgeInfo), { lineWidth: -1 })}
+      language="yaml"
+    >
+      <Button
+        className="icon labeled"
+        id={style.buttonEditRaw}
+        icon="code"
+        content={_(".edit_raw.edit_raw")}
+        onClick={() => {
+          setEditRawEditorErrorMessage("");
+          setEditRawEditorValue(yaml.dump(normalizeJudgeInfo(judgeInfo), { lineWidth: -1 }));
+          editRawDialog.open();
+        }}
+      />
+    </HighlightedCodeBox>
+  );
+
   return (
     <>
       {editRawDialog.element}
       <Grid>
         <Grid.Row>
           <Grid.Column width={7}>
-            <div className={style.leftContainer}>
+            <div className={props.problem.meta.type !== ProblemType.Lean && style.leftContainer}>
               <div className={style.header}>
                 <Header className="withIcon" icon="setting" as="h1" content={_(".header") + " " + idString} />
                 <Popup
@@ -233,24 +254,7 @@ let ProblemJudgeSettingsPage: React.FC<ProblemJudgeSettingsPageProps> = props =>
                   onClick={onSubmit}
                 />
               </div>
-              <HighlightedCodeBox
-                className={style.yamlCodeBox}
-                segmentClassName={style.yamlSegment}
-                code={yaml.dump(normalizeJudgeInfo(judgeInfo))}
-                language="yaml"
-              >
-                <Button
-                  className="icon labeled"
-                  id={style.buttonEditRaw}
-                  icon="code"
-                  content={_(".edit_raw.edit_raw")}
-                  onClick={() => {
-                    setEditRawEditorErrorMessage("");
-                    setEditRawEditorValue(yaml.dump(normalizeJudgeInfo(judgeInfo)));
-                    editRawDialog.open();
-                  }}
-                />
-              </HighlightedCodeBox>
+              {props.problem.meta.type !== ProblemType.Lean && highlightedCodeBox}
             </div>
           </Grid.Column>
           <Grid.Column width={9}>
@@ -307,6 +311,15 @@ let ProblemJudgeSettingsPage: React.FC<ProblemJudgeSettingsPageProps> = props =>
             />
           </Grid.Column>
         </Grid.Row>
+        {props.problem.meta.type === ProblemType.Lean && (
+          <Grid.Row>
+            <Grid.Column width={16}>
+              <div className={style.leanContainer}>
+                {highlightedCodeBox}
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        )}
       </Grid>
     </>
   );
@@ -324,6 +337,8 @@ async function getProblemTypeEditorComponent(type: ProblemType): Promise<Problem
           return import("./types/InteractionProblemEditor");
         case ProblemType.SubmitAnswer:
           return import("./types/SubmitAnswerProblemEditor");
+        case ProblemType.Lean:
+          return import("./types/LeanProblemEditor");
       }
     })()
   ).default;
