@@ -83,7 +83,7 @@ let AppLayout: React.FC = props => {
         }
       : {}),
     submissions: {
-      icon: "hourglass",
+      icon: "hourglass half",
       text: ".navbar.submissions",
       url: "/s"
     },

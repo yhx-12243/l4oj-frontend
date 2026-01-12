@@ -1,0 +1,27 @@
+diff --git a/index.js b/index.js
+index 26df7859ff8d1adc50360f6d532a87c699444d67..856b041a9d7417b24d8ebd0a9d9bc8a00822bc7a 100644
+--- a/index.js
++++ b/index.js
+@@ -225,6 +225,22 @@ module.exports = function math_plugin(md, options) {
+   md.block.ruler.after('blockquote', 'math_block', math_block, {
+     alt: [ 'paragraph', 'reference', 'blockquote', 'list' ]
+   });
++  md.core.ruler.push('math_inline', state => {
++    for (const token of state.tokens) {
++      if (token.type === 'html_block' && options.inlineRenderer) {
++        let result = '', lastPos = 0;
++        for (; ; ) {
++          const pOpen = token.content.indexOf(inlineOpen, lastPos);
++          if (!~pOpen) break;
++          const pClose = token.content.indexOf(inlineClose, pOpen + inlineOpen.length);
++          if (!~pClose) break;
++          result += token.content.substring(lastPos, pOpen) + options.inlineRenderer(token.content.substring(pOpen + inlineOpen.length, pClose));
++          lastPos = pClose + inlineClose.length;
++        }
++        token.content = result + token.content.substring(lastPos);
++      }
++    }
++  });
+   md.renderer.rules.math_inline = inlineRenderer;
+   md.renderer.rules.math_block = blockRenderer;
+ };

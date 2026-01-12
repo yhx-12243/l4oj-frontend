@@ -29,7 +29,7 @@ async function fetchData(query: { userId?: number; username?: string }): Promise
   const { requestError, response } = await api.user.getUserDetail({
     ...query,
     timezone: getTimeZone(),
-    now: now.toISOString()
+    now: now.getTime()
   });
 
   if (requestError) throw new RouteError(requestError, { showRefresh: true, showBack: true });

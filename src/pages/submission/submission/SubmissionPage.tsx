@@ -87,20 +87,6 @@ export interface SubmissionProgressMeta {
   memoryUsed: number;
 }
 
-function parseProgress<T extends TestcaseResultCommon>(
-  progress: SubmissionProgress<T>,
-  resultMeta?: ApiTypes.SubmissionBasicMetaDto
-): SubmissionProgressMeta {
-  return {
-    pending: progress.pending,
-    message: resultMeta?.message,
-    status: resultMeta.status,
-    score: 0,
-    timeUsed: 0,
-    memoryUsed: 0,
-  };
-}
-
 interface SubmissionPageProps {
   meta: ApiTypes.SubmissionMetaDto;
   content: unknown;
@@ -129,8 +115,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
     "id" | "problem" | "isPublic" | "codeLanguage" | "answerSize" | "submitTime" | "problemTitle" | "submitter"
   > = props.meta;
 
-  const [progress, setProgress] = useState(props.progress);
-  const [progressMeta, setProgressMeta] = useState(parseProgress(props.progress, props.meta));
+  const [progressMeta, setProgressMeta] = useState(props.meta);
 
   // Subscribe to submission progress with the key
   const subscriptionKey = props.progressSubscriptionKey;
@@ -146,8 +131,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
         messageRef.current = patch(messageRef.current, messageDelta);
         const message = messageRef.current;
 
-        setProgress(message.progressDetail);
-        setProgressMeta(parseProgress(message.progressDetail, message.progressMeta?.resultMeta));
+        setProgressMeta(message.progressMeta.resultMeta);
       });
     },
     () => {
@@ -158,15 +142,6 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
     },
     !!subscriptionKey
   );
-
-  // displayMeta contains fields parsed from the progress
-  const displayMeta: ApiTypes.SubmissionMetaDto = {
-    ...meta,
-    timeUsed: progressMeta.timeUsed,
-    memoryUsed: progressMeta.memoryUsed,
-    status: progressMeta.status as any,
-    score: progressMeta.score
-  };
 
   const refDefaultCopyCodeBox = useRef<HTMLPreElement>(null);
 
@@ -201,7 +176,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
   const isMobile = useScreenWidthWithin(0, 768);
   const isNarrowMobile = useScreenWidthWithin(0, 425);
 
-  const samples = progress?.samples || [];
+  const samples = [];
   const samplesRunning = samples.some(sample => sample.running);
   const samplesFinishedCount = samples.filter(sample => !sample.running && !sample.waiting).length;
   const samplesDisplayInfo = {
@@ -225,7 +200,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
     samplesDisplayInfo.statusText = samplesDisplayInfo.status + " " + samplesFinishedCount + "/" + samples.length;
   }
 
-  const subtasks = progress?.subtasks || [];
+  const subtasks = [];
   const subtaskDisplayInfo: {
     status: string;
     statusText?: string;
@@ -715,7 +690,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
 
   const showRejudge = props.permissionRejudge;
-  const showCancel = props.permissionCancel && progressMeta.pending;
+  const showCancel = props.permissionCancel;
   const showTogglePublic = props.permissionSetPublic;
   const showDelete = props.permissionDelete;
 
@@ -843,7 +818,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
           </Table.Header>
           <Table.Body>
             <SubmissionItem
-              submission={displayMeta}
+              submission={progressMeta}
               statusText={progressMeta.statusText}
               answerInfo={answerInfo}
               onDownloadAnswer={onDownloadAnswer}
@@ -858,7 +833,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
       )}
       {!isWideScreen && (
         <SubmissionItemExtraRows
-          submission={displayMeta}
+          submission={progressMeta}
           answerInfo={answerInfo}
           onDownloadAnswer={onDownloadAnswer}
           isMobile={isMobile}
@@ -869,7 +844,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
         />
       )}
       <props.ProblemTypeSubmissionView
-        progress={progress}
+        progress={progressMeta}
         progressMeta={progressMeta}
         content={props.content}
         getCompilationMessage={() =>

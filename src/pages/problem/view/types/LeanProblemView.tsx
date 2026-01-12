@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, Icon, Label, Message, Popup } from "semantic-ui-react";
 import { observer } from "mobx-react";
 
@@ -109,6 +109,11 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
 
   const [allConsts, setAllConsts] = useState([]);
   const [dependencies, setDependencies] = useState([]);
+
+  useEffect(() => {
+    if (props.submissionContent.moduleName)
+      updateModuleName();
+  }, []);
 
   const updateModuleName = async () => {
     const input = props.submissionContent.moduleName.trim().replaceAll('/', '.');

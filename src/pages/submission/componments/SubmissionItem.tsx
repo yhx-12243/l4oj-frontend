@@ -10,6 +10,7 @@ import UserLink from "@/components/UserLink";
 import StatusText from "@/components/StatusText";
 import ScoreText from "@/components/ScoreText";
 import { CodeLanguage } from "@/interfaces/CodeLanguage";
+import { SubmissionStatus } from "@/interfaces/SubmissionStatus";
 import { getProblemDisplayName, getProblemIdString, getProblemUrl } from "@/pages/problem/utils";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
 
@@ -27,6 +28,19 @@ function parseSubmissionMeta(submission: ApiTypes.SubmissionMetaDto) {
     problemUrl: getProblemUrl(submission.problem),
     moduleUrl: getModuleUrl(submission.submitter.id + '.' + submission.moduleName),
   };
+}
+
+function isSettledStatus(status: SubmissionStatus) {
+  switch (status) {
+    case SubmissionStatus.InvalidImport:
+    case SubmissionStatus.Accepted:
+    case SubmissionStatus.WrongAnswer:
+    case SubmissionStatus.JudgementFailed:
+    case SubmissionStatus.Canceled:
+      return true;
+    default:
+      return false;
+  }
 }
 
 interface SubmissionItemConfig {
@@ -142,7 +156,7 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
         </div>
       </Table.Cell>
       <Table.Cell className={style.columnAnswer} title={submission.answerObj}>
-        {submission.answerObj}
+        {submission.answerObj || (isSettledStatus(submission.status) ? 'N/A' : <Icon name="spinner" loading />)}
       </Table.Cell>
       <Table.Cell className={style.columnFile}>
         <Popup
@@ -198,7 +212,7 @@ export const SubmissionHeaderMobile: React.FC<SubmissionHeaderMobileProps> = pro
             <div>
               <span>
                 <span>{_(".columns.status")}</span>
-                <span className={style.headerScoreColumn}>{_(".columns.score")}</span>
+                {/* <span className={style.headerScoreColumn}>{_(".columns.score")}</span> */}
               </span>
             </div>
             <div>{_(".columns.answer")}</div>
@@ -248,17 +262,11 @@ export const SubmissionItemMobile: React.FC<SubmissionItemMobileProps> = props =
             <div>
               <Link href={submissionLink}>
                 <StatusText status={submission.status} statusText={props.statusText} />
-                <ScoreText score={submission.score || 0} />
+                {/* <ScoreText score={submission.score || 0} /> */}
               </Link>
             </div>
-            <div>
-              {Object.values(CodeLanguage).includes(submission.codeLanguage as any) && (
-                <>
-                  <Link href={submissionLink}>{_(`code_language.${submission.codeLanguage}.name`)}</Link>
-                  &nbsp;/&nbsp;
-                </>
-              )}
-              <span title={submission.answerSize + " B"}>{formatFileSize(submission.answerSize, 1)}</span>
+            <div title={submission.answerObj}>
+              {submission.answerObj || (isSettledStatus(submission.status) ? 'N/A' : <Icon name="spinner" loading />)}
             </div>
           </div>
 
@@ -376,7 +384,7 @@ export const SubmissionItemExtraRows: React.FC<SubmissionItemExtraRowsProps> = p
   const columnAnswer = (
     <div title={submission.answerObj}>
       <Icon name="pencil" />
-      {submission.answerObj}
+      {submission.answerObj || (isSettledStatus(submission.status) ? 'N/A' : <Icon name="spinner" loading />)}
     </div>
   );
 

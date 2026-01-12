@@ -13,6 +13,7 @@ export enum SubmissionStatus {
   WrongAnswer = "WrongAnswer",
   Accepted = "Accepted",
   JudgementFailed = "JudgementFailed",
+  Canceled = "Canceled",
 }
 
 export enum SubmissionStatusAll {
@@ -29,4 +30,5 @@ export enum SubmissionStatusAll {
   WrongAnswer = "WrongAnswer",
   Accepted = "Accepted",
   JudgementFailed = "JudgementFailed",
+  Canceled = "Canceled",
 }

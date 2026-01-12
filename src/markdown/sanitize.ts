@@ -31,7 +31,10 @@ export function sanitize(
   ) => boolean | string | void
 ) {
   const xss = new FilterXSS({
-    whiteList: xssWhiteList,
+    whiteList: {
+      ...xssWhiteList,
+      ol: ['reverse', 'start', 'type'],
+    },
     stripIgnoreTag: true,
     onTagAttr: (tag, name, value, isWhiteAttr) => {
       if (name === 'id' && /^l4oj-[\w-]+$/.test(value)) return `${name}="${value}"`;

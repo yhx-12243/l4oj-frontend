@@ -4,6 +4,8 @@ import twemoji from "@twemoji/api";
 
 import style from "./EmojiRenderer.module.less";
 
+import { appState } from "@/appState";
+
 interface EmojiRendererProps {
   children: React.ReactElement;
 }
@@ -14,7 +16,12 @@ export const getTwemojiOptions = (inline: boolean) =>
     size: "svg",
     ext: ".svg",
     className: inline ? style.emoji : "",
-    callback: (icon, options: TwemojiOptions, variant) => `${options.base}${options.size}/${icon}${options.ext}`,
+    callback: (icon, options: TwemojiOptions, variant) => {
+      if (inline && appState.serverPreference.misc.disabledEmojiInMath.includes(variant))
+        return false;
+
+      return `${options.base}${options.size}/${icon}${options.ext}`;
+    }
   } as Partial<TwemojiOptions>);
 
 export const EmojiRenderer: React.FC<EmojiRendererProps> = props => {
