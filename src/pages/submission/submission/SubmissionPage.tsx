@@ -10,7 +10,7 @@ import { appState } from "@/appState";
 import api from "@/api";
 import toast from "@/utils/toast";
 import { useLocalizer, useSocket, useScreenWidthWithin, useNavigationChecked } from "@/utils/hooks";
-import { SubmissionHeader, SubmissionItem, SubmissionItemExtraRows } from "../componments/SubmissionItem";
+import { isSettledStatus, SubmissionHeader, SubmissionItem, SubmissionItemExtraRows } from "../componments/SubmissionItem";
 import StatusText from "@/components/StatusText";
 import formatFileSize from "@/utils/formatFileSize";
 import downloadFile from "@/utils/downloadFile";
@@ -118,20 +118,29 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
   const [progressMeta, setProgressMeta] = useState(props.meta);
 
   // Subscribe to submission progress with the key
-  const subscriptionKey = props.progressSubscriptionKey;
+  const isPendingSubmission = !isSettledStatus(props.meta.status);
   // Save the previous message, since we receive message delta each time
   const messageRef = useRef<SubmissionProgressMessage>();
   useSocket(
-    "submission-progress",
-    {
-      subscriptionKey: subscriptionKey
-    },
+    "api/submission/subscribeSubmissions",
+    new URLSearchParams({ ids: props.meta.id.toString() }),
     socket => {
-      socket.on("message", (submissionId: number, messageDelta: any) => {
-        messageRef.current = patch(messageRef.current, messageDelta);
-        const message = messageRef.current;
-
-        setProgressMeta(message.progressMeta.resultMeta);
+      socket.addEventListener("update", event => {
+        if (event.lastEventId !== props.meta.id.toString()) return;
+        const message = JSON.parse(event.data);
+        setProgressMeta(meta_ => {
+          const meta = { ...meta_ };
+          if (message.Status) {
+            const [newStatus, action] = message.Status;
+            meta.status = newStatus;
+            if (action.Replace) meta.message = action.Replace;
+            else if (action.Append) meta.message += action.Append;
+          }
+          if (message.Answer) {
+            meta.answerObj = message.Answer;
+          }
+          return meta;
+        });
       });
     },
     () => {
@@ -140,7 +149,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
       console.log("connected");
       messageRef.current = undefined;
     },
-    !!subscriptionKey
+    isPendingSubmission
   );
 
   const refDefaultCopyCodeBox = useRef<HTMLPreElement>(null);

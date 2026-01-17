@@ -215,7 +215,3 @@ export const getPreferredCompileAndRunOptions = (codeLanguage: CodeLanguage) =>
   codeLanguage === appState.userPreference.code?.defaultLanguage
     ? filterValidCompileAndRunOptions(codeLanguage, appState.userPreference.code?.defaultCompileAndRunOptions)
     : getDefaultCompileAndRunOptions(codeLanguage);
-
-export const allLeanVersions: string[] = [
-  "4.26.0",
-];

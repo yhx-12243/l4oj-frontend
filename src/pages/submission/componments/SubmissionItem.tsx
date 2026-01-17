@@ -9,7 +9,6 @@ import { friendlyFormatDateTime } from "@/utils/formatDateTime";
 import UserLink from "@/components/UserLink";
 import StatusText from "@/components/StatusText";
 import ScoreText from "@/components/ScoreText";
-import { CodeLanguage } from "@/interfaces/CodeLanguage";
 import { SubmissionStatus } from "@/interfaces/SubmissionStatus";
 import { getProblemDisplayName, getProblemIdString, getProblemUrl } from "@/pages/problem/utils";
 import { EmojiRenderer } from "@/components/EmojiRenderer";
@@ -30,7 +29,7 @@ function parseSubmissionMeta(submission: ApiTypes.SubmissionMetaDto) {
   };
 }
 
-function isSettledStatus(status: SubmissionStatus) {
+export function isSettledStatus(status: SubmissionStatus) {
   switch (status) {
     case SubmissionStatus.InvalidImport:
     case SubmissionStatus.Accepted:
@@ -170,16 +169,10 @@ export const SubmissionItem: React.FC<SubmissionItemProps> = props => {
               {props.answerInfo && (
                 <Icon ref={setRefAnswerInfoIcon} name="info circle" />
               )}
-              {Object.values(CodeLanguage).includes(submission.codeLanguage as any) && (
-                <>
-                  {props.page !== "submission" ? (
-                    <Link href={submissionLink}>{_(`code_language.${submission.codeLanguage}.name`)}</Link>
-                  ) : (
-                    _(`code_language.${submission.codeLanguage}.name`)
-                  )}
-                  &nbsp;/&nbsp;
-                </>
-              )}
+              {props.page !== "submission" ?
+                <Link href={submissionLink}>{submission.leanVersion}</Link> :
+                submission.leanVersion}
+              &nbsp;/&nbsp;
               <span title={submission.answerSize + " B"}>{formatFileSize(submission.answerSize, 1)}</span>
               <a href={`/lean/submission/${props.submission.id}/`}>
                 <Icon className={style.downloadIcon} name="download" />
@@ -399,12 +392,8 @@ export const SubmissionItemExtraRows: React.FC<SubmissionItemExtraRowsProps> = p
         <div>
           <Icon name="file" />
           <span>
-            {Object.values(CodeLanguage).includes(submission.codeLanguage as any) && (
-              <>
-                {_(`code_language.${submission.codeLanguage}.name`)}
-                &nbsp;/&nbsp;
-              </>
-            )}
+            {submission.leanVersion}
+            &nbsp;/&nbsp;
             <span title={submission.answerSize + " B"}>{formatFileSize(submission.answerSize, 1)}</span>
           </span>
           <a href={`/lean/submission/${props.submission.id}`}>

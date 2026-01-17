@@ -11,9 +11,9 @@ interface PatchedUIPaginationProps extends UIPaginationProps {
   pageUrl: (newPage: number) => Partial<URLDescriptor>;
 }
 
-const PatchedUIPaginationInner: React.FC<PatchedUIPaginationProps> = props => {
+const PatchedUIPaginationInner: React.FC<PatchedUIPaginationProps> = (props, ref) => {
   const
-    node = UIPagination.render(props),
+    node = UIPagination.render(props, ref),
     children = node.props.children.map(child =>
       child && child.props.content !== '...'
         ? {

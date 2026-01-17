@@ -16,11 +16,12 @@ import {
   useNavigationChecked
 } from "@/utils/hooks";
 import toast from "@/utils/toast";
-import { CodeLanguage, allLeanVersions } from "@/interfaces/CodeLanguage";
+import { CodeLanguage } from "@/interfaces/CodeLanguage";
 import { SubmissionStatus } from "@/interfaces/SubmissionStatus";
 import { isValidUsername } from "@/utils/validators";
 import StatusText from "@/components/StatusText";
 import {
+  isSettledStatus,
   SubmissionItem,
   SubmissionItemMobile,
   SubmissionHeader,
@@ -48,7 +49,7 @@ function normalizeQuery(query: Record<string, string>): SubmissionsQuery {
     problemDisplayId:
       Number(query.problemDisplayId) && !Number(query.problemId) ? Number(query.problemDisplayId) : null,
     submitter: isValidUsername(query.submitter) ? query.submitter : null,
-    leanVersion: allLeanVersions.includes(query.leanVersion) ? query.leanVersion : null,
+    leanVersion: appState.serverPreference.misc.leanVersions.includes(query.leanVersion) ? query.leanVersion : null,
     status: query.status in SubmissionStatus ? (query.status as SubmissionStatus) : null,
     minId: Number.isSafeInteger(Number(query.minId)) ? Number(query.minId) : null,
     maxId: Number.isSafeInteger(Number(query.maxId)) ? Number(query.maxId) : null
@@ -129,41 +130,30 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
   const [submissions, setSubmissions] = useState(props.queryResult.submissions || []);
 
   // Subscribe to submission progress with the key
-  const subscriptionKey = props.queryResult.progressSubscriptionKey;
+  const pendingSubmissions = submissions.flatMap(submission => isSettledStatus(submission.status) ? [] : [submission.id]);
   // Save the messages to a map, since we receive message delta each time
   const messagesMapRef = useRef<Map<number, SubmissionProgressMessageMetaOnly>>();
   useSocket(
-    "submission-progress",
-    {
-      subscriptionKey: subscriptionKey
-    },
+    "api/submission/subscribeSubmissions",
+    new URLSearchParams(pendingSubmissions.map(id => ['ids', id.toString()])),
     socket => {
-      socket.on("message", (submissionId: number, messageDelta: any) => {
-        const messageMap = messagesMapRef.current;
-        let message = messageMap.get(submissionId);
-        message = patch(message, messageDelta);
-        messageMap.set(submissionId, message);
-
+      socket.addEventListener("update", event => {
+        const message = JSON.parse(event.data);
         setSubmissions(submissions => {
           const newSubmissions = [...submissions];
           for (const i in newSubmissions) {
-            if (submissionId === newSubmissions[i].id) {
-              if (!message.progressMeta.resultMeta) {
-                // Not finished
-                newSubmissions[i] = {
-                  ...newSubmissions[i],
-                  progressType: message.progressMeta.progressType
-                };
-              } else {
-                // Finished
-                delete newSubmissions[i].progressType;
-                newSubmissions[i] = {
-                  ...newSubmissions[i],
-                  ...message.progressMeta.resultMeta
-                };
+            if (event.lastEventId === newSubmissions[i].id.toString()) {
+              const meta = { ...newSubmissions[i] };
+              if (message.Status) {
+                const [newStatus, action] = message.Status;
+                meta.status = newStatus;
+                if (action.Replace) meta.message = action.Replace;
+                else if (action.Append) meta.message += action.Append;
               }
-
-              break;
+              if (message.Answer) {
+                meta.answerObj = message.Answer;
+              }
+              newSubmissions[i] = meta;
             }
           }
           return newSubmissions;
@@ -176,7 +166,7 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
       console.log("connected");
       messagesMapRef.current = new Map();
     },
-    !!subscriptionKey
+    !!pendingSubmissions.length
   );
 
   const hasPrevPage = props.queryResult.hasLargerId;
@@ -242,7 +232,7 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
                   </>
                 )
               },
-              ...allLeanVersions.map(version => ({
+              ...appState.serverPreference.misc.leanVersions.map(version => ({
                 key: version,
                 value: version,
                 text: (

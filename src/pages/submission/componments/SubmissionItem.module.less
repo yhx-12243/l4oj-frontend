@@ -4,12 +4,13 @@
 .columnTime,
 .columnMemory,
 .columnAnswer,
+.columnFile,
 .columnSubmitTime {
   white-space: nowrap;
 }
 
 .columnStatus {
-  width: 190px;
+  width: 150px;
   padding-right: 0 !important;
 }
 
@@ -73,7 +74,11 @@
 }
 
 .columnFile {
-  width: 130px;
+  width: 170px;
+
+  overflow-x: scroll !important;
+  scrollbar-width: none;
+  text-overflow: initial!important;
 
   .downloadIcon {
     margin-left: 5px;

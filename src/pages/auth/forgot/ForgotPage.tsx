@@ -194,7 +194,7 @@ let ForgetPage: React.FC = () => {
           <Segment>
             {/* email */}
               <Form.Field
-                ref={field => field && (refEmailInput.current = field.querySelector("input"))}
+                ref={field => refEmailInput.current = field}
                 control={Input}
                 error={
                   getEmailUIValidateStatus() === "error" && {
@@ -219,7 +219,7 @@ let ForgetPage: React.FC = () => {
 
             {/* email verification code */}
               <Form.Field
-                ref={field => field && (refEmailVerificationCodeInput.current = field.querySelector("input"))}
+                ref={field => refEmailVerificationCodeInput.current = field}
                 control={Input}
                 error={
                   emailVerificationCodeError && {
@@ -252,7 +252,7 @@ let ForgetPage: React.FC = () => {
 
             {/* password */}
               <Form.Field
-                ref={field => field && (refPasswordInput.current = field.querySelector("input"))}
+                ref={field => refPasswordInput.current = field}
                 control={Input}
                 error={
                   getPasswordUIValidateStatus() === "error" && {
@@ -273,7 +273,7 @@ let ForgetPage: React.FC = () => {
                 onKeyPress={onEnterPress(() => refRetypePasswordInput.current.focus())}
               />
               <Form.Field
-                ref={field => field && (refRetypePasswordInput.current = field.querySelector("input"))}
+                ref={field => refRetypePasswordInput.current = field}
                 control={Input}
                 error={
                   getRetypePasswordUIValidateStatus() === "error" && {

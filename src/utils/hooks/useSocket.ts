@@ -1,32 +1,26 @@
 import { useRef, useEffect } from "react";
-import SocketIO from "socket.io-client";
-import SocketIOParser from "socket.io-msgpack-parser";
 
 export function useSocket(
-  namespace: string,
-  query: Record<string, string>,
-  onInit: (socket: SocketIOClient.Socket) => void,
-  onConnect: (socket: SocketIOClient.Socket) => void,
+  url: string,
+  query: URLSearchParams,
+  onInit: (socket: EventSource) => void,
+  onConnect: (socket: EventSource) => void,
   useOrNot: boolean
-): SocketIOClient.Socket {
-  const refSocket = useRef<SocketIOClient.Socket>(null);
+): EventSource {
+  const refSse = useRef<EventSource>(null);
 
   useEffect(() => {
     if (useOrNot) {
-      refSocket.current = SocketIO(window.apiEndpoint + namespace, {
-        path: "/api/socket",
-        transports: ["websocket"],
-        query: query,
-        ...{ parser: SocketIOParser }
-      });
-      refSocket.current.on("error", (err: any) => console.log("SocketIO error:", err));
-      refSocket.current.on("disconnect", (reason: number) => console.log("SocketIO disconnect:", reason));
-      refSocket.current.on("reconnect", (attempt: number) => console.log("SocketIO reconnect:", attempt));
-      refSocket.current.on("connect", () => onConnect(refSocket.current));
-      onInit(refSocket.current);
-      return () => refSocket.current.disconnect();
+      const u = new URL(url, window.apiEndpoint);
+      u.search = query.toString();
+      refSse.current = new EventSource(u);
+      refSse.current.addEventListener('error', (err: any) => console.log("SSE error:", err));
+      refSse.current.addEventListener('open', () => onConnect(refSse.current));
+
+      onInit(refSse.current);
+      return () => refSse.current.close();
     }
   }, []);
 
-  return refSocket.current;
+  return refSse.current;
 }

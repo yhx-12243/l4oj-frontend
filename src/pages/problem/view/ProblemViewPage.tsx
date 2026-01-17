@@ -356,6 +356,7 @@ let ProblemViewPage: React.FC<ProblemViewPageProps> = props => {
 
   const [modified, setModified] = useConfirmNavigation();
   function updateSubmissionContent(path: string, value: any) {
+    if (objectPath.get(submissionContent, path) === value) return;
     setModified(true);
     const spec = {};
     objectPath.set(spec, path + ".$set", value);

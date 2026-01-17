@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { Ref } from "@fluentui/react-component-ref";
 import twemoji from "@twemoji/api";
 
 import style from "./EmojiRenderer.module.less";
@@ -30,5 +29,5 @@ export const EmojiRenderer: React.FC<EmojiRendererProps> = props => {
     if (refElement.current) twemoji.parse(refElement.current, getTwemojiOptions(true));
   });
 
-  return <Ref innerRef={refElement}>{props.children}</Ref>;
+  return React.cloneElement(props.children, { ref: refElement });
 };
