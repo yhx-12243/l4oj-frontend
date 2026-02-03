@@ -14,7 +14,6 @@ import UserAvatar from "@/components/UserAvatar";
 import UserLink from "@/components/UserLink";
 import { HighlightedCodeBox } from "@/components/CodeBox";
 import formatDateTime from "@/utils/formatDateTime";
-import fixChineseSpace from "@/utils/fixChineseSpace";
 import { Pagination } from "@/components/Pagination";
 import { UserMeta } from "@/interfaces/UserMeta";
 import PseudoLink from "@/components/PseudoLink";
@@ -377,7 +376,7 @@ const AuditView: React.FC<AuditViewProps> = props => {
                       </Comment.Action>
                       {result.ipLocation && (
                         <Comment.Action className={style.item} as="span">
-                          {fixChineseSpace(result.ipLocation)}
+                          {result.ipLocation}
                         </Comment.Action>
                       )}
                       <Comment.Action className={style.item} as="span">

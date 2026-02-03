@@ -43,5 +43,5 @@ return {
     interactor_message: "[TBT] Interactor message",
     system_message: "システムメッセージ"
   },
-  lean_version: "Lean バージョン",
+  lean_version: "Leanバージョン",
 };

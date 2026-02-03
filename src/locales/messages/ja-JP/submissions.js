@@ -9,11 +9,11 @@ return {
     status_all: "全ての結果",
     filter: "検索",
     my_submissions: "自分の提出",
-    lean_version: "Lean バージョン",
+    lean_version: "Leanバージョン",
     lean_version_all: "全てのバージョン",
   },
   query_error: {
-    INVALID_PROBLEM_ID: "問題 ID が無効です。",
+    INVALID_PROBLEM_ID: "問題IDが無効です。",
     INVALID_USERNAME: "ユーザ名が無効です。",
     NO_SUCH_PROBLEM: "問題が存在しません。",
     NO_SUCH_USER: "このユーザ名は存在しません。"

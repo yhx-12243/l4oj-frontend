@@ -3,7 +3,7 @@ return {
     NO_SUCH_USER: "无此用户。"
   },
   edit_profile: "修改资料",
-  joined: "加入于 ",
+  joined: "加入于",
   social: {
     email: "电子邮箱",
     qq: "QQ",
@@ -36,8 +36,8 @@ return {
       12: "十二月"
     },
     popup: {
-      submission: "{count} 次提交",
-      submissions: "{count} 次提交",
+      submission: "{count}次提交",
+      submissions: "{count}次提交",
       no_submissions: "无提交"
     },
     link: "查询该用户提交",

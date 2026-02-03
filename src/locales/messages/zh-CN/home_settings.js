@@ -2,7 +2,7 @@ return {
   title: "首页设置",
   errors: {
     PERMISSION_DENIED: "权限不足。",
-    NO_SUCH_DISCUSSION: "找不到 ID 为 {id} 的讨论。"
+    NO_SUCH_DISCUSSION: "找不到ID为{id}的讨论。"
   },
   header: "首页设置",
   set_default_locale: "设为默认语言",

@@ -109,7 +109,7 @@ async function render(
 
     await Promise.all(mathPlaceholders.map(async item => {
       const element = findPlaceholderElement(wrapper, item.id);
-      element.parentNode.replaceChild(await renderMath(item.code, item.display), element);
+      element?.parentNode.replaceChild(await renderMath(item.code, item.display), element);
     }));
 
     window.MathJax.startup.document.documentStyleSheet();

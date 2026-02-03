@@ -26,12 +26,12 @@ return {
         name: "Gravatar"
       },
       qq: {
-        name: "QQ 头像",
-        placeholder: "QQ 号"
+        name: "QQ头像",
+        placeholder: "QQ号"
       },
       github: {
-        name: "GitHub 头像",
-        placeholder: "GitHub 用户名"
+        name: "GitHub头像",
+        placeholder: "GitHub用户名"
       },
       error: "无法加载头像，请检查网络连接以及账户名是否正确。"
     },
@@ -53,13 +53,13 @@ return {
     url_placeholder: "你的个人主页或者博客。",
     qq: "QQ",
     qq_placeholder: "如：12345678",
-    qq_notes: "你的 QQ 链接为：",
+    qq_notes: "你的QQ链接为：",
     telegram: "Telegram",
     telegram_placeholder: "不含 @ 符号",
-    telegram_notes: "你的 Telegram 链接为：",
+    telegram_notes: "你的Telegram链接为：",
     github: "GitHub",
     github_placeholder: "不含 @ 符号",
-    github_notes: "你的 GitHub 链接为：",
+    github_notes: "你的GitHub链接为：",
     submit: "提交",
     error_invalid_username: "无效的用户名。",
     error_invalid_email: "无效的邮箱地址。",
@@ -109,7 +109,7 @@ return {
       code_font_ligatures_notes: "连字（Ligatures）功能可将部分组合符号显示为更易于阅读的形式。仅部分字体支持此功能。",
       code_preview: "预览",
       markdown_editor_font: {
-        markdown_editor: "Markdown 编辑器",
+        markdown_editor: "Markdown编辑器",
         content_font: "正文字体",
         code_font: "代码字体"
       }
@@ -121,10 +121,10 @@ return {
     },
     code_formatter: {
       header: "代码格式化",
-      astyle_options: "Astyle 参数",
+      astyle_options: "Astyle参数",
       format_code_by_default: "默认格式化代码",
       notes_before: "该参数应用于提交记录页面的代码展示，请参考",
-      notes_link: "Astyle 文档",
+      notes_link: "Astyle文档",
       notes_after: "以获取帮助。",
       preview: "预览",
       error: "参数错误"
@@ -207,8 +207,8 @@ return {
         notes: "可以浏览、编辑所有讨论与回复，设置讨论权限以及删除讨论与回复。"
       },
       SkipRecaptcha: {
-        name: "跳过 reCAPTCHA",
-        notes: "可以在不验证 reCAPTCHA（如果已启用）的情况下提交任意请求。适用于机器人或虚拟评测。"
+        name: "跳过reCAPTCHA",
+        notes: "可以在不验证reCAPTCHA（如果已启用）的情况下提交任意请求。适用于机器人或虚拟评测。"
       }
     },
     admin_only: "仅管理员可修改用户特权。",
@@ -220,7 +220,7 @@ return {
     header: "审计日志",
     query: {
       action_query: "操作",
-      ip: "IP 地址",
+      ip: "IP地址",
       first_object_id: "主对象",
       second_object_id: "次对象",
       filter: "筛选"

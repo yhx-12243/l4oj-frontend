@@ -1,6 +1,6 @@
 return {
   title: "タグ管理",
-  tag_count: "タグが {count} 個あります",
+  tag_count: "タグが{count}個あります",
   error: {
     PERMISSION_DENIED: "権限がありません。",
     NO_SUCH_PROBLEM_TAG: "タグが存在しません。"

@@ -2,10 +2,10 @@ return {
   title: "题目",
   meta_labels: {
     non_public: "未公开",
-    no_display_id: "未设置 ID"
+    no_display_id: "未设置ID"
   },
   fileio: {
-    fileio: "文件 IO",
+    fileio: "文件IO",
     input: "输入文件",
     output: "输出文件"
   },
@@ -35,8 +35,8 @@ return {
     judge_settings: "评测设置",
     permission_manage: "权限管理",
     permission_manager_description: "题目 {idString}",
-    set_display_id: "设置题目 ID",
-    set_display_id_new: "新 ID（留空或为 0 则清除 ID）",
+    set_display_id: "设置题目`ID`",
+    set_display_id_new: "新ID（留空或为0则清除ID）",
     set_display_id_submit: "设置",
     set_public: "设为公开",
     set_non_public: "取消公开",
@@ -52,9 +52,9 @@ return {
   error: {
     PERMISSION_DENIED: "权限不足。",
     NO_SUCH_PROBLEM: "无此题目。",
-    NO_DISPLAY_ID: "请先设置题目 ID。",
-    INVALID_DISPLAY_ID: "ID 必须为整数。",
-    PUBLIC_PROBLEM_MUST_HAVE_DISPLAY_ID: "已公开的题目必须拥有 ID。",
+    NO_DISPLAY_ID: "请先设置题目ID。",
+    INVALID_DISPLAY_ID: "ID必须为整数。",
+    PUBLIC_PROBLEM_MUST_HAVE_DISPLAY_ID: "已公开的题目必须拥有ID。",
     DUPLICATE_DISPLAY_ID: "ID {displayId} 已被使用。"
   },
   upload_error: "上传失败：{error}",

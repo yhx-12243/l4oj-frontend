@@ -92,12 +92,7 @@ let SubmissionStatisticsPage: React.FC<SubmissionStatisticsPageProps> = props =>
   for (let i = scores.length - 2; i >= 0; i--) scoreSuffixSum[i][1] += scoreSuffixSum[i + 1][1];
 
   const isMobile = useScreenWidthWithin(0, 768);
-  const importantField =
-    props.type === SubmissionStatisticsType.Fastest
-      ? "timeUsed"
-      : props.type === SubmissionStatisticsType.MinMemory
-      ? "memoryUsed"
-      : null;
+  const importantField = null;
 
   return (
     <>
@@ -136,7 +131,7 @@ let SubmissionStatisticsPage: React.FC<SubmissionStatisticsPageProps> = props =>
               {isMobile ? (
                 <SubmissionHeaderMobile importantField={importantField} />
               ) : (
-                <SubmissionHeader page="statistics" />
+                <SubmissionHeader page="statistics" config={{ hideTimeMemory: true }} />
               )}
             </Table.Header>
             <Table.Body>
@@ -144,7 +139,7 @@ let SubmissionStatisticsPage: React.FC<SubmissionStatisticsPageProps> = props =>
                 return isMobile ? (
                   <SubmissionItemMobile key={submission.id} submission={submission} importantField={importantField} />
                 ) : (
-                  <SubmissionItem key={submission.id} submission={submission} page="statistics" />
+                  <SubmissionItem key={submission.id} submission={submission} page="statistics" config={{ hideTimeMemory: true }} />
                 );
               })}
             </Table.Body>

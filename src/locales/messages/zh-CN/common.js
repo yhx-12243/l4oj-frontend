@@ -34,7 +34,7 @@ return {
     locale: "语言",
     github: "开源项目"
   },
-  invalid_url: "无效的 URL。",
+  invalid_url: "无效的URL。",
   request_error: {
     400: "无效的请求。",
     401: "验证失败，请刷新后重试。",
@@ -48,6 +48,6 @@ return {
   confirm_navigation: "确定要离开当前页面吗？您的修改将不被保存。",
   recaptcha: {
     copyright:
-      '本网站受 reCAPTCHA 和 Google 的保护，适用<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">隐私政策</a>和<a href="https://policies.google.com/terms" target="_blank" rel="noreferrer noopener">服务条款</a>。'
+      '本网站受reCAPTCHA和Google的保护，适用<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">隐私政策</a>和<a href="https://policies.google.com/terms" target="_blank" rel="noreferrer noopener">服务条款</a>。'
   }
 };

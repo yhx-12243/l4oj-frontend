@@ -8,7 +8,6 @@ import style from "./UserPage.module.less";
 import { appState } from "@/appState";
 import api from "@/api";
 import { useLocalizer, useScreenWidthWithin, Link } from "@/utils/hooks";
-import fixChineseSpace from "@/utils/fixChineseSpace";
 import UserAvatar from "@/components/UserAvatar";
 import { defineRoute, RouteError } from "@/AppRouter";
 import { isValidIdentifier } from "@/utils/validators";
@@ -228,9 +227,7 @@ let UserPage: React.FC<UserPageProps> = props => {
           </div>
           <span title={""}>
             {_(".joined")}
-            {fixChineseSpace(
-              _.formatDate(props.meta.registrationTime, { year: "numeric", month: "long", day: "numeric" })
-            )}
+            {_.formatDate(props.meta.registrationTime, { year: "numeric", month: "long", day: "numeric" })}
           </span>
         </List.Item>
         {props.information.organization && (

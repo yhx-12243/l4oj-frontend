@@ -20,7 +20,7 @@ return {
   invalid_email: "無効なメールアドレスです",
   invalid_email_verification_code: "[TBT] Invalid email verification code.",
   empty_password: "パスワードを入力してください",
-  invalid_password: "パスワードの長さは 6 文字から 32 文字にしてください",
+  invalid_password: "パスワードの長さは6文字から32文字にしてください",
   passwords_do_not_match: "パスワードが一致しません",
   email_invalid_message: "Invalid email.",
   invalid_password_message: "無効なパスワードです。",

@@ -4,7 +4,7 @@ return {
     PERMISSION_DENIED: "权限不足。",
     NO_SUCH_DISCUSSION: "无此讨论。",
     NO_SUCH_DISCUSSION_REPLY: "无此回复。",
-    INVALID_EMOJI: "无效的 Emoji。",
+    INVALID_EMOJI: "无效的Emoji。",
     NO_FLAGS: "禁止键政。"
   },
   reply_count_0: "暂无回复",
@@ -12,7 +12,7 @@ return {
   reply_count_s: "{replyCount} 条回复",
   add_discussion: "新建讨论",
   item: {
-    commented_on: "发表于 ",
+    commented_on: "发表于",
     edited: "已编辑",
     label: {
       nonpublic: "未公开",
@@ -65,7 +65,7 @@ return {
     hidden_count_s: "{count} 条回复未显示",
     load_more: "加载更多 …"
   },
-  custom_emoji: "自定义 Emoji",
+  custom_emoji: "自定义Emoji",
   permission_manager_description: "讨论 #{id}",
   permission_level: {
     read: "只读",

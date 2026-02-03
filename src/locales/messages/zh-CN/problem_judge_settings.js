@@ -67,7 +67,7 @@ return {
   },
   edit_raw: {
     edit_raw: "编辑源代码",
-    parse_error: "YAML 解析错误",
+    parse_error: "YAML解析错误",
     cancel: "取消",
     confirm_cancel: "放弃修改",
     ok: "确定"

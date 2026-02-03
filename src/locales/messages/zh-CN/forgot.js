@@ -20,7 +20,7 @@ return {
   invalid_email: "邮箱无效",
   invalid_email_verification_code: "邮箱验证码无效",
   empty_password: "密码不能为空",
-  invalid_password: "密码长度需要在 6 到 32 之间",
+  invalid_password: "密码长度需要在6到32之间",
   passwords_do_not_match: "密码不一致",
   email_invalid_message: "邮箱无效。",
   invalid_password_message: "密码无效。",

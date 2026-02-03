@@ -24,7 +24,7 @@ return {
   "problem.create": "创建题目 [firstObject]",
   "problem.update_statement": "修改题目 [firstObject] 的题面",
   "problem.set_permissions": "修改题目 [firstObject] 的权限",
-  "problem.set_display_id": "修改题目 [firstObject] 的显示 ID",
+  "problem.set_display_id": "修改题目 [firstObject] 的显示ID",
   "problem.set_public": "将题目 [firstObject] 公开",
   "problem.set_non_public": "将题目 [firstObject] 取消公开",
   "problem.upload_file": "向题目 [firstObject] 上传文件",

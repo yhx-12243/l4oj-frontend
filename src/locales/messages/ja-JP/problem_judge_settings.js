@@ -73,7 +73,7 @@ return {
   },
   edit_raw: {
     edit_raw: "コードを編集する",
-    parse_error: "YAML パースに失敗しました",
+    parse_error: "YAMLパースに失敗しました",
     cancel: "キャンセル",
     confirm_cancel: "[TBT] Discard changes",
     ok: "保存"

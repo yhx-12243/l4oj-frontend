@@ -14,7 +14,7 @@ return {
   confirm_cancel: "确认取消",
   submit_error: {
     PERMISSION_DENIED: "权限不足。",
-    NO_SUCH_USER: "找不到 ID 为 {id} 的用户。",
-    NO_SUCH_GROUP: "找不到 ID 为 {id} 的用户组。"
+    NO_SUCH_USER: "找不到ID为{id}的用户。",
+    NO_SUCH_GROUP: "找不到ID为{id}的用户组。"
   }
 };

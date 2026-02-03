@@ -2,10 +2,10 @@ return {
   title: "問題",
   meta_labels: {
     non_public: "非表示",
-    no_display_id: "ID なし"
+    no_display_id: "IDなし"
   },
   fileio: {
-    fileio: "ファイル IO",
+    fileio: "ファイルIO",
     input: "入力ファイル",
     output: "出力ファイル"
   },
@@ -35,8 +35,8 @@ return {
     judge_settings: "ジャッジ設定",
     permission_manage: "権限管理",
     permission_manager_description: "問題 {idString}",
-    set_display_id: "問題 ID を設定",
-    set_display_id_new: "新しい ID（空または 0 で削除する）",
+    set_display_id: "問題IDを設定",
+    set_display_id_new: "新しいID（空または0で削除する）",
     set_display_id_submit: "設定",
     set_public: "公開",
     set_non_public: "非公開",
@@ -53,9 +53,9 @@ return {
   error: {
     PERMISSION_DENIED: "権限がありません。",
     NO_SUCH_PROBLEM: "問題が存在しません。",
-    NO_DISPLAY_ID: "ID を設定してください。",
-    INVALID_DISPLAY_ID: "ID は整数にしてください。",
-    PUBLIC_PROBLEM_MUST_HAVE_DISPLAY_ID: "公開する問題には ID を設定してください。",
+    NO_DISPLAY_ID: "IDを設定してください。",
+    INVALID_DISPLAY_ID: "IDは整数にしてください。",
+    PUBLIC_PROBLEM_MUST_HAVE_DISPLAY_ID: "公開する問題にはIDを設定してください。",
     DUPLICATE_DISPLAY_ID: "ID {displayId} は使用されています。"
   },
   upload_error: "[TBT] Failed to upload file: {error}",
@@ -75,7 +75,7 @@ return {
     clear_editor_to_use_upload_right: "[TBT] .",
     fill_in_editor_or_upload_file: "[TBT] Fill in the editor(s) with your answer or upload file(s).",
     module_name: "モジュールパス",
-    module_name_example: "AplusB.Main など、ユーザー識別子なしで、「.」で区切る",
+    module_name_example: "AplusB.Mainなど、ユーザー識別子なしで、「.」で区切る",
     const_name: "定理名",
     const_name_example: "定理を検索する …",
     no_addable_consts: "利用可能な定理がありません。",

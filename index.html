@@ -50,7 +50,7 @@ function safeStringify(object) {
       // Use ngx_http_sub_module in your server to replace the "__public_path__" placeholder with your CDN path.
       // You may need to add `proxy_set_header Accept-Encoding "";` to disable gzip for upstream traffic.
       // If it's not replaced, the default "/" will be used.
-      var publicPath = localStorage.getItem("publicPath") ?? "";
+      var publicPath = localStorage.getItem("publicPath") ?? location.origin;
       publicPath = normalizePath(publicPath);
       window.publicPath = publicPath;
 

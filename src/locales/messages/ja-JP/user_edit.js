@@ -26,11 +26,11 @@ return {
         name: "Gravatar"
       },
       qq: {
-        name: "QQ アイコン",
+        name: "QQアイコン",
         placeholder: "QQ ID"
       },
       github: {
-        name: "GitHub アイコン",
+        name: "GitHubアイコン",
         placeholder: "GitHub ID"
       },
       error: "アイコンを取得できませんでした。ユーザ名が正しいか確認してください。"
@@ -53,17 +53,17 @@ return {
     url_placeholder: "あなたのブログ、ホームページなど",
     qq: "QQ",
     qq_placeholder: "例：12345678",
-    qq_notes: "あなたの QQ リンクは：",
+    qq_notes: "あなたのQQリンクは：",
     telegram: "Telegram",
-    telegram_placeholder: " @ を含めない",
-    telegram_notes: "あなたの Telegram リンクは：",
+    telegram_placeholder: "@ を含めない",
+    telegram_notes: "あなたのTelegramリンクは：",
     github: "GitHub",
-    github_placeholder: " @ を含めない",
-    github_notes: "あなたの GitHub リンクは：",
+    github_placeholder: "@ を含めない",
+    github_notes: "あなたのGitHubリンクは：",
     submit: "保存",
     error_invalid_username: "[TBT] Invalid username.",
     error_invalid_email: "[TBT] Invalid email address.",
-    error_invalid_url: "無効な URL です。",
+    error_invalid_url: "無効なURLです。",
     success: "保存に成功しました。"
   },
   preference: {
@@ -123,10 +123,10 @@ return {
     },
     code_formatter: {
       header: "コードフォーマット",
-      astyle_options: "Astyle オプション",
+      astyle_options: "Astyleオプション",
       format_code_by_default: "デフォルトでコードをフォーマットして表示",
       notes_before: "提出ページのコードのフォーマットに使用します。",
-      notes_link: "Astyle のリファレンス",
+      notes_link: "Astyleのリファレンス",
       notes_after: "を参照してください",
       preview: "プレビュー",
       error: "オプションが間違っています"

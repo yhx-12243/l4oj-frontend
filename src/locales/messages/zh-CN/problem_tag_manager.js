@@ -1,6 +1,6 @@
 return {
   title: "标签管理",
-  tag_count: "共 {count} 个标签",
+  tag_count: "共{count}个标签",
   error: {
     PERMISSION_DENIED: "权限不足。",
     NO_SUCH_PROBLEM_TAG: "无此题目标签。"

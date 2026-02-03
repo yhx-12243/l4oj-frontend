@@ -2,7 +2,7 @@ return {
   title: "新規登録",
   register_new_account: "新規登録",
   username: "ユーザ名",
-  identifier: "Lean 一意の識別子",
+  identifier: "Lean一意の識別子",
   email: "メールアドレス",
   send_email_verification_code: "確認コードを送信",
   email_verification_code_sent: "[TBT] Email verification code sent.",
@@ -13,17 +13,17 @@ return {
   already_have_account: "もうアカウントを持っていますか？",
   login: "ログイン",
   empty_username: "ユーザ名を入力してください",
-  invalid_username: "ユーザ名は 3 文字から 24 文字で，英数字と -_.#$ が使用できます。",
+  invalid_username: "ユーザ名は3文字から24文字で，英数字と「-_.#$」が使用できます。",
   username_already_taken: "このユーザ名はすでに使用されています",
   empty_identifier: "識別子を入力してください",
-  invalid_identifier: "Lean 一意の識別子の最初の文字は <a href=\"https://leanprover-community.github.io/mathlib4_docs/Init/Meta/Defs.html#Lean.isIdFirst\" rel=\"noreferrer\" target=\"_blank\">Lean.isIdFirst</a> を満たし，残りの文字は<br /><a href=\"https://leanprover-community.github.io/mathlib4_docs/Init/Meta/Defs.html#Lean.isIdRest\" rel=\"noreferrer\" target=\"_blank\">Lean.isIdRest</a> を満たし，長さは 3 文字から 24 文字でなければなりません。",
+  invalid_identifier: "Lean一意の識別子の最初の文字は<a href=\"https://leanprover-community.github.io/mathlib4_docs/Init/Meta/Defs.html#Lean.isIdFirst\" rel=\"noreferrer\" target=\"_blank\">Lean.isIdFirst</a>を満たし，残りの文字は<br /><a href=\"https://leanprover-community.github.io/mathlib4_docs/Init/Meta/Defs.html#Lean.isIdRest\" rel=\"noreferrer\" target=\"_blank\">Lean.isIdRest</a>を満たし，長さは3文字から24文字でなければなりません。",
   identifier_already_taken: "この識別子は予約済みまたはすでに使用されています",
   empty_email: "メールアドレスを入力してください",
   invalid_email: "無効なメールアドレスです",
   email_already_used: "このメールアドレスはすでに使用されています",
   invalid_email_verification_code: "[TBT] Invalid email verification code.",
   empty_password: "パスワードを入力してください",
-  invalid_password: "パスワードの長さは 6 文字から 32 文字にしてください",
+  invalid_password: "パスワードの長さは6文字から32文字にしてください",
   passwords_do_not_match: "パスワードが一致しません",
   username_unavailable_message: "無効なユーザ名です。",
   identifier_unavailable_message: "無効な識別子です。",
@@ -38,5 +38,5 @@ return {
     FAILED_TO_SEND: "[TBT] Failed to send mail: {errorMessage}",
     RATE_LIMITED: "[TBT] Your operations are too frequent. Please try again later."
   },
-  success: "新規登録ができました，{username} さん！"
+  success: "新規登録ができました，{username}さん！"
 };

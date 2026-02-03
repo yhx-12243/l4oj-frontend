@@ -78,13 +78,14 @@ type LeanProblemSubmitViewProps = ProblemTypeSubmitViewProps<JudgeInfoLean, Subm
 
 interface LeanDependencyLinkProps {
   dependency: string;
+  leanVersion: string;
 }
 
-const LeanDependencyLink: React.FC<LeanDependencyLinkProps> = ({ dependency }) => {
+const LeanDependencyLink: React.FC<LeanDependencyLinkProps> = ({ dependency, leanVersion }) => {
   const
     dpath = dependency.replaceAll('.', '/'),
     isOjLib = dependency.toLowerCase() === 'lean4oj' || dependency.toLowerCase().startsWith('lean4oj.');
-  let url = `/lean/${isOjLib ? 'Lean4OJ/' : ''}${dpath}`;
+  let url = `/lean/${isOjLib ? `Lean4OJ/${leanVersion}/` : ''}${dpath}`;
   url = url.substring(0, url.lastIndexOf('/') + 1);
 
   for (const std of ['aesop', 'archive', 'batteries', 'counterexamples', 'importgraph', 'init', 'lake', 'lean', 'leansearchclient', 'mathlib', 'plausible', 'proofwidgets', 'std', 'docs', 'references']) {
@@ -109,6 +110,7 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
 
   const [allConsts, setAllConsts] = useState([]);
   const [dependencies, setDependencies] = useState([]);
+  const [leanVersion, setLeanVersion] = useState('4.27.0');
 
   useEffect(() => {
     if (props.submissionContent.moduleName)
@@ -147,6 +149,7 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
       if (props.submissionContent.constName && !response.consts.includes(props.submissionContent.constName))
         props.onUpdateSubmissionContent('constName', '');
       setDependencies(response.dependencies);
+      setLeanVersion(response.leanVersion);
     }
     setPending(false);
   };
@@ -188,7 +191,7 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
             header={_('.submit.dependency_list')}
             list={dependencies.map(dependency =>
               <Message.Item>
-                <LeanDependencyLink dependency={dependency} />
+                <LeanDependencyLink dependency={dependency} leanVersion={leanVersion} />
               </Message.Item>
             )}
           /> : null}

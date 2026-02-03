@@ -13,7 +13,6 @@ import toast from "@/utils/toast";
 import { useLocalizer, useFieldCheckSimple, useAsyncCallbackPending, useRecaptcha } from "@/utils/hooks";
 import { isValidPassword, stripInvalidCharactersInEmailVerificationCode } from "@/utils/validators";
 import { RouteError } from "@/AppRouter";
-import fixChineseSpace from "@/utils/fixChineseSpace";
 import formatDateTime from "@/utils/formatDateTime";
 import { makeToBeLocalizedText } from "@/locales";
 
@@ -416,24 +415,20 @@ const SecurityView: React.FC<SecurityViewProps> = props => {
                         _(".sessions.current")
                       ) : (
                         <span title={formatDateTime(session.lastAccessTime)[1]}>
-                          {fixChineseSpace(
-                            _(".sessions.last_active", {
-                              time: timeago.format(session.lastAccessTime, appState.locale, {
-                                relativeDate: timeAgoRelativeDate
-                              })
+                          {_(".sessions.last_active", {
+                            time: timeago.format(session.lastAccessTime, appState.locale, {
+                              relativeDate: timeAgoRelativeDate
                             })
-                          )}
+                          })}
                         </span>
                       )}
                     </div>
                     <div className={style.loginIpLocationTime}>
                       <span className={style.loginIpLocation}>
-                        {fixChineseSpace(
-                          _(session.loginIpLocation ? ".sessions.login_ip_location" : ".sessions.login_ip", {
-                            ip: session.loginIp,
-                            location: session.loginIpLocation
-                          })
-                        )}
+                        {_(session.loginIpLocation ? ".sessions.login_ip_location" : ".sessions.login_ip", {
+                          ip: session.loginIp,
+                          location: session.loginIpLocation
+                        })}
                       </span>
                       <span className={style.time} title={formatDateTime(session.loginTime)[1]}>
                         {timeago.format(session.loginTime, appState.locale, { relativeDate: timeAgoRelativeDate })}

@@ -14,7 +14,7 @@ return {
   confirm_cancel: "キャンセル",
   submit_error: {
     PERMISSION_DENIED: "権限がありません。",
-    NO_SUCH_USER: " ID が {id} のユーザは存在しません。",
-    NO_SUCH_GROUP: " ID が {id} のユーザ グループは存在しません。"
+    NO_SUCH_USER: "IDが{id}のユーザは存在しません。",
+    NO_SUCH_GROUP: "IDが{id}のユーザ グループは存在しません。"
   }
 };
