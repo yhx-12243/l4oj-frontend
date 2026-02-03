@@ -76,6 +76,7 @@ return {
     module_name_example: "例: AplusB.Main，用 “.” 分隔，不要带用户标识符前缀",
     const_name: "定理名称",
     const_name_example: "搜索定理 …",
+    lean_version: "Lean版本",
     no_addable_consts: "没有可用的定理。",
     dependency_list: "(直接) 依赖列表",
     submit: "提交"

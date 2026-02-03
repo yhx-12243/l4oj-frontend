@@ -110,7 +110,7 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
 
   const [allConsts, setAllConsts] = useState([]);
   const [dependencies, setDependencies] = useState([]);
-  const [leanVersion, setLeanVersion] = useState('4.27.0');
+  const [leanVersion, setLeanVersion] = useState('');
 
   useEffect(() => {
     if (props.submissionContent.moduleName)
@@ -127,6 +127,7 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
     if (!isValidLeanName(input)) {
       setAllConsts([]);
       setDependencies([]);
+      setLeanVersion('');
       props.onUpdateSubmissionContent('constName', '');
       setPending(false);
       return;
@@ -143,6 +144,7 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
       toast.error(requestError(_));
       setAllConsts([]);
       setDependencies([]);
+      setLeanVersion('');
       props.onUpdateSubmissionContent('constName', '');
     } else {
       setAllConsts(response.consts);
@@ -184,17 +186,26 @@ let LeanProblemSubmitView: React.FC<LeanProblemSubmitViewProps> = props => {
             loading={pending}
             value={props.submissionContent.constName}
           />
-          {dependencies.length || pending ? <Message
-            className={style.dependencies}
-            icon={pending ? 'circle notched loading' : null}
-            info
-            header={_('.submit.dependency_list')}
-            list={dependencies.map(dependency =>
-              <Message.Item>
-                <LeanDependencyLink dependency={dependency} leanVersion={leanVersion} />
-              </Message.Item>
-            )}
-          /> : null}
+          {dependencies.length || pending ?
+            <>
+              <Message
+                icon={pending ? 'circle notched loading' : null}
+                attached="top"
+                info visible
+                content={`${_('.submit.lean_version')}: ${leanVersion}`}
+              />
+              <Message
+                icon={pending ? 'circle notched loading' : null}
+                attached="bottom"
+                info visible
+                header={_('.submit.dependency_list')}
+                list={dependencies.map(dependency =>
+                  <Message.Item>
+                    <LeanDependencyLink dependency={dependency} leanVersion={leanVersion} />
+                  </Message.Item>
+                )}
+              />
+            </> : null}
         </Form>
       }
       sidebarContent={null}

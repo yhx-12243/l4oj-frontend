@@ -77,6 +77,7 @@ return {
     module_name_example: "e.g., AplusB.Main, separated by \".\" and without user's identifier",
     const_name: "Theorem name",
     const_name_example: "Search theorems ...",
+    lean_version: "Lean version",
     no_addable_consts: "No theorems to add.",
     dependency_list: "(Direct) Dependency list",
     submit: "Submit"

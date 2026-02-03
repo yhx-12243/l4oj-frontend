@@ -78,6 +78,7 @@ return {
     module_name_example: "AplusB.Mainなど、ユーザー識別子なしで、「.」で区切る",
     const_name: "定理名",
     const_name_example: "定理を検索する …",
+    lean_version: "Leanバージョン",
     no_addable_consts: "利用可能な定理がありません。",
     dependency_list: "(直接) 依存関係リスト",
     submit: "提出"
