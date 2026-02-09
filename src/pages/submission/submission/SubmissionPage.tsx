@@ -16,7 +16,7 @@ import formatFileSize from "@/utils/formatFileSize";
 import downloadFile from "@/utils/downloadFile";
 import { SubmissionStatus } from "@/interfaces/SubmissionStatus";
 import * as CodeFormatter from "@/utils/CodeFormatter";
-import { OmittableAnsiCodeBox, OmittableString } from "@/components/CodeBox";
+import { OmittableAnsiCodeBox, type OmittableString } from "@/components/CodeBox";
 import { defineRoute, RouteError } from "@/AppRouter";
 import { TestcaseResultCommon, ProblemTypeSubmissionView, GetAdditionalSectionsCallback } from "./common/interface";
 import { SubmissionProgressMessageMetaOnly, SubmissionProgressType } from "../common";

@@ -3,7 +3,7 @@ import React from "react";
 export default function formatDateTime(
   date: Date | string | number,
   dateOnly?: boolean
-): [JSX.Element | string, string] {
+): [string, string] {
   if (!(date instanceof Date)) date = new Date(date);
   let month = (date.getMonth() + 1).toString();
   let day = date.getDate().toString();
@@ -18,13 +18,7 @@ export default function formatDateTime(
   second = second.length === 1 ? "0" + second : second;
 
   const withoutYearDateOnly = `${month}/${day}`;
-  const withoutYear = dateOnly ? (
-    withoutYearDateOnly
-  ) : (
-    <>
-      {withoutYearDateOnly}&nbsp;&nbsp;{`${hour}:${minute}:${second}`}
-    </>
-  );
+  const withoutYear = dateOnly ? withoutYearDateOnly : `${withoutYearDateOnly}  ${hour}:${minute}:${second}`;
 
   const withYearDateOnly = `${date.getFullYear()}-${month}-${day}`;
   const withYear = dateOnly ? withYearDateOnly : `${withYearDateOnly} ${hour}:${minute}:${second}`;

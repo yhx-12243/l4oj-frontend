@@ -4,7 +4,7 @@ import style from "../SubmissionPage.module.less";
 
 import { useLocalizer } from "@/utils/hooks";
 import { CodeLanguage } from "@/interfaces/CodeLanguage";
-import { OmittableAnsiCodeBox, OmittableString } from "@/components/CodeBox";
+import { OmittableAnsiCodeBox, type OmittableString } from "@/components/CodeBox";
 import { ProblemTypeSubmissionViewProps, ProblemTypeSubmissionViewHelper } from "../common/interface";
 import FormattableCodeBox from "../common/FormattableCodeBox";
 

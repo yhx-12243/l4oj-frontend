@@ -10,5 +10,5 @@ export default function formatFileSize(size: number, precision: number) {
   }
 
   const fixed = size === Math.round(size) ? size.toString() : size.toFixed(precision);
-  return fixed + " " + unit;
+  return fixed + "\u2009" + unit;
 }

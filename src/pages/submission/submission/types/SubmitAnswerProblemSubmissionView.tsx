@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useLocalizer } from "@/utils/hooks";
-import { OmittableAnsiCodeBox, OmittableString } from "@/components/CodeBox";
+import { OmittableAnsiCodeBox, type OmittableString } from "@/components/CodeBox";
 import { ProblemTypeSubmissionViewProps, ProblemTypeSubmissionViewHelper } from "../common/interface";
 
 interface SubmissionTestcaseResultSubmitAnswer {

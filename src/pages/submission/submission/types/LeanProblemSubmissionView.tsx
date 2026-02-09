@@ -3,7 +3,7 @@ import React from "react";
 import style from "../SubmissionPage.module.less";
 
 import { useLocalizer } from "@/utils/hooks";
-import { OmittableAnsiCodeBox } from "@/components/CodeBox";
+import { OmittableAnsiCodeBox, type OmittableString } from "@/components/CodeBox";
 import { ProblemTypeSubmissionViewProps, ProblemTypeSubmissionViewHelper } from "../common/interface";
 
 interface SubmissionTestcaseResultLean {
@@ -14,6 +14,7 @@ interface SubmissionTestcaseResultLean {
 interface SubmissionContentLean {
   hash: string,
   leanVersion: string,
+  message: OmittableString,
 }
 
 type LeanProblemSubmissionViewProps = ProblemTypeSubmissionViewProps<
@@ -27,7 +28,7 @@ const LeanProblemSubmissionView: React.FC<LeanProblemSubmissionViewProps> = prop
   return (
     <OmittableAnsiCodeBox
       title={_(".system_message")}
-      ansiMessage={props.progressMeta.message}
+      ansiMessage={props.content.message}
     />
   )
 };

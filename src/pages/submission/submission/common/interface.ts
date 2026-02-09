@@ -1,6 +1,6 @@
 import { CodeLanguage } from "@/interfaces/CodeLanguage";
 import { useLocalizer } from "@/utils/hooks";
-import { OmittableString } from "@/components/CodeBox";
+import type { OmittableString } from "@/components/CodeBox";
 
 import { SubmissionProgress, SubmissionProgressMeta } from "../SubmissionPage";
 

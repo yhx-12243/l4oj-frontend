@@ -12,7 +12,7 @@ return {
   reply_count_s: "{replyCount} 条回复",
   add_discussion: "新建讨论",
   item: {
-    commented_on: "发表于",
+    commented_on: "发表于 ",
     edited: "已编辑",
     label: {
       nonpublic: "未公开",
