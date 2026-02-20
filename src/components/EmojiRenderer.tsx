@@ -24,10 +24,21 @@ export const getTwemojiOptions = (inline: boolean) =>
   } as Partial<TwemojiOptions>);
 
 export const EmojiRenderer: React.FC<EmojiRendererProps> = props => {
+  const originalRef = props.children.ref;
+
   const refElement = useRef<HTMLElement>();
   useEffect(() => {
     if (refElement.current) twemoji.parse(refElement.current, getTwemojiOptions(true));
   });
 
-  return React.cloneElement(props.children, { ref: refElement });
+  function refHandler(elem) {
+    refElement.current = elem;
+    if (typeof originalRef === 'function') {
+      originalRef(elem);
+    } else if (originalRef != null) {
+      originalRef.current = elem;
+    }
+  }
+
+  return React.cloneElement(props.children, { ref: refHandler });
 };

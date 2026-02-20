@@ -18,7 +18,7 @@ import {
 import toast from "@/utils/toast";
 import { CodeLanguage } from "@/interfaces/CodeLanguage";
 import { SubmissionStatus } from "@/interfaces/SubmissionStatus";
-import { isValidUsername } from "@/utils/validators";
+import { isValidIdentifier } from "@/utils/validators";
 import StatusText from "@/components/StatusText";
 import {
   isSettledStatus,
@@ -48,7 +48,7 @@ function normalizeQuery(query: Record<string, string>): SubmissionsQuery {
     problemId: Number(query.problemId) ? Number(query.problemId) : null,
     problemDisplayId:
       Number(query.problemDisplayId) && !Number(query.problemId) ? Number(query.problemDisplayId) : null,
-    submitter: isValidUsername(query.submitter) ? query.submitter : null,
+    submitter: isValidIdentifier(query.submitter) ? query.submitter : null,
     leanVersion: appState.serverPreference.misc.leanVersions.includes(query.leanVersion) ? query.leanVersion : null,
     status: query.status in SubmissionStatus ? (query.status as SubmissionStatus) : null,
     minId: Number.isSafeInteger(Number(query.minId)) ? Number(query.minId) : null,
@@ -102,7 +102,7 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
   const [querySubmitter, setQuerySubmitter] = useState(props.query.submitter || "");
   const [checkQuerySubmitter, querySubmitterError] = useFieldCheckSimple(
     querySubmitter,
-    value => !value || isValidUsername(value)
+    value => !value || isValidIdentifier(value)
   );
 
   const [queryCodeLanguage, setQueryCodeLanguage] = useState(props.query.leanVersion);

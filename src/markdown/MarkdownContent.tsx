@@ -176,6 +176,7 @@ const MarkdownContent: React.FC<MarkdownContentProps> = props => {
     // Fix internal links with dynamic generated `<a>` will NOT trigger react-navi's navigation
     async function onLinkClick(e: MouseEvent) {
       const targetElement = e.target as HTMLElement;
+      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
       if (targetElement.tagName === "A") {
         const a = targetElement as HTMLAnchorElement;
         if (a.getAttribute('href').startsWith("#")) return;

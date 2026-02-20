@@ -225,7 +225,7 @@ let UserPage: React.FC<UserPageProps> = props => {
           <div className={style.iconWrapper}>
             <Icon name="time" />
           </div>
-          <span title={""}>
+          <span title="">
             {_(".joined")}
             {_.formatDate(props.meta.registrationTime, { year: "numeric", month: "long", day: "numeric" })}
           </span>

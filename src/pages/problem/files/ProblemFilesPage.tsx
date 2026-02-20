@@ -613,7 +613,7 @@ let FileTable: React.FC<FileTableProps> = props => {
                         content={_(".upload")}
                         labelPosition="left"
                         primary
-                        size={"small"}
+                        size="small"
                         loading={uploadingCount !== 0}
                         onClick={onUploadButtonClick}
                       />

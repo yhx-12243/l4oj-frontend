@@ -480,7 +480,7 @@ let ProblemViewPage: React.FC<ProblemViewPageProps> = props => {
                   className={style.toggleTagsLabel}
                 >
                   {!showTags ? _(".show_tags") : _(".hide_tags")}
-                  <Icon name={"caret down"} style={{ transform: showTags && "rotateZ(-90deg)" }} />
+                  <Icon name="caret down" style={{ transform: showTags && "rotateZ(-90deg)" }} />
                 </Label>
                 {showTags && (
                   <>

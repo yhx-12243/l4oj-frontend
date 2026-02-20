@@ -188,14 +188,14 @@ let ProblemSetPage: React.FC<ProblemSetPageProps> = props => {
   function onAddFilterTag(tagId: number) {
     if (props.searchQuery.tagIds.includes(tagId) && props.searchQuery.tagIds.length <= 20) return;
     redirectWithFilter({
-      tagIds: props.searchQuery.tagIds.concat(tagId).sort()
+      tagIds: props.searchQuery.tagIds.concat(tagId).sort((x, y) => x - y)
     });
   }
 
   function onDelFilterTag(tagId: number) {
     if (!props.searchQuery.tagIds.includes(tagId)) return;
     redirectWithFilter({
-      tagIds: props.searchQuery.tagIds.filter(x => x !== tagId).sort()
+      tagIds: props.searchQuery.tagIds.filter(x => x !== tagId).sort((x, y) => x - y)
     });
   }
 

@@ -369,7 +369,7 @@ theorem cauchySeq_of_dist_le_of_summable (d : ℕ → ℝ) (hf : ∀ n, dist (f 
         segment={{
           color: "blue"
         }}
-        language={"lean"}
+        language="lean"
         code={fontPreviewCode}
         fontFaceOverride={codeFontFace}
         fontSizeOverride={codeFontSize}
