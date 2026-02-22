@@ -43,7 +43,7 @@ export const CodeBox = React.forwardRef<HTMLPreElement, CodeBoxProps>((props, re
     // Override font
     if (preElement) {
       if (props.fontFaceOverride)
-        preElement.style.setProperty("font-family", `"${props.fontFaceOverride}"`, "important");
+        preElement.style.setProperty("font-family", ["sans-serif", "serif", "monospace"].includes(props.fontFaceOverride) ? props.fontFaceOverride : JSON.stringify(props.fontFaceOverride), "important");
       else preElement.style.removeProperty("font-family");
 
       if (typeof props.fontSizeOverride === "number")

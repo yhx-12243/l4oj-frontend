@@ -102,7 +102,7 @@ function generateFontFamily(preferredFont: string, locale: Locale, fallbackFont?
     else fallbackFont = systemSans;
   }
 
-  const fontList = [...getFallbackFontList(locale), fallbackFont];
+  const fontList = fallbackFont === systemSans ? [...getFallbackFontList(locale), fallbackFont] : [fallbackFont];
   if (preferredFont && !systemFonts.includes(preferredFont)) fontList.unshift(preferredFont);
 
   return fontList.map(font => (systemFonts.includes(font) ? font : JSON.stringify(font))).join(", ");
