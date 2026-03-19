@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function formatDateTime(
   date: Date | string | number,
   dateOnly?: boolean
@@ -26,7 +24,7 @@ export default function formatDateTime(
   return [withoutYear, withYear];
 }
 
-export function friendlyFormatDateTime(date: Date | string | number): [string | JSX.Element, string] {
+export function friendlyFormatDateTime(date: Date | string | number): [string, string] {
   if (!(date instanceof Date)) date = new Date(date);
 
   const now = new Date();

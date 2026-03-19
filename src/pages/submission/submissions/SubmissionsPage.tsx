@@ -153,6 +153,9 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
               if (message.Answer) {
                 meta.answerObj = message.Answer;
               }
+              if (message.Size) {
+                meta.answerSize = message.Size;
+              }
               newSubmissions[i] = meta;
             }
           }

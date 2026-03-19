@@ -139,6 +139,9 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
           if (message.Answer) {
             meta.answerObj = message.Answer;
           }
+          if (message.Size) {
+            meta.answerSize = message.Size;
+          }
           return meta;
         });
       });
