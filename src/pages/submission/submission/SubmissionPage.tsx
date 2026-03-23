@@ -116,6 +116,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
   > = props.meta;
 
   const [progressMeta, setProgressMeta] = useState(props.meta);
+  const [progressContent, setProgressContent] = useState(props.content);
 
   // Subscribe to submission progress with the key
   const isPendingSubmission = !isSettledStatus(props.meta.status);
@@ -131,10 +132,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
         setProgressMeta(meta_ => {
           const meta = { ...meta_ };
           if (message.Status) {
-            const [newStatus, action] = message.Status;
-            meta.status = newStatus;
-            if (action.Replace) meta.message = action.Replace;
-            else if (action.Append) meta.message += action.Append;
+            meta.status = message.Status[0];
           }
           if (message.Answer) {
             meta.answerObj = message.Answer;
@@ -144,6 +142,11 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
           }
           return meta;
         });
+        if (message.Status[1]?.Replace) {
+          setProgressContent(content_ => ({ ...content_, message: message.Status[1].Replace }));
+        } else if (message.Status[1]?.Append) {
+          setProgressContent(content_ => ({ ...content_, message: content_.message + message.Status[1].Append }));
+        }
       });
     },
     () => {
@@ -858,7 +861,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
       <props.ProblemTypeSubmissionView
         progress={progressMeta}
         progressMeta={progressMeta}
-        content={props.content}
+        content={progressContent}
         getCompilationMessage={() =>
           progress?.compile?.message && (
             <OmittableAnsiCodeBox title={_(".compilation_message")} ansiMessage={progress.compile.message} />

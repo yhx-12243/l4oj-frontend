@@ -187,11 +187,11 @@ let AppLayout: React.FC = props => {
             <div>{appState.serverPreference.siteName} Powered by Lyrio</div>
           </EmojiRenderer>
           <div id={style.footerVersion} className="monospace">
-            <a href="https://github.com/yhx-12243/l4oj-frontend">
+            <a href="https://github.com/lean4oj/frontend">
               F: <span title={formatDateTime(window.appVersion.date)[1]}>{window.appVersion.hash}</span>
             </a>
             &nbsp;/&nbsp;
-            <a href="https://github.com/yhx-12243/l4oj-backend">
+            <a href="https://github.com/lean4oj/backend">
               B: <span title={formatDateTime(appState.serverVersion.date)[1]}>{appState.serverVersion.hash}</span>
             </a>
           </div>

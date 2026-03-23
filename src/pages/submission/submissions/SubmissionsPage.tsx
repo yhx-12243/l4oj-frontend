@@ -145,10 +145,7 @@ let SubmissionsPage: React.FC<SubmissionsPageProps> = props => {
             if (event.lastEventId === newSubmissions[i].id.toString()) {
               const meta = { ...newSubmissions[i] };
               if (message.Status) {
-                const [newStatus, action] = message.Status;
-                meta.status = newStatus;
-                if (action.Replace) meta.message = action.Replace;
-                else if (action.Append) meta.message += action.Append;
+                meta.status = message.Status[0];
               }
               if (message.Answer) {
                 meta.answerObj = message.Answer;
