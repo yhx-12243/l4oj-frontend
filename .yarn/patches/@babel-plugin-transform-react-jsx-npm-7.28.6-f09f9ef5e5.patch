@@ -1,0 +1,13 @@
+diff --git a/lib/create-plugin.js b/lib/create-plugin.js
+index e89ab686f4f45e01d6acebdaf51aecb0f5711659..c3b96d71abc11683862842d9191683c81c41be2d 100644
+--- a/lib/create-plugin.js
++++ b/lib/create-plugin.js
+@@ -72,7 +72,7 @@ You can set \`throwIfNamespace: false\` to bypass this warning.`);
+           }
+         },
+         JSXSpreadChild(path) {
+-          throw path.buildCodeFrameError("Spread children are not supported in React.");
++          path.replaceWith(_core.types.spreadElement(path.node.expression));
+         },
+         Program: {
+           enter(path, state) {

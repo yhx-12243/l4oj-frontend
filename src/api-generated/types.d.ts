@@ -587,6 +587,8 @@ declare namespace ApiTypes {
     renderMarkdownInUserBio: boolean;
     discussionReactionEmojis: string[];
     discussionReactionAllowCustomEmojis: boolean;
+    disabledEmojiInMath: string[];
+    leanVersions: Record<string, string>;
   }
   export interface PreferenceConfigPagination {
     homepageUserList: number;
@@ -862,6 +864,7 @@ declare namespace ApiTypes {
   }
   export interface RejudgeSubmissionRequestDto {
     submissionId: number;
+    refetch: boolean;
   }
   export interface RejudgeSubmissionResponseDto {
     error?: "NO_SUCH_SUBMISSION" | "PERMISSION_DENIED";

@@ -146,7 +146,9 @@
   "resolutions": {
     "esbuild": "0.15.5",
     "markdown-it-regexp@npm:^0.4.0": "patch:markdown-it-regexp@npm%3A0.4.0#~/.yarn/patches/markdown-it-regexp-npm-0.4.0-316ff27a18.patch",
-    "history@npm:^4.9.0": "patch:history@npm%3A4.10.1#~/.yarn/patches/history-npm-4.10.1-ee217563ae.patch"
+    "history@npm:^4.9.0": "patch:history@npm%3A4.10.1#~/.yarn/patches/history-npm-4.10.1-ee217563ae.patch",
+    "@babel/plugin-transform-react-jsx@npm:^7.19.0": "patch:@babel/plugin-transform-react-jsx@npm%3A7.28.6#~/.yarn/patches/@babel-plugin-transform-react-jsx-npm-7.28.6-f09f9ef5e5.patch",
+    "@babel/plugin-transform-react-jsx@npm:^7.27.1": "patch:@babel/plugin-transform-react-jsx@npm%3A7.28.6#~/.yarn/patches/@babel-plugin-transform-react-jsx-npm-7.28.6-f09f9ef5e5.patch"
   },
   "eslintConfig": {
     "extends": "react-app"

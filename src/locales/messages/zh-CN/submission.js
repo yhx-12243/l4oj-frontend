@@ -4,6 +4,7 @@ return {
   confirm_cancel: "确认取消",
   success_cancel: "成功取消评测。",
   rejudge: "重测",
+  deliver_and_rejudge: "同步并重测",
   confirm_rejudge: "确认重测",
   success_rejudge: "成功重新评测。",
   set_public: "设为公开",

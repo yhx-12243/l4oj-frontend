@@ -114,8 +114,8 @@ body[data-theme=far] {
   --theme-status-running: #6cf;
   --theme-status-skipped: #78909C;
 
-  --theme-status-depositing: #bb5;
-  --theme-status-deposited: #5b5;
+  --theme-status-delivering: #bb5;
+  --theme-status-delivered: #5b5;
   --theme-status-judger-received: #5bb;
   --theme-status-type-checking: #b5b;
   --theme-status-axiom-checking: #b55;

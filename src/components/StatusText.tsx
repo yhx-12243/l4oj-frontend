@@ -3,9 +3,9 @@ import { Icon, SemanticICONS } from "semantic-ui-react";
 
 import style from "./StatusText.module.less";
 
-import { SubmissionStatusAll } from "@/interfaces/SubmissionStatus";
+import { SubmissionStatus, SubmissionStatusDisplay } from "@/interfaces/SubmissionStatus";
 
-const icons: Record<SubmissionStatusAll, SemanticICONS> = {
+const icons: Record<SubmissionStatus, SemanticICONS> = {
   Pending: "hourglass half",
   ConfigurationError: "code",
   SystemError: "server",
@@ -59,7 +59,7 @@ interface StatusTextProps {
 }
 
 const StatusText: React.FC<StatusTextProps> = props => {
-  const text = props.statusText || props.status.replace(/([A-Z])/g, " $1").trimStart();
+  const text = props.statusText ?? SubmissionStatusDisplay[props.status] ?? props.status;
   return (
     <span className={"statuscolor " + style[props.status]}>
       <Icon

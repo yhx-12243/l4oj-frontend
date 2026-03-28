@@ -646,7 +646,8 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
     setOperationPending(true);
 
     const { requestError, response } = await api.submission.rejudgeSubmission({
-      submissionId: meta.id
+      submissionId: meta.id,
+      refetch: rejudgePopupOpen === 2
     });
     if (requestError) toast.error(requestError(_));
     else if (response.error) toast.error(_(`.error.${response.error}`));
@@ -655,7 +656,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
       navigation.refresh();
     }
 
-    setRejudgePopupOpen(false);
+    setRejudgePopupOpen(0);
     setOperationPending(false);
   }
 
@@ -700,7 +701,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
 
   const [operationsPopupOpen, setOperationsPopupOpen] = useState(false);
   const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
-  const [rejudgePopupOpen, setRejudgePopupOpen] = useState(false);
+  const [rejudgePopupOpen, setRejudgePopupOpen] = useState(0);
   const [togglePublicPopupOpen, setTogglePublicPopupOpen] = useState(false);
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
 
@@ -735,7 +736,7 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
                     onClick={() => (setOperationsPopupOpen(false), setCancelPopupOpen(true))}
                   />
                 )}
-                {showRejudge && (
+                {...(showRejudge ? [
                   <Menu.Item
                     content={
                       <>
@@ -743,9 +744,18 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
                         {_(".rejudge")}
                       </>
                     }
-                    onClick={() => (setOperationsPopupOpen(false), setRejudgePopupOpen(true))}
-                  />
-                )}
+                    onClick={() => (setOperationsPopupOpen(false), setRejudgePopupOpen(1))}
+                  />,
+                  <Menu.Item
+                    content={
+                      <>
+                        <Icon name="shipping fast" />
+                        {_(".deliver_and_rejudge")}
+                      </>
+                    }
+                    onClick={() => (setOperationsPopupOpen(false), setRejudgePopupOpen(2))}
+                  />,
+                ] : [])}
                 {showTogglePublic && (
                   <Menu.Item
                     content={
@@ -784,8 +794,8 @@ let SubmissionPage: React.FC<SubmissionPageProps> = props => {
         )}
         {showRejudge && (
           <Popup
-            open={rejudgePopupOpen}
-            onClose={() => setRejudgePopupOpen(false)}
+            open={rejudgePopupOpen !== 0}
+            onClose={() => setRejudgePopupOpen(0)}
             context={statusNodeRef}
             content={<Button negative content={_(".confirm_rejudge")} loading={operationPending} onClick={onRejudge} />}
             position="bottom left"

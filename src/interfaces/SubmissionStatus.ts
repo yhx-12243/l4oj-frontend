@@ -16,19 +16,19 @@ export enum SubmissionStatus {
   Canceled = "Canceled",
 }
 
-export enum SubmissionStatusAll {
+export enum SubmissionStatusDisplay {
   Pending = "Pending",
 
-  Depositing = "Depositing",
-  Deposited = "Deposited",
-  JudgerReceived = "JudgerReceived",
-  TypeChecking = "TypeChecking",
-  AxiomChecking = "AxiomChecking",
+  Depositing = "Delivering",
+  Deposited = "Delivered",
+  JudgerReceived = "Judger Received",
+  TypeChecking = "Type Checking",
+  AxiomChecking = "Axiom Checking",
   Replaying = "Replaying",
 
-  InvalidImport = "InvalidImport",
-  WrongAnswer = "WrongAnswer",
+  InvalidImport = "Invalid Import",
+  WrongAnswer = "Wrong Answer",
   Accepted = "Accepted",
-  JudgementFailed = "JudgementFailed",
+  JudgementFailed = "Judgement Failed",
   Canceled = "Canceled",
 }

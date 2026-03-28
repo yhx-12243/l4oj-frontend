@@ -4,6 +4,7 @@ return {
   confirm_cancel: "中止する",
   success_cancel: "ジャッジの中止に成功しました。",
   rejudge: "リジャッジ",
+  deliver_and_rejudge: "デリバーとリジャッジ",
   confirm_rejudge: "リジャッジする",
   success_rejudge: "リジャッジに成功しました。",
   set_public: "[TBT] Make Public",

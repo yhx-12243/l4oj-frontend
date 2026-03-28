@@ -4,6 +4,7 @@ return {
   confirm_cancel: "Confirm cancel",
   success_cancel: "Successfully canceled.",
   rejudge: "Rejudge",
+  deliver_and_rejudge: "Deliver and rejudge",
   confirm_rejudge: "Confirm rejudge",
   success_rejudge: "Successfully rejudged.",
   set_public: "Make Public",
